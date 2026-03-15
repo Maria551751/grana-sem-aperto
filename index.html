@@ -9,38 +9,49 @@
 </head>
 <body>
 
-   <header class="cabecalho">
-    <a href="#" class="logo">Grana Sem Aperto</a>
-    
-    <div class="nav-direita">
-        <nav class="menu-desktop">
-            <a href="#">Início</a>
-            <a href="#">Cursos</a>
-            <a href="#" class="btn-calculadora">Calculadora de Juros</a><button class="menu-mobile-btn">☰</button>
-        </nav>
+    <header class="cabecalho">
+        <a href="index.html" class="logo">Grana Sem Aperto</a>
         
-    </div>
-</header>
-<aside class="sidebar" id="sidebar">
-    <div class="sidebar-header">
-        <span class="logo">GSA</span>
-        <button class="fechar-sidebar" id="btnFechar">×</button>
-    </div>
-    <nav class="sidebar-links">
-        <a href="#">Início</a>
-        <a href="#">Cursos</a>
-        <a href="#" class="btn-calculadora-sidebar">Calculadora de Juros</a>
-    </nav>
-</aside>
-<div class="overlay" id="overlay"></div>
+        <div class="nav-direita">
+            <nav class="menu-desktop">
+                <a href="index.html">Início</a>
+                <a href="cursos.html">Cursos</a>
+                <a href="calculadora.html" class="btn-calculadora">Calculadora de Juros</a>
+                <button class="menu-mobile-btn">☰</button>
+            </nav>
+        </div>
+    </header>
+
+    <aside class="sidebar" id="sidebar">
+        <div class="sidebar-header">
+            <span class="logo">GSA</span>
+            <button class="fechar-sidebar" id="btnFechar">×</button>
+        </div>
+
+        <nav class="sidebar-links">
+            <a href="index.html">Início</a>
+            <a href="cursos.html">Cursos</a>
+            <a href="calculadora.html">Calculadora de Juros</a> 
+            <a href="#">Criadores</a>
+        </nav>
+
+        <div class="sidebar-feedback">
+            <h4>O que está achando?</h4>
+            <p>Sua opinião ajuda o GSA a crescer!</p>
+            <textarea id="feedbackText" placeholder="Manda sua sugestão aqui..."></textarea>
+            <button class="btn-enviar-feedback">Enviar Feedback</button>
+        </div>
+    </aside>
+
+    <div class="overlay" id="overlay"></div>
 
     <section class="hero">
         <div class="hero-texto revelar">
             <h2>Domine suas finanças com a <span class="destaque-verde">estratégia GSA</span></h2>
             <p>A metodologia focada em simplificar investimentos para jovens que querem liberdade.</p>
             <div class="hero-btns">
-                <a href="#" class="btn-primario">Começar Agora</a>
-                <a href="#" class="btn-secundario">Ver Cursos</a>
+                <a href="Cursos.html" class="btn-primario">Começar Agora</a>
+                <a href="cursos.html" class="btn-secundario">Ver Cursos</a>
             </div>
         </div>
         <div class="hero-imagem revelar delay-1">
@@ -56,7 +67,6 @@
         <h2 class="gsa-titulo revelar">Monte sua carteira <span class="destaque-verde">GSA</span></h2>
 
         <div class="gsa-grid revelar delay-1">
-            
             <div class="gsa-coluna">
                 <div class="gsa-card">
                     <h3>💰 Reserva de Emergência</h3>
@@ -85,7 +95,6 @@
                     <p>Torne-se sócio das maiores empresas do Brasil e do mundo.</p>
                 </div>
             </div>
-
         </div>
     </section>
 
@@ -96,17 +105,15 @@
         
         <div class="faq-grid revelar delay-1">
             <div class="faq-item">
-
                 <div class="faq-pergunta">
                     <h3>O que é o Grana Sem Aperto? </h3>
                 </div>
                 <div class="faq-resposta">
                     <p>Uma metodologia focada em simplificar as finanças para jovens, ensinando desde a reserva de emergência até o investimento em ações.</p>
                 </div>
-                </div>
+            </div>
 
             <div class="faq-item">
-        
                 <div class="faq-pergunta">
                     <h3>Vou precisar de muito tempo pra aprender?</h3>
                 </div>
@@ -122,10 +129,17 @@
                 <div class="faq-resposta">
                     <p>Com certeza. Esquece essa ideia de que precisa ser rico. Com o preço de um lanche você já consegue comprar sua primeira ação ou fundo imobiliário.</p>
                 </div>
-
             </div>
         </div>
     </section>
+    <div class="modal-container" id="modalCurso">
+    <div class="modal-content">
+        <button class="fechar-modal" id="fecharModal">&times;</button>
+        <h2 id="modalTitulo">Módulos do Curso</h2>
+        <div class="modal-lista" id="modalLista">
+            </div>
+    </div>
+</div>
 
     <script src="script.js"></script>
 </body>

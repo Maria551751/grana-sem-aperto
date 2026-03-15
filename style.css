@@ -182,10 +182,11 @@ body {
    ========================================= */
 .gsa-secao {
     width: 100%;
-    background-color: var(--branco-fundo);
+    /* Se tiver mudado para background-color: white, mude de volta para transparente ou var(--branco-fundo) se for uma variável */
+    background-color: var(--branco-fundo); 
     padding: 140px 5%;
-    position: relative;
-    overflow: hidden;
+    position: relative; /* ESSENCIAL para os feixes ficarem dentro */
+    overflow: hidden; /* ESSENCIAL para os feixes não vazarem */
     text-align: center;
     clear: both;
 }
@@ -204,8 +205,8 @@ body {
     left: 0;
     width: 100%;
     height: 100%;
-    z-index: 1;
-    pointer-events: none;
+    z-index: 1; /* Valor baixo para ficar no fundo */
+    pointer-events: none; /* Garante que não atrapalhe cliques nos cards */
 }
 
 .particula {
@@ -405,7 +406,7 @@ body {
 }
 
 /* =========================================
-   SIDEBAR (MENU LATERAL MOBILE)
+   SIDEBAR (MENU LATERAL + FEEDBACK)
    ========================================= */
 .sidebar {
     position: fixed;
@@ -418,6 +419,8 @@ body {
     z-index: 2000;
     transition: 0.4s ease;
     padding: 30px;
+    display: flex;
+    flex-direction: column;
 }
 
 .sidebar.ativo {
@@ -428,7 +431,7 @@ body {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    margin-bottom: 50px;
+    margin-bottom: 30px;
 }
 
 .fechar-sidebar {
@@ -439,22 +442,84 @@ body {
     cursor: pointer;
 }
 
+/* --- ÁREA DE FEEDBACK --- */
+.sidebar-feedback {
+    margin-top: 10px;
+    margin-bottom: 30px;
+}
+
+.sidebar-feedback h4 {
+    color: #ffffff;
+    font-size: 16px;
+    margin-top: 15px;
+    margin-bottom: 10px;
+}
+
+.sidebar-feedback p {
+    color: var(--cinza-texto);
+    font-size: 13px;
+    margin-bottom: 10px;
+}
+
+.sidebar-feedback textarea {
+    width: 100%;
+    height: 100px;
+    background: #18181b;
+    border: 1px solid #27272a;
+    border-radius: 8px;
+    padding: 10px;
+    color: #ffffff;
+    resize: none;
+    font-size: 14px;
+    outline: none;
+}
+
+.sidebar-feedback textarea:focus {
+    border-color: var(--verde-gsa);
+}
+
+.btn-enviar-feedback {
+    width: 100%;
+    margin-top: 10px;
+    background: var(--verde-gsa);
+    color: #ffffff;
+    border: none;
+    padding: 12px;
+    border-radius: 8px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+.btn-enviar-feedback:hover {
+    background-color: #059669; /* Um verde um pouco mais escuro para o hover */
+    box-shadow: 0 0 15px rgba(16, 185, 129, 0.4); /* Brilho neon sutil */
+    transform: scale(1.02); /* Aumenta levemente de tamanho */
+}
+
+/* --- LINKS DA SIDEBAR --- */
 .sidebar-links {
     display: flex;
     flex-direction: column;
-    gap: 25px;
+    gap: 20px;
+    border-top: 1px solid #27272a;
+    padding-top: 25px;
 }
 
 .sidebar-links a {
     color: #ffffff;
     text-decoration: none;
-    font-size: 20px;
+    font-size: 18px;
     font-weight: 500;
+    transition: 0.2s;
 }
 
-.sidebar-links a:hover { color: var(--verde-gsa); }
+.sidebar-links a:hover { 
+    color: var(--verde-gsa);
+    padding-left: 5px; /* Efeito sutil ao passar o mouse */
+}
 
-/* Fundo escuro quando o menu abre */
+/* --- ELEMENTOS DE APOIO --- */
 .overlay {
     position: fixed;
     top: 0;
@@ -466,4 +531,348 @@ body {
     z-index: 1500;
 }
 
-.overlay.ativo { display: block; }
+.overlay.ativo { 
+    display: block; 
+}
+
+
+/* =========================================
+   9. PÁGINA DE CURSOS (ESPECÍFICO)
+   ========================================= */
+.cursos-pagina {
+    padding: 120px 5% 80px;
+    background: var(--padrao-diagonal);
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+
+.cursos-titulo { 
+    font-size: 45px; 
+    color: #ffffff; /* Cor branca para destacar no fundo escuro */
+    margin-bottom: 20px; 
+    font-weight: 800; 
+    text-align: center;
+}
+
+.cursos-subtitulo {
+    color: var(--cinza-texto);
+    margin-bottom: 50px;
+    font-size: 18px;
+}
+
+.cursos-grid {
+    display: flex;
+    justify-content: center;
+    gap: 30px;
+    flex-wrap: wrap;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.curso-card {
+    background: #18181b; /* Fundo escuro para combinar com a página */
+    border: 1px solid #27272a;
+    padding: 40px;
+    border-radius: 24px;
+    width: 350px;
+    text-align: left;
+    position: relative;
+    transition: 0.3s;
+}
+.curso-card p {
+    color: var(--cinza-texto); /* Usa o cinza claro que já temos no :root */
+    font-size: 15px;
+    line-height: 1.5;
+    margin-bottom: 20px;
+}
+
+.curso-tag {
+    background: #232325;
+    color: var(--verde-gsa);
+    padding: 5px 12px;
+    border-radius: 50px;
+    font-size: 12px;
+    font-weight: bold;
+    display: inline-block;
+    margin-bottom: 20px;
+}
+
+.curso-card h3 { 
+    color: #ffffff; 
+    font-size: 24px; 
+    margin-bottom: 15px; 
+}
+
+.curso-lista {
+    list-style: none;
+    margin: 25px 0;
+}
+
+.curso-lista li {
+    color: var(--cinza-texto);
+    margin-bottom: 10px;
+    font-size: 15px;
+}
+
+.btn-curso {
+    display: block;
+    text-align: center;
+    padding: 15px;
+    border: 2px solid #27272a;
+    border-radius: 12px;
+    text-decoration: none;
+    color: #ffffff;
+    font-weight: bold;
+    transition: 0.3s;
+}
+
+.btn-curso:hover {
+    border-color: var(--verde-gsa);
+    color: var(--verde-gsa);
+}
+
+/* DESTAQUE PARA O CURSO PRINCIPAL */
+.destaque-card {
+    border: 2px solid var(--verde-gsa);
+    transform: scale(1.05);
+    box-shadow: 0 20px 40px rgba(16, 185, 129, 0.15);
+}
+
+.btn-destaque {
+    background: var(--verde-gsa);
+    color: #ffffff;
+    border-color: var(--verde-gsa);
+}
+
+.btn-destaque:hover {
+    background: #059669;
+    color: #ffffff;
+}
+
+/* Responsividade para os cards de curso */
+@media (max-width: 768px) {
+    .destaque-card {
+        transform: scale(1);
+    }
+    .curso-card {
+        width: 100%;
+    }
+}
+
+/* MODAL STYLE */
+.modal-container {
+    position: fixed;
+    top: 0; left: 0;
+    width: 100%; height: 100%;
+    background: rgba(0, 0, 0, 0.85);
+    display: none; /* Escondido por padrão */
+    justify-content: center;
+    align-items: center;
+    z-index: 3000;
+    cursor: pointer;
+    transition: 0.3s;
+    display: flex;
+    align-items: center;
+
+}
+.modulo-item.aula-ativa {
+    background: #3f3f46;
+    border-left: 6px solid #facc15; /* Muda para amarelo para destacar a seleção */
+    transform: translateX(10px);
+}
+
+.modulo-item span {
+    pointer-events: none; /* Garante que o clique pegue na div toda */
+}
+
+.modal-content {
+    background: #18181b;
+    border: 2px solid var(--verde-gsa);
+    padding: 40px;
+    border-radius: 20px;
+    width: 90%;
+    max-width: 500px;
+    position: relative;
+    color: white;
+}
+
+.fechar-modal {
+    position: absolute;
+    top: 15px; right: 20px;
+    background: none; border: none;
+    color: var(--verde-gsa);
+    font-size: 30px; cursor: pointer;
+}
+
+.modulo-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: #27272a;
+    padding: 15px;
+    margin-top: 10px;
+    border-radius: 8px;
+    border-left: 4px solid var(--verde-gsa);
+}
+.modulo-item::after {
+    content: '▶'; /* Ícone de play */
+    font-size: 12px;
+    opacity: 0;
+    transition: 0.3s;
+}
+
+.modulo-item:hover::after {
+    opacity: 1;
+    transform: translateX(-10px);
+}
+
+/* BOTÃO DENTRO DO MODAL */
+.btn-modal-acao {
+    width: 100%; /* Largura total */
+    background: var(--verde-gsa);
+    color: #ffffff;
+    border: none;
+    padding: 16px;
+    border-radius: 12px;
+    font-weight: 800;
+    font-size: 16px;
+    cursor: pointer;
+    margin-top: 20px;
+    transition: 0.3s;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+.btn-modal-acao:hover {
+    background: #059669;
+    transform: scale(1.02);
+    box-shadow: 0 0 20px rgba(16, 185, 129, 0.3);
+}
+
+/* AJUSTE NA LISTA PARA DAR ESPAÇO AO BOTÃO */
+.modal-lista {
+    margin-bottom: 25px;
+}
+
+
+.calc-container {
+    padding: 120px 5% 50px;
+    display: flex;
+    justify-content: center;
+    background: var(--padrao-diagonal);
+    min-height: 100vh;
+}
+
+.calc-card {
+    background: #18181b;
+    border: 2px solid #27272a;
+    padding: 40px;
+    border-radius: 24px;
+    width: 100%;
+    max-width: 500px;
+}
+
+.calc-inputs {
+    display: grid;
+    gap: 20px;
+    margin: 30px 0;
+}
+
+.input-group label {
+    display: block;
+    color: var(--cinza-texto);
+    font-size: 14px;
+    margin-bottom: 8px;
+}
+
+.input-group input {
+    width: 100%;
+    background: #09090b;
+    border: 1px solid #27272a;
+    padding: 12px;
+    border-radius: 8px;
+    color: white;
+    font-size: 16px;
+    outline: none;
+}
+
+.input-group input:focus { border-color: var(--verde-gsa); }
+
+.btn-full { width: 100%; cursor: pointer; border: none; }
+
+.resultado-box {
+    margin-top: 30px;
+    background: #09090b;
+    padding: 25px;
+    border-radius: 16px;
+    display: none; /* Só aparece após o cálculo */
+}
+
+.res-item { display: flex; justify-content: space-between; margin-bottom: 10px; color: var(--cinza-texto); }
+.res-total { text-align: center; margin-top: 15px; color: white; }
+
+
+.calc-secao {
+    padding: 150px 5% 100px;
+    background: var(--padrao-diagonal);
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.calc-card {
+    background: #18181b;
+    border: 1px solid #27272a;
+    padding: 40px;
+    border-radius: 24px;
+    width: 100%;
+    max-width: 550px;
+    box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
+}
+
+.calc-titulo { color: #fff; font-size: 32px; margin-bottom: 10px; }
+.calc-desc { color: var(--cinza-texto); margin-bottom: 30px; }
+
+.calc-form { display: grid; gap: 20px; }
+
+.input-box label {
+    display: block;
+    color: #fff;
+    font-size: 14px;
+    margin-bottom: 8px;
+    font-weight: 600;
+}
+
+.input-box input {
+    width: 100%;
+    background: #09090b;
+    border: 1px solid #27272a;
+    padding: 15px;
+    border-radius: 12px;
+    color: #fff;
+    font-size: 16px;
+    outline: none;
+}
+
+.input-box input:focus { border-color: var(--verde-gsa); }
+
+.btn-calc { width: 100%; cursor: pointer; border: none; font-size: 18px; margin-top: 10px; }
+
+.calc-resultados {
+    margin-top: 40px;
+    padding-top: 30px;
+    border-top: 1px solid #27272a;
+    display: none; /* JS vai mostrar */
+}
+
+.res-grid { display: flex; justify-content: space-between; margin-bottom: 25px; }
+.res-item span { color: var(--cinza-texto); font-size: 13px; }
+.res-item p { color: #fff; font-size: 20px; font-weight: 700; }
+
+.res-final { text-align: center; background: #09090b; padding: 20px; border-radius: 16px; }
+.res-final span { color: var(--cinza-texto); }
+.res-final h2 { color: var(--verde-gsa); font-size: 36px; margin-top: 5px; }
