@@ -403,3 +403,67 @@ body {
     .gsa-grid { flex-direction: column; }
     .hero-texto h2 { font-size: 45px; }
 }
+
+/* =========================================
+   SIDEBAR (MENU LATERAL MOBILE)
+   ========================================= */
+.sidebar {
+    position: fixed;
+    top: 0;
+    right: -300px; /* Escondido na direita */
+    width: 300px;
+    height: 100vh;
+    background: #09090b;
+    border-left: 2px solid #27272a;
+    z-index: 2000;
+    transition: 0.4s ease;
+    padding: 30px;
+}
+
+.sidebar.ativo {
+    right: 0; /* Desliza para dentro */
+}
+
+.sidebar-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 50px;
+}
+
+.fechar-sidebar {
+    background: none;
+    border: none;
+    color: var(--verde-gsa);
+    font-size: 40px;
+    cursor: pointer;
+}
+
+.sidebar-links {
+    display: flex;
+    flex-direction: column;
+    gap: 25px;
+}
+
+.sidebar-links a {
+    color: #ffffff;
+    text-decoration: none;
+    font-size: 20px;
+    font-weight: 500;
+}
+
+.sidebar-links a:hover { color: var(--verde-gsa); }
+
+/* Fundo escuro quando o menu abre */
+.overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0,0,0,0.7);
+    display: none;
+    z-index: 1500;
+}
+
+.overlay.ativo { display: block; }
