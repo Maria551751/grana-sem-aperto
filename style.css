@@ -1,0 +1,405 @@
+/* =========================================
+   1. CONFIGURAÇÕES GERAIS E RESET
+   ========================================= */
+:root {
+    --verde-gsa: #10b981;
+    --preto-fundo: #09090b;
+    --branco-fundo: #ffffff;
+    --cinza-texto: #a1a1aa;
+    --padrao-diagonal: repeating-linear-gradient(
+        45deg, 
+        #09090b, 
+        #09090b 40px, 
+        #0c0c0e 40px, 
+        #0c0c0e 80px
+    );
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Inter', sans-serif;
+}
+
+body {
+    width: 100%;
+    overflow-x: hidden;
+    background-color: var(--preto-fundo);
+}
+
+/* =========================================
+   2. CABEÇALHO (NAVBAR)
+   ========================================= */
+.cabecalho {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 40px 5%;
+    background: var(--preto-fundo);
+    border-bottom: 2px solid #27272a;
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+}
+
+.logo {
+    color: var(--verde-gsa);
+    font-size: 28px;
+    font-weight: 800;
+    text-decoration: none;
+}
+
+.menu-desktop a {
+    color: #ffffff;
+    text-decoration: none;
+    margin-right: 20px;
+    font-weight: 500;
+}
+/* Efeito de passar o mouse nos links do menu */
+.menu-desktop a:hover {
+    color: var(--verde-gsa);
+    transition: 0.3s; /* Deixa a mudança de cor suave */
+}
+
+/* Garante que o botão da calculadora não mude o texto pra verde, 
+   já que ele tem fundo amarelo */
+.menu-desktop a.btn-calculadora:hover {
+    color: #000000;
+    opacity: 0.8; /* Dá um efeito sutil de brilho no botão */
+}
+
+.btn-calculadora {
+    background: #facc15;
+    color: #000000 !important;
+    padding: 10px 18px;
+    border-radius: 8px;
+    font-weight: bold;
+}
+
+.menu-mobile-btn {
+    background: none;
+    border: none;
+    color: var(--verde-gsa);
+    font-size: 30px;
+    cursor: pointer;
+}
+
+/* =========================================
+   3. SEÇÃO HERO (TOPO ESCURO)
+   ========================================= */
+.hero {
+    width: 100%;
+    min-height: 85vh;
+    padding: 100px 5%;
+    background: var(--padrao-diagonal);
+    display: flex;
+    align-items: center;
+    position: relative;
+    clear: both;
+}
+
+.hero-texto {
+    width: 45%;
+    z-index: 10;
+    position: relative;
+    
+}
+
+.hero-texto h2 {
+    font-size: 60px;
+    color: #ffffff;
+    line-height: 1.1;
+    margin-bottom: 20px;
+    font-weight: 900;
+}
+
+.hero-texto p {
+    font-size: 20px;
+    color: var(--cinza-texto);
+    margin-bottom: 35px;
+}
+
+.destaque-verde {
+    color: var(--verde-gsa);
+}
+
+.btn-primario {
+    background: var(--verde-gsa);
+    color: #ffffff;
+    padding: 16px 30px;
+    border-radius: 8px;
+    text-decoration: none;
+    font-weight: bold;
+    display: inline-block;
+}
+
+.btn-secundario {
+    border: 2px solid #27272a;
+    color: #ffffff;
+    padding: 16px 30px;
+    border-radius: 8px;
+    text-decoration: none;
+    font-weight: bold;
+}
+
+.hero-imagem {
+    position: absolute;
+    right: 0;
+    top: 15%; 
+    transform: translateY(-50%);
+    width: 55%;
+    display: flex;
+    justify-content: flex-end;
+    z-index: 10;
+    pointer-events: none;
+}
+
+.imagem-cofrinho {
+    width: 100%;
+    max-width: 800px;
+    filter: drop-shadow(0 0 30px rgba(0,0,0,0.1));
+}
+
+/* =========================================
+   4. DIVISOR LED (LINHA VERDE)
+   ========================================= */
+.divisor-led {
+    width: 100%;
+    height: 3px;
+    background-color: #10b981;
+    box-shadow: 0 0 15px #10b981, 
+                0 0 30px #10b981, 
+                0 0 45px rgba(16, 185, 129, 0.5);
+    position: relative;
+    z-index: 50;
+    border: none;
+}
+
+/* =========================================
+   5. CARTEIRA GSA (CARDS E GRÁFICO CENTRAL)
+   ========================================= */
+.gsa-secao {
+    width: 100%;
+    background-color: var(--branco-fundo);
+    padding: 140px 5%;
+    position: relative;
+    overflow: hidden;
+    text-align: center;
+    clear: both;
+}
+
+.gsa-titulo { 
+    font-size: 45px; 
+    color: #121214; 
+    margin-bottom: 60px; 
+    font-weight: 800; 
+}
+
+/* --- EFEITO NEON --- */
+.background-neon {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 1;
+    pointer-events: none;
+}
+
+.particula {
+    position: absolute;
+    width: 4px;
+    height: 150px;
+    background: linear-gradient(to bottom, rgba(16, 185, 129, 0) 0%, rgba(16, 185, 129, 1) 50%, rgba(16, 185, 129, 0) 100%);
+    box-shadow: 0 0 20px rgba(16, 185, 129, 0.8), 0 0 40px rgba(16, 185, 129, 0.4);
+    border-radius: 4px;
+    opacity: 0;
+    animation: feixeNeon linear infinite;
+}
+
+@keyframes feixeNeon {
+    0% { transform: translateY(100vh) scaleY(0.1); opacity: 0; }
+    10% { opacity: 1; }
+    90% { opacity: 1; }
+    100% { transform: translateY(-150px) scaleY(1); opacity: 0; }
+}
+
+/* --- GRID E COLUNAS --- */
+.gsa-grid {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 40px;
+    position: relative;
+    z-index: 10;
+}
+
+.gsa-coluna {
+    display: flex;
+    flex-direction: column;
+    gap: 25px;
+}
+
+/* --- O GRÁFICO CENTRAL (QUE TINHA SUMIDO) --- */
+.grafico-circular {
+    width: 320px;
+    height: 320px;
+    border-radius: 50%;
+    background: conic-gradient(
+        var(--verde-gsa) 0% 40%, 
+        #facc15 40% 65%, 
+        #3b82f6 65% 85%, 
+        #ec4899 85% 100%
+    );
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+    box-shadow: 0 0 40px rgba(0, 0, 0, 0.1);
+}
+
+.grafico-circular::after {
+    content: '';
+    width: 240px;
+    height: 240px;
+    background: var(--branco-fundo);
+    border-radius: 50%;
+    position: absolute;
+    z-index: 1; /* Fica atrás do texto */
+}
+
+.centro-grafico {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    z-index: 10; /* Fica na frente do buraco branco */
+    position: relative;
+}
+
+.destaque-gsa {
+    font-size: 40px;
+    color: #121214;
+    font-weight: 900;
+}
+
+.label-carteira {
+    color: var(--cinza-texto);
+    letter-spacing: 4px;
+    font-size: 12px;
+    font-weight: bold;
+}
+
+/* --- CARDS GSA --- */
+.gsa-card {
+    background: rgba(255, 255, 255, 0.7); 
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    padding: 30px;
+    border-radius: 20px;
+    width: 320px;
+    text-align: left;
+    border: 1px solid rgba(16, 185, 129, 0.3);
+    box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.05);
+    transition: 0.3s;
+}
+
+.gsa-card:hover {
+    border-color: var(--verde-gsa);
+    transform: translateY(-10px);
+}
+
+.gsa-card h3 { color: #121214; margin-bottom: 10px; }
+.gsa-card p { color: #4b5563; font-size: 14px; line-height: 1.4; }
+
+/* =========================================
+   6. SEÇÃO FAQ (ESTÁTICO - SEMPRE ABERTO)
+   ========================================= */
+.faq-secao {
+    width: 100%;
+    background: var(--padrao-diagonal);
+    padding: 100px 5%;
+    color: #ffffff;
+    clear: both;
+}
+
+.faq-titulo { 
+    font-size: 45px; 
+    text-align: center; 
+    margin-bottom: 50px; 
+    font-weight: 800; 
+}
+
+.faq-grid {
+    max-width: 800px;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.faq-item {
+    background: #18181b;
+    border: 1px solid #27272a;
+    padding: 25px;
+    border-radius: 12px;
+    margin-bottom: 15px;
+    cursor: default; /* Remove o cursor de clique */
+}
+
+.faq-item:hover {
+    border-color: var(--verde-gsa);
+}
+
+.faq-item h3 {
+    font-size: 20px;
+    color: #ffffff;
+    margin-bottom: 15px;
+}
+
+/* Forçamos a resposta a estar sempre visível */
+.faq-resposta {
+    display: block !important;
+}
+
+.faq-resposta p {
+    color: #a1a1aa;
+    line-height: 1.6;
+    font-size: 16px;
+}
+
+/* Removemos o ícone de + ou X por segurança */
+.faq-icone {
+    display: none !important;
+}
+
+/* =========================================
+   7. ANIMAÇÕES DE ENTRADA (REVEAL)
+   ========================================= */
+.revelar {
+    opacity: 0;
+    transform: translateY(50px);
+    transition: all 1s ease-out;
+}
+
+.revelar.ativo {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+.delay-1 { transition-delay: 0.2s; }
+.delay-2 { transition-delay: 0.4s; }
+.delay-3 { transition-delay: 0.6s; }
+
+/* =========================================
+   8. RESPONSIVIDADE
+   ========================================= */
+@media (max-width: 1100px) {
+    .hero { flex-direction: column; text-align: center; }
+    .hero-texto { width: 100%; }
+    .hero-imagem { position: static; width: 100%; transform: none; justify-content: center; margin-top: 50px; }
+    .gsa-grid { flex-direction: column; }
+    .hero-texto h2 { font-size: 45px; }
+}
