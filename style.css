@@ -907,3 +907,253 @@ body {
 /* Scroll customizado para a tabela no mobile */
 .tabela-container::-webkit-scrollbar { height: 6px; }
 .tabela-container::-webkit-scrollbar-thumb { background: var(--verde-gsa); border-radius: 10px; }
+
+
+
+/* --- CHATBOT IA --- */
+#ai-chat-wrapper {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    z-index: 5000;
+}
+
+#btn-ia-toggle {
+    background: var(--verde-gsa);
+    color: white;
+    border: none;
+    padding: 15px 25px;
+    border-radius: 50px;
+    font-weight: bold;
+    cursor: pointer;
+    box-shadow: 0 10px 25px rgba(16, 185, 129, 0.4);
+    transition: 0.3s;
+}
+
+#chat-box-ia {
+    position: absolute;
+    bottom: 70px;
+    right: 0;
+    width: 320px;
+    height: 450px;
+    background: #19191d;
+    border: 1px solid #27272a;
+    border-radius: 20px;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+    box-shadow: 0 20px 40px rgba(14, 124, 51, 0.6);
+}
+
+/* --- CONTAINER PRINCIPAL DO CHAT --- */
+#chat-box-ia {
+    position: absolute;
+    bottom: 70px;
+    right: 0;
+    width: 320px;
+    height: 450px;
+    background: #18181b;
+    border: 1px solid #27272a;
+    border-radius: 20px;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+    box-shadow: 0 20px 40px rgba(0,0,0,0.6);
+    z-index: 9999;
+}
+
+.chat-escondido { display: none !important; }
+
+/* --- CABEÇALHO (Onde mudamos para fundo escuro e título verde) --- */
+.chat-header { 
+    background: #18181b; 
+    padding: 15px; 
+    display: flex; 
+    justify-content: space-between; 
+    align-items: center; 
+    border-bottom: 1px solid #27272a;
+}
+
+.chat-header strong { 
+    color: #10b981 !important; /* VERDE GSA OFICIAL */
+    font-size: 15px;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+}
+
+.chat-header button {
+    background: transparent;
+    border: none;
+    color: #057534;
+    font-size: 20px;
+    cursor: pointer;
+}
+
+/* --- ÁREA DE MENSAGENS --- */
+#chat-messages { 
+    flex: 1; 
+    padding: 15px; 
+    overflow-y: auto; 
+    display: flex; 
+    flex-direction: column; 
+    gap: 12px; 
+    background: #09090b; /* Fundo levemente mais escuro que o card */
+}
+
+.msg-ia { 
+    background: #27272a; 
+    padding: 12px; 
+    border-radius: 15px 15px 15px 0; 
+    font-size: 14px; 
+    color: #fff; 
+    max-width: 85%; 
+    line-height: 1.4;
+}
+
+.msg-user { 
+    background: #10b981; 
+    padding: 12px; 
+    border-radius: 15px 15px 0 15px; 
+    font-size: 14px; 
+    align-self: flex-end; 
+    color: #141111; 
+    max-width: 85%; 
+    line-height: 1.4;
+}
+
+/* --- ÁREA DE INPUT E BOTÃO ENVIAR --- */
+.chat-input { 
+    padding: 15px; 
+    display: flex; 
+    gap: 10px; 
+    align-items: center;
+
+    /* REMOVENDO A LINHA BRANCA */
+    border: none;
+    border-top: 1px solid rgba(255, 255, 255, 0.05); /* Uma linha de luz quase invisível */
+
+    /* CONFIGURAÇÃO DO VIDRO */
+    background: rgba(24, 24, 27, 0.6); /* Fundo escuro semi-transparente */
+    backdrop-filter: blur(12px);      /* O desfoque do vidro */
+    -webkit-backdrop-filter: blur(12px); /* Suporte para Safari */
+    
+    /* Arredondamento acompanhando o chat-box */
+    border-radius: 0 0 20px 20px; 
+}
+
+/* --- O CAMPO DE TEXTO DENTRO DO VIDRO --- */
+.chat-input input { 
+    flex: 1; 
+    background: transparent; /* Transparente para mostrar o efeito de vidro */
+    border: none;            /* Remove qualquer borda */
+    outline: none;           /* Remove a linha de clique azul/branca */
+    
+    color: #252222; 
+    padding: 10px; 
+    font-size: 14px;
+    font-family: inherit;
+    appearance: none; /* Remove estilos padrão de sistemas mobile/iOS */
+}
+
+.chat-input input:focus {
+    /* Impede que o fundo fique branco ao clicar */
+    background: transparent !important; 
+    
+    /* Remove a borda azul ou branca que o Chrome coloca */
+    outline: none !important;
+    box-shadow: none !important;
+    
+    /* Garante que o texto continue branco */
+    color: #ffffff !important;
+}
+
+/* Ajustando a cor do texto de sugestão */
+.chat-input input::placeholder {
+    color: rgba(161, 161, 170, 0.5); 
+}
+
+
+#btn-enviar-ia {
+    background: #10b981; /* Verde GSA */
+    color: white;
+    border: none;
+    width: 40px;
+    height: 40px;
+    min-width: 40px; /* Impede que ele esmague */
+    border-radius: 50%; /* Deixa ele circular */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    box-shadow: 0 4px 12px rgba(16, 185, 129, 0.3);
+    padding: 0;
+    margin-left: 5px;
+}
+
+#btn-enviar-ia svg {
+    margin-left: 3px; /* Pequeno ajuste para centralizar visualmente o ícone de envio */
+    transition: transform 0.3s ease;
+}
+
+/* EFEITOS DE HOVER E CLICK */
+#btn-enviar-ia:hover {
+    background: #059669;
+    transform: scale(1.1);
+    box-shadow: 0 6px 15px rgba(16, 185, 129, 0.5);
+}
+
+#btn-enviar-ia:hover svg {
+    transform: translateX(2px) translateY(-1px); /* O ícone parece que vai decolar */
+}
+
+#btn-enviar-ia:active {
+    transform: scale(0.9);
+}
+
+#btn-ia-toggle {
+    position: fixed;
+    bottom: 25px;
+    right: 25px;
+    background: #10b981; /* Verde GSA */
+    color: white;
+    border: none;
+    padding: 12px 20px; /* Dá o formato de pílula */
+    border-radius: 50px; /* Bordas bem arredondadas */
+    font-weight: 700;
+    font-size: 14px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 10px; /* Espaço entre o robô e o texto */
+    box-shadow: 0 8px 20px rgba(16, 185, 129, 0.3);
+    z-index: 10001;
+    transition: all 0.3s ease;
+    font-family: 'Inter', sans-serif;
+}
+
+/* VISUAL DA CALCULADORA (Botão Circular) */
+/* Aqui usamos uma classe extra só para a calculadora no HTML da calculadora */
+.btn-circular {
+    width: 60px !important;
+    height: 60px !important;
+    padding: 0 !important;
+    border-radius: 50% !important;
+    font-size: 28px !important;
+}
+
+#btn-ia-toggle:hover {
+    background: #059669;
+    transform: translateY(-3px); /* Leve subida ao passar o mouse */
+    box-shadow: 0 12px 25px rgba(16, 185, 129, 0.5);
+}
+
+/* Ajuste para o chat abrir acima do botão */
+#chat-box-ia {
+    position: fixed; /* Mude para fixed para não sumir no scroll */
+    bottom: 85px; /* Sobe um pouco para ficar em cima do botão */
+    right: 25px;
+    width: 320px;
+    height: 450px;
+    /* ... o resto do seu CSS de vidro que já fizemos ... */
+}

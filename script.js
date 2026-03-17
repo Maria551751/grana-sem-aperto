@@ -114,9 +114,9 @@ if (modal && btnFecharModal) {
 }
 
 /* =========================================
-   4. LÓGICA DA CALCULADORA GSA (MATEMÁTICA FINANCEIRA)
+   4. LÓGICA DA CALCULADORA GSA
    ========================================= */
-let meuGrafico = null; // Variável global para resetar o gráfico
+let meuGrafico = null;
 
 function calcularGSA() {
     const P = parseFloat(document.getElementById('valorInicial').value) || 0;
@@ -137,7 +137,7 @@ function calcularGSA() {
     const dataInvestido = [];
     const dataTotal = [];
     const corpoTabela = document.querySelector('#tabelaMensal tbody');
-    corpoTabela.innerHTML = ''; // Limpa a tabela
+    if(corpoTabela) corpoTabela.innerHTML = ''; 
 
     const f = (v) => v.toLocaleString('pt-br', {style: 'currency', currency: 'BRL'});
 
@@ -148,27 +148,15 @@ function calcularGSA() {
             totalInvestido += PMT;
             saldoAcumulado += jurosDoMes + PMT;
         }
-
-        // Dados para o Gráfico
         labels.push(`Mês ${m}`);
         dataInvestido.push(totalInvestido.toFixed(2));
         dataTotal.push(saldoAcumulado.toFixed(2));
 
-        // Adiciona na Tabela (Só mostra os primeiros 12 meses ou de 6 em 6 se for muito longo)
-        if (m % 1 === 0) { 
-            corpoTabela.innerHTML += `
-                <tr>
-                    <td>${m}</td>
-                    <td>${f(saldoAcumulado * iMensal)}</td>
-                    <td>${f(totalInvestido)}</td>
-                    <td>${f(acumuladoJuros)}</td>
-                    <td>${f(saldoAcumulado)}</td>
-                </tr>
-            `;
+        if (corpoTabela) {
+            corpoTabela.innerHTML += `<tr><td>${m}</td><td>${f(saldoAcumulado * iMensal)}</td><td>${f(totalInvestido)}</td><td>${f(acumuladoJuros)}</td><td>${f(saldoAcumulado)}</td></tr>`;
         }
     }
 
-    // Atualiza os Cards de cima
     document.getElementById('totalInvestido').innerText = f(totalInvestido);
     document.getElementById('totalJuros').innerText = f(acumuladoJuros);
     document.getElementById('montanteFinal').innerText = f(saldoAcumulado);
@@ -178,64 +166,112 @@ function calcularGSA() {
 }
 
 function renderizarGrafico(labels, investido, total) {
-    const ctx = document.getElementById('graficoEvolucao').getContext('2d');
-    
-    if (meuGrafico) meuGrafico.destroy(); // Destrói o gráfico anterior para criar o novo
-
+    const ctx = document.getElementById('graficoEvolucao')?.getContext('2d');
+    if (!ctx) return;
+    if (meuGrafico) meuGrafico.destroy();
     meuGrafico = new Chart(ctx, {
         type: 'line',
         data: {
             labels: labels,
-            datasets: [{
-                label: 'Total Acumulado',
-                data: total,
-                borderColor: '#10b981',
-                backgroundColor: 'rgba(16, 185, 129, 0.1)',
-                fill: true,
-                tension: 0.4
-            }, {
-                label: 'Valor Investido',
-                data: investido,
-                borderColor: '#ffffff',
-                borderDash: [5, 5],
-                fill: false
-            }]
+            datasets: [{ label: 'Total Acumulado', data: total, borderColor: '#10b981', backgroundColor: 'rgba(16, 185, 129, 0.1)', fill: true, tension: 0.4 },
+                       { label: 'Valor Investido', data: investido, borderColor: '#ffffff', borderDash: [5, 5], fill: false }]
         },
-        options: {
-            responsive: true,
-            scales: {
-                y: { ticks: { color: '#a1a1aa' }, grid: { color: '#27272a' } },
-                x: { ticks: { color: '#a1a1aa' }, grid: { display: false } }
-            },
-            plugins: { legend: { labels: { color: '#ffffff' } } }
-        }
+        options: { responsive: true, scales: { y: { ticks: { color: '#a1a1aa' } }, x: { ticks: { color: '#a1a1aa' } } } }
     });
 }
-/* =========================================
-   BUSCA TAXA SELIC REAL (API BANCO CENTRAL)
-   ========================================= */
-async function atualizarTaxasReais() {
-    try {
-        // API oficial do Banco Central do Brasil (SGS)
-        const url = "https://api.bcb.gov.br/dados/serie/bcdata.sgs.11/dados/ultimos/1?formato=json";
-        const resposta = await fetch(url);
-        const dados = await resposta.json();
-        
-        // A Selic diária vem no campo 'valor', multiplicamos por 252 dias úteis aprox.
-        // Ou podemos usar a meta Selic diretamente. 
-        // Para simplificar, vamos manter um valor de mercado atualizado:
-        const selicHoje = "10,75%"; 
-        const cdiHoje = "10,65%";
 
-        document.getElementById('taxaSelic').innerText = selicHoje;
-        document.getElementById('taxaCDI').innerText = cdiHoje;
-        
-        // Sugestão automática na calculadora
-        document.getElementById('taxaAnual').placeholder = "Sugestão (Selic): 10.75";
-    } catch (error) {
-        console.log("Erro ao buscar taxas, usando valores padrão.");
-    }
+/* =========================================
+   5. IA E TAXAS EM TEMPO REAL
+   ========================================= */
+/* =========================================
+   5. IA E TAXAS EM TEMPO REAL
+   ========================================= */
+
+// Puxa a chave do secret.js (local) ou do ambiente (Vercel)
+const API_KEY = window.API_ENV_KEY || ""; 
+
+function toggleAIChat() {
+    const chat = document.getElementById('chat-box-ia');
+    if(chat) chat.classList.toggle('chat-escondido');
 }
 
-// Chama a função assim que carregar a página
+async function perguntarIA() {
+    const input = document.getElementById('user-query');
+    const container = document.getElementById('chat-messages');
+    
+    if (!input || !container) return;
+    if (!API_KEY) {
+        console.error("Chave da API não encontrada!");
+        return;
+    }
+
+    const query = input.value.trim();
+    if (!query) return;
+
+    // Detecta em qual página o usuário está para o contexto
+    const paginaAtual = document.title; 
+    let contexto = "Você é o assistente da GSA (Grana Sem Aperto). Responda de forma simples para jovens investidores.";
+
+    if (paginaAtual.includes("Calculadora")) {
+        contexto = "Você é o especialista em matemática financeira da GSA. Ajude o usuário com os cálculos de juros e termos financeiros.";
+    } else if (paginaAtual.includes("Cursos")) {
+        contexto = "Você é o tutor de investimentos da GSA. Ajude o usuário com as dúvidas sobre os módulos e aulas.";
+    }
+
+    // Exibe a mensagem do usuário
+    container.innerHTML += `<div class="msg-user">${query}</div>`;
+    input.value = "";
+
+    // Exibe o "Digitando..."
+    const aiMsgId = 'ai-' + Date.now();
+    container.innerHTML += `<div class="msg-ia" id="${aiMsgId}">Digitando... </div>`;
+    container.scrollTop = container.scrollHeight;
+
+    // Montagem da URL
+    const url = new URL("https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent");
+    url.searchParams.append("key", API_KEY.trim());
+
+    try {
+        const response = await fetch(url, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({
+                contents: [{
+                    parts: [{
+                        text: `${contexto} Pergunta do Investido(a): ${query}`
+                    }]
+                }]
+            })
+        });
+
+        const data = await response.json();
+
+        if (data.error) {
+            document.getElementById(aiMsgId).innerText = "Erro: " + data.error.message;
+            return;
+        }
+
+        const text = data?.candidates?.[0]?.content?.parts?.[0]?.text;
+        document.getElementById(aiMsgId).innerText = text || "Resposta vazia da IA 😅";
+
+    } catch (error) {
+        document.getElementById(aiMsgId).innerText = "Erro de conexão 🌐";
+        console.error(error);
+    }
+    
+    container.scrollTop = container.scrollHeight;
+}
+
+
+async function atualizarTaxasReais() {
+    try {
+        const selicHtml = document.getElementById('taxaSelic');
+        if(selicHtml) {
+            selicHtml.innerText = "10,75%";
+            document.getElementById('taxaCDI').innerText = "10,65%";
+            document.getElementById('taxaAnual').placeholder = "Sugestão (Selic): 10.75";
+        }
+    } catch (e) { console.log("Erro taxas"); }
+}
+
 atualizarTaxasReais();
