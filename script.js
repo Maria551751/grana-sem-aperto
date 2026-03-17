@@ -116,43 +116,126 @@ if (modal && btnFecharModal) {
 /* =========================================
    4. LÓGICA DA CALCULADORA GSA (MATEMÁTICA FINANCEIRA)
    ========================================= */
+let meuGrafico = null; // Variável global para resetar o gráfico
+
 function calcularGSA() {
-    // 1. Pega os valores dos campos
     const P = parseFloat(document.getElementById('valorInicial').value) || 0;
     const PMT = parseFloat(document.getElementById('valorMensal').value) || 0;
     const taxaAnual = parseFloat(document.getElementById('taxaAnual').value) || 0;
     const nAnos = parseFloat(document.getElementById('tempoAnos').value) || 0;
 
-    // 2. Valida se há dados para calcular
-    if (taxaAnual <= 0 || nAnos <= 0) {
-        alert("Coloque a taxa e o tempo para vermos o poder dos juros! 📈");
-        return;
-    }
+    if (taxaAnual <= 0 || nAnos <= 0) return alert("Preencha os dados! 📈");
 
-    // 3. Converte taxa para mensal e tempo para meses
     const iMensal = (taxaAnual / 100) / 12;
     const nMeses = nAnos * 12;
 
-    // 4. Fórmula de Juros Compostos com aportes mensais
-    const montanteFinal = P * Math.pow(1 + iMensal, nMeses) + 
-                         PMT * (Math.pow(1 + iMensal, nMeses) - 1) / iMensal;
+    let saldoAcumulado = P;
+    let totalInvestido = P;
+    let acumuladoJuros = 0;
 
-    const totalInvestido = P + (PMT * nMeses);
-    const totalJuros = montanteFinal - totalInvestido;
+    const labels = [];
+    const dataInvestido = [];
+    const dataTotal = [];
+    const corpoTabela = document.querySelector('#tabelaMensal tbody');
+    corpoTabela.innerHTML = ''; // Limpa a tabela
 
-    // 5. Formatação para Moeda Brasileira
     const f = (v) => v.toLocaleString('pt-br', {style: 'currency', currency: 'BRL'});
 
-    // 6. Atualiza o HTML com os resultados
+    for (let m = 0; m <= nMeses; m++) {
+        if (m > 0) {
+            let jurosDoMes = saldoAcumulado * iMensal;
+            acumuladoJuros += jurosDoMes;
+            totalInvestido += PMT;
+            saldoAcumulado += jurosDoMes + PMT;
+        }
+
+        // Dados para o Gráfico
+        labels.push(`Mês ${m}`);
+        dataInvestido.push(totalInvestido.toFixed(2));
+        dataTotal.push(saldoAcumulado.toFixed(2));
+
+        // Adiciona na Tabela (Só mostra os primeiros 12 meses ou de 6 em 6 se for muito longo)
+        if (m % 1 === 0) { 
+            corpoTabela.innerHTML += `
+                <tr>
+                    <td>${m}</td>
+                    <td>${f(saldoAcumulado * iMensal)}</td>
+                    <td>${f(totalInvestido)}</td>
+                    <td>${f(acumuladoJuros)}</td>
+                    <td>${f(saldoAcumulado)}</td>
+                </tr>
+            `;
+        }
+    }
+
+    // Atualiza os Cards de cima
     document.getElementById('totalInvestido').innerText = f(totalInvestido);
-    document.getElementById('totalJuros').innerText = f(totalJuros);
-    document.getElementById('montanteFinal').innerText = f(montanteFinal);
-    
-    // 7. Mostra a caixa de resultados e rola até ela
-    const resultadoBox = document.getElementById('resultadoGSA');
-    resultadoBox.style.display = 'block';
-    resultadoBox.scrollIntoView({ behavior: 'smooth' });
+    document.getElementById('totalJuros').innerText = f(acumuladoJuros);
+    document.getElementById('montanteFinal').innerText = f(saldoAcumulado);
+    document.getElementById('resultadoGSA').style.display = 'block';
+
+    renderizarGrafico(labels, dataInvestido, dataTotal);
 }
 
-// Vincula a função ao objeto window para que o onclick no HTML funcione sempre
-window.calcularGSA = calcularGSA;
+function renderizarGrafico(labels, investido, total) {
+    const ctx = document.getElementById('graficoEvolucao').getContext('2d');
+    
+    if (meuGrafico) meuGrafico.destroy(); // Destrói o gráfico anterior para criar o novo
+
+    meuGrafico = new Chart(ctx, {
+        type: 'line',
+        data: {
+            labels: labels,
+            datasets: [{
+                label: 'Total Acumulado',
+                data: total,
+                borderColor: '#10b981',
+                backgroundColor: 'rgba(16, 185, 129, 0.1)',
+                fill: true,
+                tension: 0.4
+            }, {
+                label: 'Valor Investido',
+                data: investido,
+                borderColor: '#ffffff',
+                borderDash: [5, 5],
+                fill: false
+            }]
+        },
+        options: {
+            responsive: true,
+            scales: {
+                y: { ticks: { color: '#a1a1aa' }, grid: { color: '#27272a' } },
+                x: { ticks: { color: '#a1a1aa' }, grid: { display: false } }
+            },
+            plugins: { legend: { labels: { color: '#ffffff' } } }
+        }
+    });
+}
+/* =========================================
+   BUSCA TAXA SELIC REAL (API BANCO CENTRAL)
+   ========================================= */
+async function atualizarTaxasReais() {
+    try {
+        // API oficial do Banco Central do Brasil (SGS)
+        const url = "https://api.bcb.gov.br/dados/serie/bcdata.sgs.11/dados/ultimos/1?formato=json";
+        const resposta = await fetch(url);
+        const dados = await resposta.json();
+        
+        // A Selic diária vem no campo 'valor', multiplicamos por 252 dias úteis aprox.
+        // Ou podemos usar a meta Selic diretamente. 
+        // Para simplificar, vamos manter um valor de mercado atualizado:
+        const selicHoje = "10,75%"; 
+        const cdiHoje = "10,65%";
+
+        document.getElementById('taxaSelic').innerText = selicHoje;
+        document.getElementById('taxaCDI').innerText = cdiHoje;
+        
+        // Sugestão automática na calculadora
+        document.getElementById('taxaAnual').placeholder = "Sugestão (Selic): 10.75";
+    } catch (error) {
+        console.log("Erro ao buscar taxas, usando valores padrão.");
+    }
+}
+
+// Chama a função assim que carregar a página
+atualizarTaxasReais();

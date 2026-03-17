@@ -6,6 +6,7 @@
     <title>Calculadora GSA | Grana Sem Aperto</title>
     <link rel="stylesheet" href="style.css">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700;900&display=swap" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 </head>
 <body class="bg-dark">
 
@@ -38,10 +39,36 @@
 
     <div class="overlay" id="overlay"></div>
 
-    <section class="calc-container">
-        <div class="calc-card revelar">
-            <h2 class="destaque-verde">Calculadora de Juros Compostos</h2>
-            <p style="color: var(--cinza-texto); margin-bottom: 20px;">Veja o poder do tempo sobre o seu dinheiro.</p>
+    <section class="calc-container" style="flex-direction: column; align-items: center; gap: 40px;">
+        
+        <div class="calc-card revelar" style="max-width: 800px;">
+           <div class="taxas-atuais" style="display: flex; gap: 15px; margin-bottom: 30px; justify-content: center; flex-wrap: wrap;">
+    <div class="taxa-card" style="background: #09090b; border: 1px solid #27272a; padding: 15px; border-radius: 12px; min-width: 140px; text-align: center;">
+        <span style="font-size: 12px; color: var(--cinza-texto); display: block;">Selic (Anual)</span>
+        <strong id="taxaSelic" style="font-size: 20px; color: var(--verde-gsa);">10,75%</strong>
+    </div>
+    <div class="taxa-card" style="background: #09090b; border: 1px solid #27272a; padding: 15px; border-radius: 12px; min-width: 140px; text-align: center;">
+        <span style="font-size: 12px; color: var(--cinza-texto); display: block;">CDI (Hoje)</span>
+        <strong id="taxaCDI" style="font-size: 20px; color: #facc15;">10,65%</strong>
+    </div>
+    <div class="taxa-card" style="background: #09090b; border: 1px solid #27272a; padding: 15px; border-radius: 12px; min-width: 140px; text-align: center;">
+        <span style="font-size: 12px; color: var(--cinza-texto); display: block;">Poupança</span>
+        <strong style="font-size: 20px; color: #ec4899;">6,17%</strong>
+    </div>
+</div> 
+            <h2 class="destaque-verde" style="margin-bottom: 20px;">Como usar a calculadora GSA</h2>
+            <div class="tutorial-grid" style="text-align: left; display: grid; gap: 15px; color: var(--cinza-texto);">
+                <p><strong>Passo 1:</strong> Preencha o "Valor Inicial" com o que você tem hoje.</p>
+                <p><strong>Passo 2:</strong> No "Aporte Mensal", coloque quanto pretende investir por mês.</p>
+                <p><strong>Passo 3:</strong> Informe a taxa de juros anual esperada.</p>
+                <p><strong>Passo 4:</strong> Escolha por quanto tempo (em anos) quer simular.</p>
+                <p><strong>Passo 5:</strong> Clique em "Calcular Futuro" e veja a mágica dos juros compostos!</p>
+            </div>
+        </div>
+
+        <div class="calc-card revelar delay-1">
+            <h2 class="destaque-verde">Simulador de Investimentos</h2>
+            <p style="color: var(--cinza-texto); margin-bottom: 20px;">Preencha os dados abaixo:</p>
 
             <div class="calc-inputs">
                 <div class="input-group">
@@ -77,6 +104,28 @@
                 <div class="res-total" style="text-align: center;">
                     <span style="color: var(--cinza-texto);">Montante Final</span>
                     <h2 id="montanteFinal" style="color: var(--verde-gsa); font-size: 32px; margin-top: 10px;">R$ 0,00</h2>
+                </div>
+
+                <div class="grafico-container" style="margin-top: 40px; background: #18181b; padding: 15px; border-radius: 12px; border: 1px solid #27272a;">
+                    <h3 style="color: #fff; margin-bottom: 15px; font-size: 16px;">Evolução do Patrimônio</h3>
+                    <canvas id="graficoEvolucao"></canvas>
+                </div>
+
+                <div class="tabela-container" style="margin-top: 40px; overflow-x: auto;">
+                    <h3 style="color: #fff; margin-bottom: 15px; font-size: 16px;">Tabela de Evolução</h3>
+                    <table id="tabelaMensal" class="tabela-gsa">
+                        <thead>
+                            <tr>
+                                <th>Mês</th>
+                                <th>Juros</th>
+                                <th>Total Investido</th>
+                                <th>Total Juros</th>
+                                <th>Total Acumulado</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            </tbody>
+                    </table>
                 </div>
             </div>
         </div>
