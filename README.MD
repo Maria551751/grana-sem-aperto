@@ -1,5 +1,9 @@
 # 🚀 Grana Sem Aperto (GSA)
 
+## 🧠 Projeto de Educação Financeira com IA e Dados Reais
+
+Plataforma interativa que combina simulação de investimentos, trilhas educacionais e inteligência artificial para ensinar finanças de forma prática.
+
 ![Status](https://img.shields.io/badge/status-online-brightgreen)
 ![Frontend](https://img.shields.io/badge/frontend-HTML%20%7C%20CSS%20%7C%20JS-blue)
 ![IA](https://img.shields.io/badge/IA-Gemini%20API-purple)
@@ -16,7 +20,8 @@
 
 ## 📸 Preview
 
-> ![alt text](image.png)
+ ![Preview](./assets/img/image.png)
+
 ![Home](./assets/preview-home.png)
 ![Calculadora](./assets/preview-calculadora.png)
 ![Cursos](./assets/preview-cursos.png)
@@ -130,7 +135,7 @@ Integração com API do Banco Central:
 
 ```bash
 # Clone o repositório
-git clone https://github.com/seu-usuario/gsa.git
+git clone https://github.com/maria5517515s/grana-sem-aperto.git
 
 # Abra com Live Server (VS Code)
 ```
@@ -187,9 +192,12 @@ O CDI fornecido pelo Banco Central é diário e convertido para anual:
 ## 👩‍💻 Desenvolvedora
 
 **Maria Eduarda Carneiro dos Santos**
+
 🎓 Ciência da Computação
 💼 Jovem Aprendiz no IBOL
 
+🔗 GitHub: https://github.com/Maria551751
+🔗 LinkedIn: https://www.linkedin.com/in/maria-eduarda-carneiro-dos-santos-351193329/ 
 ---
 
 ## 💬 Sobre o Projeto
