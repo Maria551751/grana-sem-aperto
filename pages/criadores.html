@@ -172,7 +172,6 @@
         </div>
     </main>
     <script src="https://unpkg.com/lucide@latest"></script>
-    <script src="../assets/script.js"></script>
     <script>
         // Inicializa os ícones uma única vez
         lucide.createIcons();
@@ -205,6 +204,30 @@
     </div>
 </div>
 
+<div id="ai-chat-wrapper">
+    <button id="btn-ia-toggle" onclick="toggleAIChat()">
+        <span>🤖 GSA Assistente</span>
+    </button>
+
+     <div id="chat-box-ia" class="chat-escondido">
+        <div class="chat-header">
+            <strong>IA GSA</strong>
+            <button onclick="toggleAIChat()">×</button>
+        </div>
+        <div id="chat-messages">
+            <div class="msg-ia">Olá Investidor(a)! Sou sua IA de economia. Qual sua dúvida sobre a estratégia GSA hoje?</div>
+        </div>
+        <div class="chat-input">
+            <input type="text" id="user-query" placeholder="Pergunte sobre Selic, FIIs...">
+           <button onclick="perguntarIA()" id="btn-enviar-ia" title="Enviar Mensagem">
+    <svg viewBox="0 0 24 24" width="20" height="20" fill="currentColor">
+        <path d="M2.01 21L23 12 2.01 3 2 10l15 2-15 2z"></path>
+    </svg>
+</button>
+        </div>
+    </div>
+</div>
+
 <div vw class="enabled">
   <div vw-access-button class="active"></div>
   <div vw-plugin-wrapper>
@@ -217,5 +240,6 @@
   new window.VLibras.Widget('https://vlibras.gov.br/app');
 </script>
 <script src="../config.js"></script>
+<script src="../assets/script.js"></script>
 </body>
 </html>

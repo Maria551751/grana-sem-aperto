@@ -5,7 +5,7 @@ build/
 
 # Configurações Locais e Senhas
 .env
-secret.js
+
 config.local.js
 
 # Arquivos do Sistema
