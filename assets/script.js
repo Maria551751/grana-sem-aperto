@@ -791,8 +791,16 @@ function toggleAIChat() {
 async function perguntarIA() {
     const input = document.getElementById('user-query');
     const container = document.getElementById('chat-messages');
-    
+
     if (!input || !container) return;
+
+    const API_KEY =
+        (typeof window !== 'undefined' &&
+         typeof window.CONFIG !== 'undefined' &&
+         window.CONFIG.GEMINI_API_KEY)
+        ? window.CONFIG.GEMINI_API_KEY
+        : "";
+
     if (!API_KEY) {
         console.error("Chave da API não encontrada!");
         return;
@@ -801,8 +809,7 @@ async function perguntarIA() {
     const query = input.value.trim();
     if (!query) return;
 
-    // Detecta em qual página o usuário está para o contexto
-    const paginaAtual = document.title; 
+    const paginaAtual = document.title;
     let contexto = "Você é o assistente da GSA (Grana Sem Aperto). Responda de forma simples para jovens investidores.";
 
     if (paginaAtual.includes("Calculadora")) {
@@ -811,16 +818,13 @@ async function perguntarIA() {
         contexto = "Você é o tutor de investimentos da GSA. Ajude o usuário com as dúvidas sobre os módulos e aulas.";
     }
 
-    // Exibe a mensagem do usuário
     container.innerHTML += `<div class="msg-user">${query}</div>`;
     input.value = "";
 
-    // Exibe o "Digitando..."
     const aiMsgId = 'ai-' + Date.now();
     container.innerHTML += `<div class="msg-ia" id="${aiMsgId}">Digitando... </div>`;
     container.scrollTop = container.scrollHeight;
 
-    // Montagem da URL
     const url = new URL("https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent");
     url.searchParams.append("key", API_KEY.trim());
 
@@ -846,12 +850,11 @@ async function perguntarIA() {
 
         const text = data?.candidates?.[0]?.content?.parts?.[0]?.text;
         document.getElementById(aiMsgId).innerText = text || "Resposta vazia da IA 😅";
-
     } catch (error) {
         document.getElementById(aiMsgId).innerText = "Erro de conexão 🌐";
         console.error(error);
     }
-    
+
     container.scrollTop = container.scrollHeight;
 }
 
