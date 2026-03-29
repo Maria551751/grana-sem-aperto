@@ -1,30 +1,212 @@
-# 🚀 Grana Sem Aperto (GSA) - Inteligência Financeira
+# 🚀 Grana Sem Aperto (GSA)
 
-O **Grana Sem Aperto** é uma plataforma interativa de educação financeira voltada para jovens investidores. O projeto combina ferramentas de cálculo, trilhas de aprendizagem e um assistente inteligente baseado em IA para simplificar o mundo dos investimentos.
-
-## 🛠️ Tecnologias Utilizadas
-
-* **Frontend:** HTML5, CSS3 (Glassmorphism Design), JavaScript (ES6+).
-* **Inteligência Artificial:** Google Gemini 2.5 Flash API.
-* **Gráficos:** Chart.js para visualização de evolução de patrimônio.
-* **Design:** Responsivo e moderno com foco em UX/UI.
-
-## ✨ Funcionalidades Principais
-
-* **IA GSA Assistente:** Um chatbot contextual integrado em todas as páginas. Ele utiliza a API do Gemini para tirar dúvidas sobre juros na calculadora ou sobre módulos na área de cursos.
-* **Calculadora de Juros Compostos:** Simulador completo com tabela de evolução mensal e gráfico dinâmico de patrimônio.
-* **Trilhas de Cursos:** Organização de conteúdo educativo para investidores iniciantes e avançados.
-* **Segurança:** Implementação de variáveis de ambiente para proteção de chaves de API.
-
-## 🔒 Segurança de API
-
-Para manter a integridade do projeto e evitar o vazamento de chaves privadas, este repositório utiliza um sistema de injeção de dependências:
-1. As chaves de API são armazenadas localmente em um arquivo `secret.js` (ignorado pelo Git).
-2. Em produção, as chaves são gerenciadas via **Environment Variables** (Vercel/Netlify).
-
-## 👨‍💻 Desenvolvedora
-
-**Maria Eduarda Carneiro dos Santos (D. S. G.)** *Estudante de Ciência da Computação | Jovem Aprendiz no IBOL*
+![Status](https://img.shields.io/badge/status-online-brightgreen)
+![Frontend](https://img.shields.io/badge/frontend-HTML%20%7C%20CSS%20%7C%20JS-blue)
+![IA](https://img.shields.io/badge/IA-Gemini%20API-purple)
+![API](https://img.shields.io/badge/API-Banco%20Central-yellow)
+![Deploy](https://img.shields.io/badge/deploy-vercel-black)
 
 ---
-"Dominando suas finanças com a estratégia GSA."
+
+## 🌐 Acesse o projeto
+
+👉 https://grana-sem-aperto.vercel.app/
+
+---
+
+## 📸 Preview
+
+> ![alt text](image.png)
+![Home](./assets/preview-home.png)
+![Calculadora](./assets/preview-calculadora.png)
+![Cursos](./assets/preview-cursos.png)
+
+---
+
+## 💡 Sobre o Projeto
+
+O **Grana Sem Aperto (GSA)** é uma plataforma digital de educação financeira voltada para jovens que querem começar a investir de forma prática.
+
+O projeto combina:
+
+* 📊 Simulação real de investimentos
+* 🎓 Trilhas de aprendizado
+* 🤖 Inteligência Artificial integrada
+
+Tudo em uma interface moderna e interativa.
+
+---
+
+## 🎯 Problema
+
+Grande parte dos jovens:
+
+* não entende juros compostos
+* não sabe por onde começar a investir
+* acha o conteúdo financeiro complicado
+
+---
+
+## 🚀 Solução
+
+O GSA resolve isso com:
+
+* Simulações visuais e interativas
+* Conteúdo dividido por níveis
+* IA que responde dúvidas em tempo real
+
+---
+
+## ✨ Funcionalidades
+
+### 📊 Calculadora de Juros Compostos
+
+* Simulação completa de investimentos
+* Tabela mensal detalhada
+* Gráfico dinâmico com Chart.js
+* Preenchimento automático da taxa CDI
+
+---
+
+### 📡 Taxas em Tempo Real
+
+Integração com API do Banco Central:
+
+* Selic anual atualizada
+* CDI diário convertido para anual
+* Poupança calculada automaticamente
+
+✔ Atualização automática
+✔ Dados reais
+✔ Fallback em caso de erro
+
+---
+
+### 🤖 IA GSA Assistente
+
+* Chat inteligente com Gemini API
+* Respostas contextualizadas por página
+* Suporte educacional em tempo real
+
+---
+
+### 🎓 Área de Cursos
+
+* Trilhas organizadas por nível
+* Módulos interativos
+* Material em PDF
+* Sistema de aulas
+
+---
+
+### 🧠 Sistema de Quiz
+
+* Perguntas baseadas nos conteúdos
+* Feedback imediato
+* Experiência gamificada
+
+---
+
+### 🎨 Experiência do Usuário
+
+* Design moderno (Glassmorphism + Neon)
+* Animações com Intersection Observer
+* Responsivo (mobile + desktop)
+* Sidebar interativa
+
+---
+
+## 🧩 Arquitetura
+
+* **Frontend:** HTML, CSS, JavaScript
+* **IA:** Google Gemini API
+* **Dados financeiros:** API Banco Central
+* **Gráficos:** Chart.js
+* **Deploy:** Vercel
+
+---
+
+## ⚙️ Como rodar o projeto
+
+```bash
+# Clone o repositório
+git clone https://github.com/seu-usuario/gsa.git
+
+# Abra com Live Server (VS Code)
+```
+
+---
+
+## 🔑 Configuração da API
+
+Crie um arquivo `secret.js`:
+
+```js
+window.API_ENV_KEY = "SUA_CHAVE_AQUI";
+```
+
+---
+
+## 🔒 Segurança
+
+* `secret.js` não é versionado (gitignore)
+* Uso de variáveis de ambiente em produção
+* Nenhuma chave sensível exposta
+
+---
+
+## 📈 Lógica Financeira
+
+### CDI
+
+O CDI fornecido pelo Banco Central é diário e convertido para anual:
+
+```
+(1 + taxa_diaria) ^ 252 - 1
+```
+
+---
+
+### Poupança
+
+* Selic > 8.5% → 6.17% ao ano
+* Selic ≤ 8.5% → 70% da Selic
+
+---
+
+## 🚀 Próximas Melhorias
+
+* 📈 Animação dos valores (contador dinâmico)
+* 📉 Indicador de alta/queda das taxas
+* 👤 Sistema de login
+* 📊 Dashboard financeiro personalizado
+* 📱 Transformar em PWA
+
+---
+
+## 👩‍💻 Desenvolvedora
+
+**Maria Eduarda Carneiro dos Santos**
+🎓 Ciência da Computação
+💼 Jovem Aprendiz no IBOL
+
+---
+
+## 💬 Sobre o Projeto
+
+Projeto desenvolvido para apresentação no Senac e como portfólio profissional, demonstrando:
+
+* Integração com APIs reais
+* Uso de IA em aplicações web
+* Estruturação de produto digital
+* Foco em UX/UI
+
+---
+
+## ✨ Missão
+
+> "Transformar conhecimento financeiro em ação prática."
+
+---
+
+🔥 **GSA — Investir começa com entender.**

@@ -189,7 +189,7 @@ function abrirJanelaAula() {
     // 4. LÓGICA DO PDF (Baseado nos seus arquivos enviados)
     const btnMaterial = document.getElementById('linkMaterial');
     const materiais = {
-        "Mentalidade de Investidor": "../assets/docs/MENTALIDADE-FINANCEIRA.pdf",
+        "Mentalidade de Investidor": "../assets/docs/Mentalidade-Financeira.pdf",
         "Organizando sua grana": "../assets/docs/ORGANIZANDO-SUA-GRANA.pdf",
         "Montando a Reserva": "../assets/docs/RESERVA-DE-EMERGENCIA.pdf",
         "Cartão de Crédito sem Armadilha": "../assets/docs/Cartao-de-Credito-sem-Armadilha.pdf",
