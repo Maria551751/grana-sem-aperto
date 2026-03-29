@@ -1,1 +1,14 @@
+# Dependências (Nunca suba isso!)
+node_modules/
+dist/
+build/
+
+# Configurações Locais e Senhas
+.env
 secret.js
+config.local.js
+
+# Arquivos do Sistema
+.DS_Store
+Thumbs.db
+.vscode/

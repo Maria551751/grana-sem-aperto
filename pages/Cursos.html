@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cursos | Grana Sem Aperto</title>
+
+    <link rel="stylesheet" href="../assets/style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700;800;900&display=swap" rel="stylesheet">
+</head>
+
+<body class="bg-dark">
+
+<header class="cabecalho">
+    <a href="../index.html" class="logo">Grana Sem Aperto</a>
+
+    <div class="nav-direita">
+        <nav class="menu-desktop">
+            <a href="../index.html">Início</a>
+            <a href="../pages/criadores.html">Criadores</a>
+            <a href="../pages/calculadora.html" class="btn-calculadora">Calculadora de juros</a>
+            <button class="menu-mobile-btn">☰</button>
+        </nav>
+    </div>
+</header>
+
+<aside class="sidebar" id="sidebar">
+    <div class="sidebar-header">
+        <span class="logo">GSA</span>
+        <button class="fechar-sidebar" id="btnFechar">×</button>
+    </div>
+    <nav class="sidebar-links">
+        <a href="../index.html">Início</a>
+        <a href="../pages/Cursos.html">Cursos</a>
+        <a href="../pages/calculadora.html">Calculadora de Juros</a> 
+        <a href="../pages/criadores.html">Criadores</a>
+    </nav>
+</aside>
+
+<div class="overlay" id="overlay" onclick="toggleMenu()"></div>
+
+<section class="cursos-pagina">
+    <h2 class="cursos-titulo revelar">
+        Nossos <span class="destaque-verde">Cursos</span>
+    </h2>
+
+    <p class="cursos-subtitulo revelar delay-1">
+        Escolha o seu nível e comece a investir agora.
+    </p>
+
+    <div class="cursos-grid revelar delay-1">
+
+        <div class="curso-card revelar">
+            <div class="curso-tag">Iniciante</div>
+            <h3>O Despertar Financeiro</h3>
+
+            <p>Domine sua mentalidade e monte sua reserva.</p>
+
+            <ul class="curso-lista">
+                <li>✅ Organização 50-30-20</li>
+                <li>✅ Reserva</li>
+                <li>✅ CDB vs Poupança</li>
+            </ul>
+
+            <button class="btn-curso">
+                Ver Módulos
+            </button>
+        </div>
+
+        <div class="curso-card destaque-card revelar delay-1">
+            <div class="curso-tag">Mais Procurado</div>
+            <h3>Mestre da Carteira GSA</h3>
+
+            <p>Monte sua carteira de FIIs e Ações.</p>
+
+            <ul class="curso-lista">
+                <li>✅ Renda Fixa</li>
+                <li>✅ Dividendos</li>
+                <li>✅ Ações</li>
+            </ul>
+
+            <button class="btn-curso btn-destaque">
+                Começar Agora
+            </button>
+        </div>
+
+    </div>
+</section>
+
+<!-- MODAL CURSOS -->
+<div id="modalCursos" class="modal-container">
+    <div class="modal-content vidro-cinza">
+        <button class="fechar-modal" onclick="fecharModalGSA()">×</button>
+
+        <h2 id="modalTitulo" class="destaque-verde">Módulos</h2>
+
+        <p id="modalDesc" class="modal-descricao">
+            Escolha um módulo para continuar
+        </p>
+
+        <div id="listaModulos" class="modal-lista"></div>
+
+        <div class="modal-acoes">
+            <button id="btnAcessarAula"
+                    class="btn-modal-acao"
+                    onclick="abrirJanelaAula()">
+                Selecione um módulo
+            </button>
+        </div>
+    </div>
+</div>
+
+<!-- MODAL AULA -->
+<div id="modalAula" class="modal-container">
+    <div class="modal-content vidro-cinza modal-aula-box">
+
+        <button class="fechar-modal" onclick="fecharJanelaAula()">×</button>
+
+        <div class="aula-header">
+            <div class="aula-icone">📘</div>
+
+            <h2 id="tituloAulaAtiva" class="destaque-verde">
+                Nome da Aula
+            </h2>
+
+            <p id="cursoPertencente" class="aula-curso">
+                Curso: Nome do Curso
+            </p>
+        </div>
+
+        <div class="aula-acoes">
+
+            <button class="btn-acess-item aula-btn">
+                ▶️ Assistir Aula
+            </button>
+
+            <a id="linkMaterial"
+               href="#"
+               target="_blank"
+               class="btn-acess-item aula-btn">
+                📄 Material Didático
+            </a>
+
+            <button class="btn-acess-item aula-btn aula-btn-exercicio"
+                    onclick="abrirQuiz()">
+                ✍️ Fazer Exercícios
+            </button>
+
+        </div>
+
+        <button class="btn-voltar-gsa"
+                onclick="fecharJanelaAula()">
+            ← Voltar aos módulos
+        </button>
+
+    </div>
+</div>
+
+<script src="../secret.js"></script>
+<script src="../assets/script.js"></script>
+
+<script>
+function toggleAIChat() {
+    const chat = document.getElementById('chat-box-ia');
+    chat.style.display = chat.style.display === 'none' ? 'block' : 'none';
+}
+
+function toggleMenu() {
+    const sidebar = document.getElementById('sidebar');
+    const overlay = document.getElementById('overlay');
+    sidebar.classList.toggle('active');
+    overlay.classList.toggle('active');
+}
+</script>
+
+</body>
+</html>

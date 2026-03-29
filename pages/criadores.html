@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Criadores | GSA</title>
+    <link rel="stylesheet" href="../assets/style.css">
+    <script src="https://unpkg.com/lucide@latest"></script>
+</head>
+
+<body class="bg-dark">
+
+   <header class="cabecalho">
+        <a href="../index.html" class="logo">Grana Sem Aperto</a>
+        <nav class="menu-desktop">
+            <a href="../index.html">Início</a>
+            <button class="menu-mobile-btn">☰</button>
+        </nav>
+    </header>
+
+    <aside class="sidebar" id="sidebar">
+        <div class="sidebar-header">
+            <span class="logo">GSA</span>
+           <button class="fechar-sidebar" id="btnFechar">×</button>
+        </div>
+        <nav class="sidebar-links">
+            <a href="../index.html">Início</a>
+            <a href="../pages/Cursos.html">Cursos</a>
+            <a href="../pages/calculadora.html">Calculadora de Juros</a> 
+            <a href="../pages/criadores.html">Criadores</a>
+        </nav>
+    </aside>
+
+    <div class="overlay" id="overlay" onclick="toggleMenu()"></div>
+
+    <main class="container-criadores">
+        <section class="hero-texto-criadores">
+            <h1 class="titulo-gsa">
+                Mentes por trás do <span class="destaque-verde">GSA</span>
+            </h1>
+            <p class="subtitulo">
+                Conheça o time que está construindo o futuro da sua liberdade financeira.
+            </p>
+        </section>
+
+        <div class="slider-container">
+            <button class="seta-esquerda" onclick="slide('esquerda')">
+                <i data-lucide="arrow-left"></i>
+            </button>
+
+            <div class="slider-wrapper" id="slider">
+                <div class="grid-criadores">
+
+                    <div class="card-gsa">
+                        <div class="foto-container">
+                            <img src="../assets/img/Maria eduarda.jpeg" alt="Foto">
+                        </div>
+                        <div class="card-content">
+                            <h3>Maria Eduarda Carneiro dos Santos</h3>
+                            <p>Estudante de Ciência da Computação<br>Jovem Aprendiz do IBOL</p>
+                            <div class="social-icons">
+                                <a href="https://github.com/Maria551751" target="_blank">
+                                    <img src="https://cdn-icons-png.flaticon.com/512/25/25231.png" alt="GitHub"
+                                        class="social-logo">
+                                </a>
+                                <a href="https://www.linkedin.com/in/maria-eduarda-carneiro-dos-santos-351193329/"
+                                    target="_blank">
+                                    <img src="https://cdn-icons-png.flaticon.com/512/174/174857.png" alt="LinkedIn"
+                                        class="social-logo">
+                                </a>
+                                <a href="https://www.instagram.com/mari._.darks/" target="_blank">
+                                    <img src="https://cdn-icons-png.flaticon.com/512/174/174855.png" alt="Instagram"
+                                        class="social-logo">
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="card-gsa">
+                        <div class="foto-container">
+                            <img src="../assets/img/Arthur.jpeg" alt="Foto">
+                        </div>
+                        <div class="card-content">
+                            <h3>Arthur da Silva <br>Araujo</h3>
+                            <p>Estudante de Engenharia da Computação<br>Jovem Aprendiz do IBOL</p>
+                            <div class="social-icons">
+                                </a>
+                                <a href="https://www.linkedin.com/in/arthur-araujo-30bab3298/" target="_blank">
+                                    <img src="https://cdn-icons-png.flaticon.com/512/174/174857.png" alt="LinkedIn"
+                                        class="social-logo">
+                                </a>
+                                <a href="https://www.instagram.com/artplw/" target="_blank">
+                                    <img src="https://cdn-icons-png.flaticon.com/512/174/174855.png" alt="Instagram"
+                                        class="social-logo">
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="card-gsa">
+                        <div class="foto-container">
+                            <img src="../assets/img/Gabriel (2).png" alt="Foto">
+                        </div>
+                        <div class="card-content">
+                            <h3>Gabriel Marques Bessa</h3>
+                            <p>Vestibulando<br>Jovem Aprendiz da Courtyard by Marriott</p>
+                            <div class="social-icons">
+                                <a href="https://www.instagram.com/gabriel.marques_/" target="_blank">
+                                    <img src="https://cdn-icons-png.flaticon.com/512/174/174855.png" alt="Instagram"
+                                        class="social-logo">
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="card-gsa">
+                        <div class="foto-container">
+                            <img src="../assets/img/Thalys.jpeg" alt="Foto">
+                        </div>
+                        <div class="card-content">
+                            <h3>Thalys Gomes de Lima da Silva</h3>
+                            <p>Estudante<br>Jovem Aprendiz do IBOL</p>
+                            <div class="social-icons">
+                                <a href="https://www.instagram.com/021_thgomes/" target="_blank">
+                                    <img src="https://cdn-icons-png.flaticon.com/512/174/174855.png" alt="Instagram"
+                                        class="social-logo">
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="card-gsa">
+                        <div class="foto-container">
+                            <img src="../assets/img/Vitor.png" alt="Foto">
+                        </div>
+                        <div class="card-content">
+                            <h3>Vitor Hugo <br>Scaldaferri</h3>
+                            <p>Estudante de Arquitetura<br>Jovem Aprendiz da Aço Brasil</p>
+                            <div class="social-icons">
+                                <a href="https://www.instagram.com/euvt_hxl/" target="_blank">
+                                    <img src="https://cdn-icons-png.flaticon.com/512/174/174855.png" alt="Instagram"
+                                        class="social-logo">
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="card-gsa">
+                        <div class="foto-container">
+                            <img src="../assets/img/Vinicius .png" alt="Foto">
+                        </div>
+                        <div class="card-content">
+                            <h3>Vinicius Coelho Conde</h3>
+                            <p>Vestibulando<br>Jovem Aprendiz da Courtyard by Marriott</p>
+                            <div class="social-icons">
+                                <a href="https://www.instagram.com/_crvg_vinicius/" target="_blank">
+                                    <img src="https://cdn-icons-png.flaticon.com/512/174/174855.png" alt="Instagram"
+                                        class="social-logo">
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+
+
+                </div>
+            </div>
+
+            <button class="seta-direta" onclick="slide('direita')">
+                <i data-lucide="arrow-right"></i>
+            </button>
+        </div>
+    </main>
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <script src="../assets/script.js"></script>
+    <script>
+        // Inicializa os ícones uma única vez
+        lucide.createIcons();
+
+        function slide(direcao) {
+            const slider = document.getElementById('slider');
+            const scrollAmount = slider.clientWidth;
+
+            if (direcao === 'direita') {
+                slider.scrollBy({ left: scrollAmount, behavior: 'smooth' });
+            } else {
+                slider.scrollBy({ left: -scrollAmount, behavior: 'smooth' });
+            }
+        }
+    </script>
+
+    <div id="acess-wrapper" style="position: fixed; bottom: 20px; left: 20px; z-index: 10000;">
+    <button id="btn-acess-toggle" onclick="toggleAcessPanel()" style="background: #27272a; color: #fff; border: 1px solid #3f3f46; width: 50px; height: 50px; border-radius: 50%; cursor: pointer; font-size: 20px; display: flex; align-items: center; justify-content: center; box-shadow: 0 4px 15px rgba(0,0,0,0.3);">
+        ♿
+    </button>
+
+    <div id="acess-panel" style="display: none; position: absolute; bottom: 60px; left: 0; width: 250px; background: rgba(30, 30, 35, 0.9); backdrop-filter: blur(15px); border: 1px solid rgba(255, 255, 255, 0.1); border-radius: 15px; padding: 20px; box-shadow: 0 10px 25px rgba(0,0,0,0.5);">
+        <h3 style="color: #22c55e; font-size: 16px; margin-bottom: 15px; border-bottom: 1px solid #3f3f46; padding-bottom: 5px;">Acessibilidade</h3>
+        
+        <div style="display: flex; flex-direction: column; gap: 12px;">
+            <button onclick="mudarFonte(1)" class="btn-acess-item">Aumentar Texto (A+)</button>
+            <button onclick="mudarFonte(-1)" class="btn-acess-item">Diminuir Texto (A-)</button>
+            <button onclick="toggleContraste()" class="btn-acess-item">Alto Contraste</button>
+        </div>
+    </div>
+</div>
+
+<div vw class="enabled">
+  <div vw-access-button class="active"></div>
+  <div vw-plugin-wrapper>
+    <div class="vw-plugin-top-wrapper"></div>
+  </div>
+</div>
+
+<script src="https://vlibras.gov.br/app/vlibras-plugin.js"></script>
+<script>
+  new window.VLibras.Widget('https://vlibras.gov.br/app');
+</script>
+</body>
+</html>

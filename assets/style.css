@@ -32,15 +32,13 @@ body {
    2. CABEÇALHO (NAVBAR)
    ========================================= */
 .cabecalho {
-    width: 100%;
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: 40px 5%;
-    background: var(--preto-fundo);
-    border-bottom: 2px solid #27272a;
-    position: sticky;
+    padding: 35px 8%;
+    background-color: #0a0a0a;
     top: 0;
+    width: 100%;
     z-index: 1000;
 }
 
@@ -51,16 +49,30 @@ body {
     text-decoration: none;
 }
 
+.menu-desktop {
+    display: flex;
+    list-style: none;
+    gap: 25px;
+    margin: 0;
+    padding: 0;
+    align-items: center;
+}
+
 .menu-desktop a {
-    color: #ffffff;
     text-decoration: none;
-    margin-right: 20px;
+    color: #ffffff;
+    font-size: 16px;
     font-weight: 500;
+    position: relative;
+    transition: all 0.3s ease; /* Isso cria o efeito suave */
+}
+.menu-desktop a.ativo {
+    color: #22c55e; 
 }
 /* Efeito de passar o mouse nos links do menu */
 .menu-desktop a:hover {
-    color: var(--verde-gsa);
-    transition: 0.3s; /* Deixa a mudança de cor suave */
+    color: #22c55e; /* Verde GSA */
+    transform: translateY(-2px); /* Pequeno pulo para cima */
 }
 
 /* Garante que o botão da calculadora não mude o texto pra verde, 
@@ -70,10 +82,24 @@ body {
     opacity: 0.8; /* Dá um efeito sutil de brilho no botão */
 }
 
+.menu-desktop a::after {
+    content: '';
+    position: absolute;
+    width: 0;
+    height: 2px;
+    bottom: -5px;
+    left: 0;
+    background-color: #22c55e;
+    transition: width 0.3s ease;
+}
+.menu-desktop a:hover::after {
+    width: 100%;
+}
+
 .btn-calculadora {
-    background: #facc15;
-    color: #000000 !important;
-    padding: 10px 18px;
+    background: #22c55e;
+    color: #000 !important;
+    padding: 8px 15px;
     border-radius: 8px;
     font-weight: bold;
 }
@@ -619,19 +645,25 @@ body {
 
 .btn-curso {
     display: block;
-    text-align: center;
+    width: 100%;
     padding: 15px;
-    border: 2px solid #27272a;
+    margin-top: 20px;
+    background: rgba(255, 255, 255, 0.05); /* Fundo quase transparente */
+    border: 2px solid rgba(255, 255, 255, 0.2); /* Borda sutil */
     border-radius: 12px;
+    color: #ffffff !important; /* FORÇA a cor branca no texto */
+    font-weight: 700;
+    text-align: center;
+    cursor: pointer;
+    transition: all 0.3s ease;
     text-decoration: none;
-    color: #ffffff;
-    font-weight: bold;
-    transition: 0.3s;
+    font-size: 16px;
 }
 
 .btn-curso:hover {
-    border-color: var(--verde-gsa);
-    color: var(--verde-gsa);
+ background: rgba(255, 255, 255, 0.1);
+    border-color: #22c55e; /* Fica verde ao passar o mouse */
+    transform: translateY(-2px);
 }
 
 /* DESTAQUE PARA O CURSO PRINCIPAL */
@@ -674,7 +706,6 @@ body {
     z-index: 3000;
     cursor: pointer;
     transition: 0.3s;
-    display: flex;
     align-items: center;
 
 }
@@ -759,16 +790,17 @@ body {
 
 
 .calc-container {
-    padding: 120px 5% 50px;
+    padding: 100px 5% 50px;
     display: flex;
     justify-content: center;
-    background: var(--padrao-diagonal);
-    min-height: 100vh;
+    align-items: center; /* centraliza vertical */
+    background: transparent;
+    min-height: calc(100vh - 80px); /* desconta header */
 }
 
 .calc-card {
-    background: #18181b;
-    border: 2px solid #27272a;
+    background: #252527;
+    border: 2px solid #18181a;
     padding: 40px;
     border-radius: 24px;
     width: 100%;
@@ -790,7 +822,7 @@ body {
 
 .input-group input {
     width: 100%;
-    background: #09090b;
+    background: #08080a;
     border: 1px solid #27272a;
     padding: 12px;
     border-radius: 8px;
@@ -816,22 +848,48 @@ body {
 
 
 .calc-secao {
-    padding: 150px 5% 100px;
-    background: var(--padrao-diagonal);
-    min-height: 100vh;
+    padding: 100px 5% 80px;
+    min-height: calc(100vh - 100px);
+
     display: flex;
     justify-content: center;
     align-items: center;
+
+    background: transparent; /* ESSENCIAL */
 }
 
 .calc-card {
-    background: #18181b;
-    border: 1px solid #27272a;
-    padding: 40px;
+    position: relative;
+
+    background: rgba(120, 120, 120, 0.12);
+
+    backdrop-filter: blur(18px);
+    -webkit-backdrop-filter: blur(18px);
+
+    border: 1px solid rgba(255, 255, 255, 0.15);
     border-radius: 24px;
+
+    padding: 40px;
     width: 100%;
-    max-width: 550px;
-    box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
+    max-width: 500px;
+
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4);
+}
+.calc-card::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    border-radius: 24px;
+
+    background: linear-gradient(
+        120deg,
+        rgba(255,255,255,0.25),
+        rgba(255,255,255,0.05),
+        transparent
+    );
+
+    opacity: 0.25;
+    pointer-events: none;
 }
 
 .calc-titulo { color: #fff; font-size: 32px; margin-bottom: 10px; }
@@ -849,8 +907,11 @@ body {
 
 .input-box input {
     width: 100%;
-    background: #09090b;
-    border: 1px solid #27272a;
+    background: rgba(255, 255, 255, 0.05);
+
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(8px);
+
     padding: 15px;
     border-radius: 12px;
     color: #fff;
@@ -858,7 +919,10 @@ body {
     outline: none;
 }
 
-.input-box input:focus { border-color: var(--verde-gsa); }
+.input-box input:focus {
+    border-color: var(--verde-gsa);
+    background: rgba(255, 255, 255, 0.08);
+}
 
 .btn-calc { width: 100%; cursor: pointer; border: none; font-size: 18px; margin-top: 10px; }
 
@@ -1156,4 +1220,542 @@ body {
     width: 320px;
     height: 450px;
     /* ... o resto do seu CSS de vidro que já fizemos ... */
+}
+
+/* =========================================
+   9. CRIADORES
+   ========================================= */
+/* --- CONFIGURAÇÃO DA PÁGINA (FUNDO GSA) --- */
+.container-criadores {
+    width: 100%;
+    min-height: 100vh;
+    padding: 1px 5% 50px 5% !important;
+    background: var(--padrao-diagonal);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    overflow: hidden;
+}
+
+/* --- TEXTOS PRINCIPAIS --- */
+.titulo-gsa {
+    font-size: 60px;
+    color: #ffffff;
+    line-height: 1.1;
+    margin-bottom: 10px;
+    font-weight: 900;
+    text-align: center;
+}
+
+.titulo-gsa span {
+    color: var(--verde-gsa);
+}
+
+.subtitulo {
+    font-size: 20px;
+    color: var(--cinza-texto);
+    text-align: center;
+    max-width: 800px;
+    margin-bottom: 50px;
+}
+
+/* --- ESTRUTURA DO SLIDER --- */
+.slider-container {
+    position: relative;
+    width: 100%;
+    max-width: 1100px; /* Largura ideal para os 3 cards respirarem */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto;
+    z-index: 20;
+}
+
+.slider-wrapper {
+    overflow: hidden;
+    width: 100%;
+    scroll-behavior: smooth;
+}
+
+.grid-criadores {
+    display: flex;
+    gap: 25px;
+    padding: 20px 5px;
+}
+
+/* --- O CARD VERTICAL (ESTILO CANVA) --- */
+.card-gsa {
+    /* Efeito de Vidro (Glassmorphism) */
+    background: rgba(255, 255, 255, 0.03); /* Fundo branco QUASE invisível */
+    backdrop-filter: blur(12px);           /* O segredo: embaça o fundo de listras */
+    -webkit-backdrop-filter: blur(12px);    /* Compatibilidade para Safari */
+    
+    /* Borda sutil para dar o brilho do vidro */
+    border: 1px solid rgba(255, 255, 255, 0.1); 
+    
+    border-radius: 16px;
+    padding: 20px;
+    text-align: center;
+    width: 280px;
+    min-width: 280px;
+    flex-shrink: 0;
+    transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    min-height: 530px; /* Garante alinhamento dos ícones */
+}
+
+/* Efeito de Hover "Teclado Mecânico" (Sobe e Brilha) */
+.card-gsa:hover {
+    background: rgba(255, 255, 255, 0.07); /* Escurece o vidro levemente */
+    border-color: var(--verde-gsa);        /* A borda brilha em verde */
+    transform: translateY(-12px) scale(1.02);
+    box-shadow: 0 15px 35px rgba(0, 0, 0, 0.5), 
+                0 0 15px rgba(34, 197, 94, 0.1); /* Brilho verde suave no fundo */
+}
+.card-gsa:hover {
+    border-color: var(--verde-gsa);
+    transform: translateY(-10px);
+}
+
+/* FOTO VERTICAL --- */
+.foto-container {
+    width: 100%;
+    height: 350px; /* Foto ocupando bastante espaço vertical */
+    border-radius: 8px;
+    overflow: hidden;
+    border: 1px solid var(--verde-gsa);
+    margin-bottom: 15px;
+    background: #111;
+}
+
+.foto-container img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+/* --- CORES DOS TEXTOS DENTRO DO CARD --- */
+.card-content h3 {
+    color: #ffffff !important; /* Nome em branco puro */
+    font-size: 1.4rem;
+    margin-top: 15px;
+    margin-bottom: 8px;
+}
+
+.card-content p {
+    color: #cccccc !important; /* Descrição em cinza claro */
+    font-size: 0.9rem;
+    line-height: 1.5;
+}
+
+.badge-gsa {
+    background-color: var(--verde-gsa);
+    color: #000000; /* Texto preto no fundo verde para leitura */
+    font-weight: bold;
+    padding: 5px 15px;
+    border-radius: 20px;
+    font-size: 0.75rem;
+    display: inline-block;
+    margin-bottom: 10px;
+    text-transform: uppercase;
+}
+
+/* --- SETAS DE NAVEGAÇÃO (POSIÇÃO CORRIGIDA) --- */
+.seta {
+    background: var(--verde-gsa);
+    color: #000;
+    border: none;
+    border-radius: 50%;
+    width: 45px;
+    height: 45px;
+    position: absolute;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 100;
+    box-shadow: 0 0 15px rgba(34, 197, 94, 0.4);
+    transition: 0.3s;
+}
+
+.seta:hover {
+    transform: scale(1.1);
+    background: #1eb050;
+}
+
+/* Afastando as setas para não cobrirem os cards */
+.seta-esquerda { left: -70px; }
+.seta-direta { right: -70px; }
+
+.seta-esquerda, .seta-direta {
+    background: rgba(34, 197, 94, 0.1); /* Fundo verde bem transparente */
+    border: 2px solid #22c55e;        /* Borda verde sólida GSA */
+    color: #22c55e;                   /* Cor do ícone interna */
+    border-radius: 50%;               /* Deixa redonda */
+    width: 50px;                      /* Tamanho maior */
+    height: 50px;                     /* Tamanho maior */
+    position: absolute;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 100;
+    transition: all 0.3s ease;        /* Suaviza o efeito de hover */
+    box-shadow: 0 0 10px rgba(34, 197, 94, 0.2); /* Brilho neon sutil */
+}
+.seta-esquerda:hover, .seta-direta:hover {
+    background: #22c55e;              /* Preenche de verde */
+    color: #000;                      /* Ícone fica preto */
+    transform: scale(1.1);            /* Dá um leve zoom */
+    box-shadow: 0 0 20px rgba(34, 197, 94, 0.6); /* Aumenta o brilho */
+}
+/* --- RESPONSIVIDADE --- */
+@media (max-width: 900px) {
+    .card-gsa { min-width: 80%; }
+    .slider-container { max-width: 100%; }
+    .seta { display: none; }
+    .slider-wrapper { overflow-x: auto; }
+}
+
+/* --- DEFINIÇÃO DAS ANIMAÇÕES --- */
+
+/* Animação para o título e subtítulo (Vem de cima) */
+@keyframes fadeInDown {
+    from {
+        opacity: 0;
+        transform: translateY(-30px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Animação para os cards (Vem de baixo com fade) */
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(40px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* --- APLICANDO NOS ELEMENTOS --- */
+
+.hero-texto-criadores {
+    animation: fadeInDown 0.8s ease-out forwards;
+}
+
+.card-gsa {
+    opacity: 0; /* Começa invisível para a animação funcionar */
+    animation: fadeInUp 0.6s ease-out forwards;
+}
+
+/* Efeito Cascata: Cada card aparece um pouquinho depois do outro */
+.card-gsa:nth-child(1) { animation-delay: 0.2s; }
+.card-gsa:nth-child(2) { animation-delay: 0.4s; }
+.card-gsa:nth-child(3) { animation-delay: 0.6s; }
+.card-gsa:nth-child(4) { animation-delay: 0.8s; }
+.card-gsa:nth-child(5) { animation-delay: 1.0s; }
+.card-gsa:nth-child(6) { animation-delay: 1.2s; }
+
+/* Animação das Setas (Aparecem por último) */
+.seta-esquerda, .seta-direta {
+    opacity: 0;
+    animation: fadeIn 1s ease-out forwards;
+    animation-delay: 1.5s;
+}
+
+/* Container dos ícones */
+/* FORÇAR VISIBILIDADE DOS ÍCONES SOCIAIS */
+/* No container das redes sociais */
+.social-icons {
+    display: flex;
+    justify-content: center; /* Centraliza horizontalmente */
+    align-items: center;     /* Centraliza verticalmente */
+    width: 100%;             /* Garante que ocupe toda a largura do card */
+    margin-top: auto;        /* Empurra para o rodapé */
+    padding-top: 15px;
+}
+
+/* Garante que o link e a imagem dentro dele herdem a centralização */
+.social-icons a {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+/* O segredo: Lucide gera um SVG, precisamos dar tamanho a ele */
+.social-icons svg, 
+.social-icons i {
+    width: 24px !important; 
+    height: 24px !important;
+    color: #22c55e !important; /* Verde GSA */
+    stroke: #22c55e !important; /* Cor da linha do ícone */
+    stroke-width: 2px !important;
+    display: block !important;
+    transition: 0.3s ease;
+}
+
+.social-icons a:hover svg,
+.social-icons a:hover i {
+    color: #ffffff !important;
+    stroke: #ffffff !important;
+    transform: translateY(-3px);
+}
+
+.social-icons {
+    display: flex;
+    justify-content: center;
+    gap: 15px;
+    margin-top: 15px;
+}
+
+/* Estilo das logos */
+.social-logo {
+    width: 28px; /* Tamanho da logo */
+    height: 28px;
+    transition: transform 0.3s ease, filter 0.3s ease;
+    filter: grayscale(100%) brightness(1.5); /* Ficam cinzas para combinar com o site */
+}
+
+/* Quando passa o mouse, elas ganham cor e crescem */
+.social-icons a:hover .social-logo {
+    transform: scale(1.2);
+    filter: grayscale(0%) brightness(1); /* Ganham a cor original */
+}
+
+@keyframes fadeIn {
+    to { opacity: 1; }
+}
+
+.card-gsa:hover {
+    border-color: var(--verde-gsa);
+    transform: translateY(-15px) scale(1.02); /* Sobe um pouco mais e cresce levemente */
+    box-shadow: 0 10px 30px rgba(34, 197, 94, 0.2); /* Brilho verde no fundo */
+}
+
+/* =========================================
+   10. acessibilidade
+   ========================================= */
+
+   /* Barra Superior de Acessibilidade */
+/* --- ACESSIBILIDADE GSA (Mantenha apenas isso) --- */
+
+/* Estilo dos botões dentro do novo painel flutuante */
+.btn-acess-item {
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    color: #fff;
+    padding: 12px;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 13px;
+    text-align: left;
+    transition: 0.3s;
+    width: 100%;
+    margin-bottom: 5px;
+}
+
+.btn-acess-item:hover {
+    background: #22c55e;
+    color: #000;
+}
+
+/* Regras de Alto Contraste (Essencial manter) */
+body.alto-contraste {
+    filter: contrast(150%) brightness(110%);
+    background: #000 !important;
+}
+
+body.alto-contraste .vidro-cinza {
+    background: #000 !important;
+    border: 2px solid #fff !important;
+}
+
+body.alto-contraste .destaque-verde, 
+body.alto-contraste strong {
+    color: #ffff00 !important; 
+}
+
+
+/* =========================================
+   11. MODAL AULA (UX MELHORADA)
+   ========================================= */
+
+/* Container do modal */
+/* --- MODAL AMBIENTE DE AULA (SALA) --- */
+
+#modalAula.modal-container {
+    backdrop-filter: blur(12px); /* Aumentei um pouco o blur para o fundo ficar mais elegante */
+    background: rgba(0, 0, 0, 0.7);
+}
+
+#modalAula .modal-content {
+    max-width: 420px;
+    text-align: center;
+    background: rgba(30, 30, 35, 0.9); /* Vidro escuro */
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 20px;
+    padding: 35px;
+    animation: fadeInUp 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+/* Título e Subtítulo */
+#tituloAulaAtiva {
+    font-size: 24px;
+    font-weight: 800;
+    color: var(--verde-gsa);
+    margin-bottom: 5px;
+}
+
+#cursoPertencente {
+    font-size: 13px;
+    color: #888;
+    margin-bottom: 30px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+/* BOTÕES DA AULA (ESTILO PREMIUM) */
+.btn-acess-item {
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    color: #fff;
+    padding: 16px;
+    border-radius: 12px;
+    cursor: pointer;
+    font-size: 15px;
+    font-weight: 600;
+    transition: all 0.3s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center; /* Centralizado fica melhor nesse modal */
+    gap: 12px;
+    width: 100%;
+    text-decoration: none;
+}
+
+.btn-acess-item:hover {
+    background: rgba(34, 197, 94, 0.15);
+    border-color: var(--verde-gsa);
+    color: var(--verde-gsa);
+    transform: translateY(-3px);
+    box-shadow: 0 5px 15px rgba(34, 197, 94, 0.2);
+}
+
+/* Destaque Amarelo para Exercícios */
+.btn-acess-item[onclick*="abrirQuiz"] {
+    border-color: rgba(250, 204, 21, 0.3);
+}
+
+.btn-acess-item[onclick*="abrirQuiz"]:hover {
+    background: rgba(250, 204, 21, 0.1);
+    border-color: #facc15;
+    color: #facc15;
+    box-shadow: 0 5px 15px rgba(250, 204, 21, 0.2);
+}
+
+/* BOTÃO VOLTAR (MAIS DISCRETO) */
+.btn-voltar-gsa {
+    background: none;
+    border: none;
+    color: #6b7280; /* Um cinza mais suave */
+    font-size: 14px;
+    font-weight: 500;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    margin: 0 auto;
+    transition: all 0.3s ease;
+}
+
+.btn-voltar-gsa:hover {
+    color: #22c55e; /* Acende em verde no hover */
+    transform: translateX(-5px); /* Dá um pulinho para a esquerda */
+}
+
+/* AJUSTE NA LISTA DE MÓDULOS (MODAL 1) */
+.modulo-item {
+    padding: 15px;
+    border-radius: 10px;
+    margin-bottom: 8px;
+    background: rgba(255, 255, 255, 0.03);
+    border: 1px solid transparent;
+}
+
+.modulo-item.aula-ativa {
+    background: rgba(34, 197, 94, 0.05);
+    border: 1px solid var(--verde-gsa);
+    border-left: 6px solid var(--verde-gsa); /* Mantive sua ideia do destaque lateral */
+    color: #fff;
+}
+
+/* =========================================
+   13. ANIMAÇÃO EXTRA SUAVE
+   ========================================= */
+
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(30px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+
+
+
+
+/* Estilo das opções do Quiz */
+.quiz-opcao {
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    color: #fff;
+    padding: 15px 20px;
+    border-radius: 12px;
+    font-size: 14px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    text-align: left;
+    width: 100%;
+    display: block;
+    margin-bottom: 10px;
+}
+
+.quiz-opcao:hover {
+    background: rgba(34, 197, 94, 0.1);
+    border-color: #22c55e;
+    transform: translateX(5px);
+}
+
+/* Texto da Pergunta */
+.quiz-pergunta {
+    color: #fff;
+    font-size: 18px;
+    font-weight: 600;
+    margin-bottom: 20px;
+    line-height: 1.4;
+}
+
+/* Contador de perguntas */
+.quiz-footer {
+    color: #666;
+    font-size: 12px;
+    margin-top: 20px;
+    border-top: 1px solid rgba(255,255,255,0.05);
+    padding-top: 15px;
 }
