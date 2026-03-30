@@ -185,6 +185,18 @@
 </script>
 
 <script src="config.js"></script>
+<script>
+    // Se o config.js não existir (no Vercel), ele cria o objeto vazio para não dar erro
+    if (typeof CONFIG === 'undefined') {
+        window.CONFIG = { 
+            // Se você quiser testar no Vercel AGORA, pode colocar a chave aqui, 
+            // MAS lembre-se: se o repo é público, qualquer um verá.
+            // O ideal é usar um arquivo PHP ou uma Vercel Function, 
+            // mas para o seu nível atual, vamos focar em não deixar o site quebrar.
+            GEMINI_API_KEY: "" 
+        };
+    }
+</script>
 <script src="../assets/script.js"></script>
 
 </body>

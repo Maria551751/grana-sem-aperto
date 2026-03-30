@@ -5,7 +5,6 @@ const btnAbrir = document.querySelector('.menu-mobile-btn');
 const btnFechar = document.getElementById('btnFechar');
 const sidebar = document.getElementById('sidebar');
 const overlay = document.getElementById('overlay');
-const API_KEY = window.API_ENV_KEY || "";
 
 function toggleMenu() {
     if (sidebar && overlay) {
@@ -66,112 +65,105 @@ if (btnFeedback) {
     });
 }
 
-// --- LÓGICA DO MODAL DE CURSOS GSA ---
-// Variáveis para o sistema saber o que foi clicado
 let aulaSelecionada = "";
 let cursoSelecionado = "";
 
-// BOTÃO PRINCIPAL DO MODAL
 const btnAcao = document.querySelector('.btn-modal-acao');
 
-// DADOS DOS CURSOS
 const modulosData = {
-"O Despertar Financeiro": [
-"Mentalidade de Investidor",
-"Organizando sua grana",
-"Montando a Reserva",
-"Cartão de Crédito sem Armadilha"
-],
-"Mestre da Carteira GSA": [
-"Tesouro Direto na Prática",
-"Dividendos com FIIs",
-"Escolhendo Ações",
-"Rebalanceamento da Carteira"
-]
+    "O Despertar Financeiro": [
+        "Mentalidade de Investidor",
+        "Organizando sua grana",
+        "Montando a Reserva",
+        "Cartão de Crédito sem Armadilha"
+    ],
+    "Mestre da Carteira GSA": [
+        "Tesouro Direto na Prática",
+        "Dividendos com FIIs",
+        "Escolhendo Ações",
+        "Rebalanceamento da Carteira"
+    ]
 };
 
-// ATUALIZA BOTÃO (UX MELHOR)
 function atualizarBotao() {
-if (!btnAcao) return;
+    if (!btnAcao) return;
 
-
-if (aulaSelecionada) {
-    btnAcao.innerText = `VER AULA: ${aulaSelecionada.toUpperCase()} 🚀`;
-    btnAcao.disabled = false;
-    btnAcao.style.opacity = "1";
-} else {
-    btnAcao.innerText = "Selecione um módulo";
-    btnAcao.disabled = true;
-    btnAcao.style.opacity = "0.5";
+    if (aulaSelecionada) {
+        btnAcao.innerText = `VER AULA: ${aulaSelecionada.toUpperCase()} 🚀`;
+        btnAcao.disabled = false;
+        btnAcao.style.opacity = "1";
+    } else {
+        btnAcao.innerText = "Selecione um módulo";
+        btnAcao.disabled = true;
+        btnAcao.style.opacity = "0.5";
+    }
 }
 
-
-}
-
-// ABRIR MODAL E LISTAR MÓDULOS
 document.querySelectorAll('.btn-curso').forEach(botao => {
-botao.addEventListener('click', (e) => {
-e.preventDefault();
+    botao.addEventListener('click', (e) => {
+        e.preventDefault();
 
-    const card = e.target.closest('.curso-card');
-    const tituloCurso = card?.querySelector('h3')?.innerText;
+        const card = e.target.closest('.curso-card');
+        const tituloCurso = card?.querySelector('h3')?.innerText;
 
-    if (!modulosData[tituloCurso]) return;
+        if (!modulosData[tituloCurso]) return;
 
-    cursoSelecionado = tituloCurso;
-    aulaSelecionada = ""; // reset
+        cursoSelecionado = tituloCurso;
+        aulaSelecionada = "";
 
-    const modal = document.getElementById('modalCursos');
-    const lista = document.getElementById('listaModulos');
-    const titulo = document.getElementById('modalTitulo');
+        const modal = document.getElementById('modalCursos');
+        const lista = document.getElementById('listaModulos');
+        const titulo = document.getElementById('modalTitulo');
 
-    titulo.innerText = tituloCurso;
-    lista.innerHTML = "";
+        if (!modal || !lista || !titulo) return;
 
-    modulosData[tituloCurso].forEach((aula, index) => {
-        const item = document.createElement('div');
-        item.className = 'modulo-item';
-        item.innerHTML = `<span>${index + 1}. ${aula}</span>`;
+        titulo.innerText = tituloCurso;
+        lista.innerHTML = "";
 
-        item.onclick = () => {
-            document.querySelectorAll('.modulo-item')
-                .forEach(el => el.classList.remove('aula-ativa'));
+        modulosData[tituloCurso].forEach((aula, index) => {
+            const item = document.createElement('div');
+            item.className = 'modulo-item';
+            item.innerHTML = `<span>${index + 1}. ${aula}</span>`;
 
-            item.classList.add('aula-ativa');
-            aulaSelecionada = aula;
+            item.onclick = () => {
+                document.querySelectorAll('.modulo-item')
+                    .forEach(el => el.classList.remove('aula-ativa'));
 
-            atualizarBotao();
-        };
+                item.classList.add('aula-ativa');
+                aulaSelecionada = aula;
+                atualizarBotao();
+            };
 
-        lista.appendChild(item);
+            lista.appendChild(item);
+        });
+
+        atualizarBotao();
+
+        modal.style.display = 'flex';
+        document.body.style.overflow = 'hidden';
     });
-
-    atualizarBotao();
-
-    modal.style.display = 'flex';
-    document.body.style.overflow = 'hidden';
 });
 
-
-});
-
-// ABRIR AULA
 function abrirJanelaAula() {
     if (!aulaSelecionada) {
         alert("Selecione uma aula primeiro 😊");
         return;
     }
 
-    // 1. Fecha a lista e abre a sala de aula
-    document.getElementById('modalCursos').style.display = 'none';
-    document.getElementById('modalAula').style.display = 'flex';
-
-    // 2. Atualiza os textos de cabeçalho
-    document.getElementById('tituloAulaAtiva').innerText = aulaSelecionada;
-    document.getElementById('cursoPertencente').innerText = `Curso: ${cursoSelecionado}`;
-
-    // 3. RECONSTRÓI OS BOTÕES COM AS CLASSES CSS CORRETAS
+    const modalCursos = document.getElementById('modalCursos');
+    const modalAula = document.getElementById('modalAula');
+    const tituloAula = document.getElementById('tituloAulaAtiva');
+    const cursoPertencente = document.getElementById('cursoPertencente');
     const containerAcoes = document.querySelector('.aula-acoes');
+
+    if (!modalCursos || !modalAula || !tituloAula || !cursoPertencente || !containerAcoes) return;
+
+    modalCursos.style.display = 'none';
+    modalAula.style.display = 'flex';
+
+    tituloAula.innerText = aulaSelecionada;
+    cursoPertencente.innerText = `Curso: ${cursoSelecionado}`;
+
     containerAcoes.innerHTML = `
         <button class="btn-acess-item" onclick="alert('Iniciando vídeo...')">
             <span>▶️</span> Assistir Aula
@@ -186,7 +178,6 @@ function abrirJanelaAula() {
         </button>
     `;
 
-    // 4. LÓGICA DO PDF (Baseado nos seus arquivos enviados)
     const btnMaterial = document.getElementById('linkMaterial');
     const materiais = {
         "Mentalidade de Investidor": "../assets/docs/Mentalidade-Financeira.pdf",
@@ -199,25 +190,18 @@ function abrirJanelaAula() {
         "Rebalanceamento da Carteira": "../assets/docs/REBALANCEAMENTO-DA-CARTEIRA.pdf"
     };
 
-    if (materiais[aulaSelecionada]) {
-        btnMaterial.href = materiais[aulaSelecionada];
-        btnMaterial.style.opacity = '1';
-        btnMaterial.style.pointerEvents = 'auto';
-    } else {
-        btnMaterial.style.opacity = '0.3';
-        btnMaterial.style.pointerEvents = 'none';
+    if (btnMaterial) {
+        if (materiais[aulaSelecionada]) {
+            btnMaterial.href = materiais[aulaSelecionada];
+            btnMaterial.style.opacity = '1';
+            btnMaterial.style.pointerEvents = 'auto';
+        } else {
+            btnMaterial.style.opacity = '0.3';
+            btnMaterial.style.pointerEvents = 'none';
+        }
     }
 }
 
-
-
-
-
-
-
-
-// Banco de perguntas baseado no PDF
-// Banco de dados centralizado com base nos PDFs enviados
 const bancoDeQuizzes = {
     "Mentalidade de Investidor": [
         {
@@ -330,59 +314,32 @@ const bancoDeQuizzes = {
             correta: 1,
             explicacao: "Barato pode ser um mau negócio com desconto. Deves entender o que a empresa faz antes de olhar apenas para o preço."
         }
-    ],
-    "Rebalanceamento da Carteira": [
-        {
-            pergunta: "Qual é a função principal do rebalanceamento?",
-            opcoes: [
-                "Girar a carteira todos os dias para ganhar com a oscilação.",
-                "Ajustar a carteira de volta para a tua estratégia e risco originais.",
-                "Vender as ações que estão a subir para realizar lucro rápido."
-            ],
-            correta: 1,
-            explicacao: "O tempo e o mercado mudam os pesos da tua carteira. Rebalancear traz o equilíbrio e o risco de volta ao plano inicial."
-        },
-        {
-            pergunta: "O que o rebalanceamento te obriga a fazer matematicamente?",
-            opcoes: [
-                "Comprar o que está caro e vender o que está barato.",
-                "Comprar o que ficou 'atrás' da meta (barato) e vender o excesso do que subiu (caro).",
-                "Manter a carteira parada para sempre sem nunca mexer."
-            ],
-            correta: 1,
-            explicacao: "Esta disciplina obriga-te a comprar na baixa e vender na alta, seguindo critérios técnicos em vez da emoção."
-        }
     ]
 };
 
 function abrirQuiz() {
-    // Busca as perguntas da aula atual ou usa Mentalidade como padrão
     const perguntasAtuais = bancoDeQuizzes[aulaSelecionada] || bancoDeQuizzes["Mentalidade de Investidor"];
-    
-    const container = document.querySelector('.aula-acoes');
     const titulo = document.getElementById('tituloAulaAtiva');
     const subtitulo = document.getElementById('cursoPertencente');
 
-    titulo.innerText = `✍️ Quiz: ${aulaSelecionada}`;
-    subtitulo.innerText = "Teste seus conhecimentos do material";
+    if (titulo) titulo.innerText = `✍️ Quiz: ${aulaSelecionada}`;
+    if (subtitulo) subtitulo.innerText = "Teste seus conhecimentos do material";
 
     carregarPergunta(0);
 }
 
-// Função para carregar a pergunta na tela
 function carregarPergunta(index) {
     const container = document.querySelector('.aula-acoes');
-    // Busca as perguntas da aula selecionada ou usa Mentalidade como padrão
     const perguntasAtuais = bancoDeQuizzes[aulaSelecionada] || bancoDeQuizzes["Mentalidade de Investidor"];
     const dados = perguntasAtuais[index];
 
-    if (!dados) return;
+    if (!container || !dados) return;
 
     container.innerHTML = `
         <p class="quiz-pergunta">${dados.pergunta}</p>
         <div style="display: flex; flex-direction: column; gap: 10px;">
             ${dados.opcoes.map((opcao, i) => `
-                <button class="quiz-opcao" onclick="verificarResposta(${index}, ${i})">
+                <button class="quiz-opcao" onclick="verificarResposta(${index}, ${i}, event)">
                     ${opcao}
                 </button>
             `).join('')}
@@ -393,11 +350,12 @@ function carregarPergunta(index) {
     `;
 }
 
-// Função para verificar se a resposta está correta
-function verificarResposta(perguntaIdx, respostaIdx) {
+function verificarResposta(perguntaIdx, respostaIdx, event) {
     const perguntasAtuais = bancoDeQuizzes[aulaSelecionada] || bancoDeQuizzes["Mentalidade de Investidor"];
     const dados = perguntasAtuais[perguntaIdx];
     const container = document.querySelector('.aula-acoes');
+
+    if (!container || !dados) return;
 
     if (respostaIdx === dados.correta) {
         container.innerHTML = `
@@ -406,7 +364,7 @@ function verificarResposta(perguntaIdx, respostaIdx) {
                 <p style="color: #ccc; font-size: 14px; margin-bottom: 20px; line-height: 1.5;">
                     ${dados.explicacao}
                 </p>
-                ${perguntaIdx + 1 < perguntasAtuais.length 
+                ${perguntaIdx + 1 < perguntasAtuais.length
                     ? `<button class="btn-acess-item" style="justify-content: center; background: #22c55e; color: #000;" onclick="carregarPergunta(${perguntaIdx + 1})">Próxima Pergunta 🚀</button>`
                     : `<div style="padding: 20px; border: 1px solid #22c55e; border-radius: 15px; background: rgba(34, 197, 94, 0.1); margin-bottom: 20px;">
                         <p style="color: #fff; font-weight: bold;">🏆 Parabéns! Quiz Concluído.</p>
@@ -417,12 +375,13 @@ function verificarResposta(perguntaIdx, respostaIdx) {
             </div>
         `;
     } else {
-        // Feedback visual de erro sem travar a tela com alert
-        const botaoClicado = event.target;
+        const botaoClicado = event?.target;
+        if (!botaoClicado) return;
+
         botaoClicado.style.borderColor = "#ef4444";
         botaoClicado.style.background = "rgba(239, 68, 68, 0.1)";
         botaoClicado.innerText = "❌ Tente outra vez...";
-        
+
         setTimeout(() => {
             botaoClicado.style.borderColor = "rgba(255, 255, 255, 0.1)";
             botaoClicado.style.background = "rgba(255, 255, 255, 0.05)";
@@ -431,58 +390,28 @@ function verificarResposta(perguntaIdx, respostaIdx) {
     }
 }
 
-
-
-
-
-
-
-// FECHAR MODAL PRINCIPAL
 function fecharModalGSA() {
-const modal = document.getElementById('modalCursos');
-modal.style.display = 'none';
-document.body.style.overflow = 'auto';
+    const modal = document.getElementById('modalCursos');
+    if (modal) modal.style.display = 'none';
+    document.body.style.overflow = 'auto';
 }
 
-// FECHAR AULA
 function fecharJanelaAula() {
-const modalAula = document.getElementById('modalAula');
-const modalLista = document.getElementById('modalCursos');
+    const modalAula = document.getElementById('modalAula');
+    const modalLista = document.getElementById('modalCursos');
 
-
-modalAula.style.display = 'none';
-modalLista.style.display = 'flex';
-
-
+    if (modalAula) modalAula.style.display = 'none';
+    if (modalLista) modalLista.style.display = 'flex';
 }
 
-// FECHAR CLICANDO FORA
 window.addEventListener('click', (e) => {
-const modalLista = document.getElementById('modalCursos');
-const modalAula = document.getElementById('modalAula');
+    const modalLista = document.getElementById('modalCursos');
+    const modalAula = document.getElementById('modalAula');
 
-
-if (e.target === modalLista) {
-    fecharModalGSA();
-}
-
-if (e.target === modalAula) {
-    fecharJanelaAula();
-}
-
-
+    if (e.target === modalLista) fecharModalGSA();
+    if (e.target === modalAula) fecharJanelaAula();
 });
 
-// BOTÃO X
-const btnX = document.getElementById('fecharModal');
-if (btnX) {
-btnX.onclick = fecharModalGSA;
-}
-
-
-/* =========================================
-   4. LÓGICA DA CALCULADORA GSA
-   ========================================= */
 /* =========================================
    4. LÓGICA DA CALCULADORA GSA
    ========================================= */
@@ -545,10 +474,15 @@ function calcularGSA() {
         }
     }
 
-    document.getElementById('totalInvestido').innerText = f(totalInvestido);
-    document.getElementById('totalJuros').innerText = f(acumuladoJuros);
-    document.getElementById('montanteFinal').innerText = f(saldoAcumulado);
-    document.getElementById('resultadoGSA').style.display = 'block';
+    const totalInvestidoEl = document.getElementById('totalInvestido');
+    const totalJurosEl = document.getElementById('totalJuros');
+    const montanteFinalEl = document.getElementById('montanteFinal');
+    const resultadoEl = document.getElementById('resultadoGSA');
+
+    if (totalInvestidoEl) totalInvestidoEl.innerText = f(totalInvestido);
+    if (totalJurosEl) totalJurosEl.innerText = f(acumuladoJuros);
+    if (montanteFinalEl) montanteFinalEl.innerText = f(saldoAcumulado);
+    if (resultadoEl) resultadoEl.style.display = 'block';
 
     setTimeout(() => {
         renderizarGrafico(labels, dataInvestido, dataTotal);
@@ -603,9 +537,6 @@ function renderizarGrafico(labels, investido, total) {
 /* =========================================
    5. IA E TAXAS EM TEMPO REAL
    ========================================= */
-
-// Puxa a chave do secret.js (local) ou do ambiente (Vercel)
-
 function toggleAIChat() {
     const chat = document.getElementById('chat-box-ia');
     if (chat) chat.classList.toggle('chat-escondido');
@@ -616,6 +547,13 @@ async function perguntarIA() {
     const container = document.getElementById('chat-messages');
 
     if (!input || !container) return;
+
+    const API_KEY = (typeof window !== 'undefined' &&
+        typeof window.CONFIG !== 'undefined' &&
+        window.CONFIG.GEMINI_API_KEY)
+        ? window.CONFIG.GEMINI_API_KEY
+        : "";
+
     if (!API_KEY) {
         console.error("Chave da API não encontrada!");
         return;
@@ -674,7 +612,6 @@ async function perguntarIA() {
 }
 
 /* ===== TAXAS AUTOMÁTICAS CORRIGIDAS ===== */
-
 function formatarPercentual(valor) {
     return Number(valor).toLocaleString('pt-BR', {
         minimumFractionDigits: 2,
@@ -755,9 +692,13 @@ async function atualizarTaxas() {
         cdiValor.textContent = formatarPercentual(cdiAnual);
         poupancaValor.textContent = formatarPercentual(poupanca);
 
-        document.getElementById('selicStatus').textContent = `BCB • ${selic.data}`;
-        document.getElementById('cdiStatus').textContent = `CDI diário convertido • ${cdiDiario.data}`;
-        document.getElementById('poupancaStatus').textContent = `Atualizado em ${agora}`;
+        const selicStatus = document.getElementById('selicStatus');
+        const cdiStatus = document.getElementById('cdiStatus');
+        const poupancaStatus = document.getElementById('poupancaStatus');
+
+        if (selicStatus) selicStatus.textContent = `BCB • ${selic.data}`;
+        if (cdiStatus) cdiStatus.textContent = `CDI diário convertido • ${cdiDiario.data}`;
+        if (poupancaStatus) poupancaStatus.textContent = `Atualizado em ${agora}`;
 
         const campoTaxa = document.getElementById('taxaAnual');
         if (campoTaxa && !campoTaxa.value) {
@@ -778,124 +719,20 @@ atualizarTaxas();
 setInterval(atualizarTaxas, 60 * 60 * 1000);
 
 /* =========================================
-   5. IA E TAXAS EM TEMPO REAL
-   ========================================= */
-
-// Puxa a chave do secret.js (local) ou do ambiente (Vercel)
-
-function toggleAIChat() {
-    const chat = document.getElementById('chat-box-ia');
-    if(chat) chat.classList.toggle('chat-escondido');
-}
-
-async function perguntarIA() {
-    const input = document.getElementById('user-query');
-    const container = document.getElementById('chat-messages');
-
-    if (!input || !container) return;
-
-    const API_KEY =
-        (typeof window !== 'undefined' &&
-         typeof window.CONFIG !== 'undefined' &&
-         window.CONFIG.GEMINI_API_KEY)
-        ? window.CONFIG.GEMINI_API_KEY
-        : "";
-
-    if (!API_KEY) {
-        console.error("Chave da API não encontrada!");
-        return;
-    }
-
-    const query = input.value.trim();
-    if (!query) return;
-
-    const paginaAtual = document.title;
-    let contexto = "Você é o assistente da GSA (Grana Sem Aperto). Responda de forma simples para jovens investidores.";
-
-    if (paginaAtual.includes("Calculadora")) {
-        contexto = "Você é o especialista em matemática financeira da GSA. Ajude o usuário com os cálculos de juros e termos financeiros.";
-    } else if (paginaAtual.includes("Cursos")) {
-        contexto = "Você é o tutor de investimentos da GSA. Ajude o usuário com as dúvidas sobre os módulos e aulas.";
-    }
-
-    container.innerHTML += `<div class="msg-user">${query}</div>`;
-    input.value = "";
-
-    const aiMsgId = 'ai-' + Date.now();
-    container.innerHTML += `<div class="msg-ia" id="${aiMsgId}">Digitando... </div>`;
-    container.scrollTop = container.scrollHeight;
-
-    const url = new URL("https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent");
-    url.searchParams.append("key", API_KEY.trim());
-
-    try {
-        const response = await fetch(url, {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({
-                contents: [{
-                    parts: [{
-                        text: `${contexto} Pergunta do Investido(a): ${query}`
-                    }]
-                }]
-            })
-        });
-
-        const data = await response.json();
-
-        if (data.error) {
-            document.getElementById(aiMsgId).innerText = "Erro: " + data.error.message;
-            return;
-        }
-
-        const text = data?.candidates?.[0]?.content?.parts?.[0]?.text;
-        document.getElementById(aiMsgId).innerText = text || "Resposta vazia da IA 😅";
-    } catch (error) {
-        document.getElementById(aiMsgId).innerText = "Erro de conexão 🌐";
-        console.error(error);
-    }
-
-    container.scrollTop = container.scrollHeight;
-}
-
-
-async function atualizarTaxasReais() {
-    try {
-        const selicHtml = document.getElementById('taxaSelic');
-        if(selicHtml) {
-            selicHtml.innerText = "10,75%";
-            document.getElementById('taxaCDI').innerText = "10,65%";
-            document.getElementById('taxaAnual').placeholder = "Sugestão (Selic): 10.75";
-        }
-    } catch (e) { console.log("Erro taxas"); }
-}
-
-atualizarTaxasReais();
-
-
-/* =========================================
    9. CRIADORES
    ========================================= */
-
-   /**
- * Função para rolar o slider de criadores
- * @param {string} direcao - 'esquerda' ou 'direita'
- */
 function slide(direcao) {
     const slider = document.getElementById('slider');
-    
-    // Define quanto o slider deve pular. 
-    // slider.clientWidth pega a largura visível atual do container (os 3 cards)
-    const scrollAmount = slider.clientWidth; 
+    if (!slider) return;
+
+    const scrollAmount = slider.clientWidth;
 
     if (direcao === 'direita') {
-        // Rola para a direita
         slider.scrollBy({
             left: scrollAmount,
-            behavior: 'smooth' // Garante o deslize suave
+            behavior: 'smooth'
         });
     } else {
-        // Rola para a esquerda
         slider.scrollBy({
             left: -scrollAmount,
             behavior: 'smooth'
@@ -904,12 +741,8 @@ function slide(direcao) {
 }
 
 /* =========================================
-   10. acessibilidade
+   10. ACESSIBILIDADE
    ========================================= */
-
-// --- HUB DE ACESSIBILIDADE GSA ---
-
-// 1. Abrir/Fechar o Painel Flutuante
 function toggleAcessPanel() {
     const panel = document.getElementById('acess-panel');
     if (panel) {
@@ -917,67 +750,57 @@ function toggleAcessPanel() {
     }
 }
 
-// 2. Controle de Tamanho da Fonte
-let currentFontSize = 16; // Tamanho padrão em px
+let currentFontSize = 16;
+
 function mudarFonte(delta) {
     currentFontSize += delta;
-    
-    // Limites para não quebrar o site
+
     if (currentFontSize < 12) currentFontSize = 12;
     if (currentFontSize > 22) currentFontSize = 22;
-    
+
     document.documentElement.style.fontSize = currentFontSize + 'px';
-    
-    // Opcional: Salva a preferência
     localStorage.setItem('gsaFontSize', currentFontSize);
 }
 
-// 3. Alternar Alto Contraste
 function toggleContraste() {
     document.body.classList.toggle('alto-contraste');
     const isContraste = document.body.classList.contains('alto-contraste');
     localStorage.setItem('gsaContraste', isContraste);
 }
 
-// 4. Ativar/Esconder VLibras (Só carrega o script se o usuário clicar)
 function toggleVLibras() {
     const widget = document.getElementById('vlibras-widget');
-    
+
     if (widget) {
         if (widget.style.display === 'none' || widget.style.display === '') {
             widget.style.display = 'block';
-            
-            // Se o script ainda não existe, cria ele
+
             if (!window.VLibras) {
                 const script = document.createElement('script');
                 script.src = "https://vlibras.gov.br/app/vlibras-plugin.js";
                 script.onload = () => {
-                    // Inicializa e força a abertura
                     new window.VLibras.Widget('https://vlibras.gov.br/app');
                 };
                 document.body.appendChild(script);
             }
         } else {
             widget.style.display = 'none';
-            // Opcional: esconde a janelinha flutuante que o plugin cria
             const controleLibras = document.querySelector('.vpw-controls');
-            if (controleLibras) controleLibras.closest('.enabled').style.display = 'none';
+            if (controleLibras && controleLibras.closest('.enabled')) {
+                controleLibras.closest('.enabled').style.display = 'none';
+            }
         }
     }
 }
 
-// 5. Carregar preferências ao iniciar a página
 window.addEventListener('DOMContentLoaded', () => {
-    // Recupera contraste
     if (localStorage.getItem('gsaContraste') === 'true') {
         document.body.classList.add('alto-contraste');
     }
-    
-    // Recupera tamanho da fonte
+
     const savedFont = localStorage.getItem('gsaFontSize');
     if (savedFont) {
-        currentFontSize = parseInt(savedFont);
+        currentFontSize = parseInt(savedFont, 10);
         document.documentElement.style.fontSize = currentFontSize + 'px';
     }
 });
-
