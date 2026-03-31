@@ -1,4 +1,0 @@
-
-window.CONFIG = {
-    GEMINI_API_KEY: "AIzaSyCK76HxnmEefRyFVKeIxYL1GIItDFV6eck"
-};

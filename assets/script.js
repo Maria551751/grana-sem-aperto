@@ -546,18 +546,30 @@ async function perguntarIA() {
     const input = document.getElementById('user-query');
     const container = document.getElementById('chat-messages');
 
-    if (!input || !container) return;
+    const query = input.value.trim();
+    if (!query) return;
 
-    const API_KEY = (typeof window !== 'undefined' &&
-        typeof window.CONFIG !== 'undefined' &&
-        window.CONFIG.GEMINI_API_KEY)
-        ? window.CONFIG.GEMINI_API_KEY
-        : "";
+    container.innerHTML += `<p><strong>Você:</strong> ${query}</p>`;
 
-    if (!API_KEY) {
-        console.error("Chave da API não encontrada!");
-        return;
+    try {
+        const response = await fetch("/api/chat", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify({ message: query })
+        });
+
+        const data = await response.json();
+
+        container.innerHTML += `<p><strong>GSA:</strong> ${data.reply}</p>`;
+
+    } catch (error) {
+        container.innerHTML += `<p>Erro ao conectar com a IA</p>`;
     }
+
+    input.value = "";
+}
 
     const query = input.value.trim();
     if (!query) return;
