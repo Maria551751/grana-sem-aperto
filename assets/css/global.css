@@ -53,8 +53,8 @@ body {
 }
 
 .logo-mark {
-    width: 42px;
-    height: 42px;
+    width: 72px;
+    height: 72px;
     object-fit: cover;
     border-radius: 10px;
     flex-shrink: 0;
