@@ -17,10 +17,10 @@
 
     <div class="nav-direita">
         <nav class="menu-desktop">
-            <a href="../index.html">InÃ­cio</a>
+            <a href="../index.html">In&iacute;cio</a>
             <a href="../pages/criadores.html">Criadores</a>
             <a href="../pages/calculadora.html" class="btn-calculadora">Calculadora de juros</a>
-            <button class="menu-mobile-btn">â˜°</button>
+            <button class="menu-mobile-btn">&#9776;</button>
         </nav>
     </div>
 </header>
@@ -28,10 +28,10 @@
 <aside class="sidebar" id="sidebar">
     <div class="sidebar-header">
         <span class="logo">GSA</span>
-        <button class="fechar-sidebar" id="btnFechar">Ã—</button>
+        <button class="fechar-sidebar" id="btnFechar">&times;</button>
     </div>
     <nav class="sidebar-links">
-        <a href="../index.html">InÃ­cio</a>
+        <a href="../index.html">In&iacute;cio</a>
         <a href="../pages/Cursos.html">Cursos</a>
         <a href="../pages/calculadora.html">Calculadora de Juros</a>
         <a href="../pages/criadores.html">Criadores</a>
@@ -46,11 +46,10 @@
     </h2>
 
     <p class="cursos-subtitulo revelar delay-1">
-        Escolha o seu nÃ­vel e comece a investir agora.
+        Escolha o seu n&iacute;vel e comece a investir agora.
     </p>
 
     <div class="cursos-grid revelar delay-1">
-
         <div class="curso-card revelar">
             <div class="curso-tag">Iniciante</div>
             <h3>O Despertar Financeiro</h3>
@@ -58,13 +57,13 @@
             <p>Domine sua mentalidade e monte sua reserva.</p>
 
             <ul class="curso-lista">
-                <li>âœ… OrganizaÃ§Ã£o 50-30-20</li>
-                <li>âœ… Reserva</li>
-                <li>âœ… CDB vs PoupanÃ§a</li>
+                <li>&#9989; Organiza&ccedil;&atilde;o 50-30-20</li>
+                <li>&#9989; Reserva</li>
+                <li>&#9989; CDB vs Poupan&ccedil;a</li>
             </ul>
 
             <button class="btn-curso">
-                Ver MÃ³dulos
+                Ver M&oacute;dulos
             </button>
         </div>
 
@@ -72,30 +71,29 @@
             <div class="curso-tag">Mais Procurado</div>
             <h3>Mestre da Carteira GSA</h3>
 
-            <p>Monte sua carteira de FIIs e AÃ§Ãµes.</p>
+            <p>Monte sua carteira de FIIs e A&ccedil;&otilde;es.</p>
 
             <ul class="curso-lista">
-                <li>âœ… Renda Fixa</li>
-                <li>âœ… Dividendos</li>
-                <li>âœ… AÃ§Ãµes</li>
+                <li>&#9989; Renda Fixa</li>
+                <li>&#9989; Dividendos</li>
+                <li>&#9989; A&ccedil;&otilde;es</li>
             </ul>
 
             <button class="btn-curso btn-destaque">
-                ComeÃ§ar Agora
+                Come&ccedil;ar Agora
             </button>
         </div>
-
     </div>
 </section>
 
 <div id="modalCursos" class="modal-container">
     <div class="modal-content vidro-cinza">
-        <button class="fechar-modal" onclick="fecharModalGSA()">Ã—</button>
+        <button class="fechar-modal" onclick="fecharModalGSA()">&times;</button>
 
-        <h2 id="modalTitulo" class="destaque-verde">MÃ³dulos</h2>
+        <h2 id="modalTitulo" class="destaque-verde">M&oacute;dulos</h2>
 
         <p id="modalDesc" class="modal-descricao">
-            Escolha um mÃ³dulo para continuar
+            Escolha um m&oacute;dulo para continuar
         </p>
 
         <div id="listaModulos" class="modal-lista"></div>
@@ -104,7 +102,7 @@
             <button id="btnAcessarAula"
                     class="btn-modal-acao"
                     onclick="abrirJanelaAula()">
-                Selecione um mÃ³dulo
+                Selecione um m&oacute;dulo
             </button>
         </div>
     </div>
@@ -112,11 +110,10 @@
 
 <div id="modalAula" class="modal-container">
     <div class="modal-content vidro-cinza modal-aula-box">
-
-        <button class="fechar-modal" onclick="fecharJanelaAula()">Ã—</button>
+        <button class="fechar-modal" onclick="fecharJanelaAula()">&times;</button>
 
         <div class="aula-header">
-            <div class="aula-icone">ðŸ“˜</div>
+            <div class="aula-icone">&#128216;</div>
 
             <h2 id="tituloAulaAtiva" class="destaque-verde">
                 Nome da Aula
@@ -128,45 +125,42 @@
         </div>
 
         <div class="aula-acoes">
-
             <button class="btn-acess-item aula-btn">
-                â–¶ï¸ Assistir Aula
+                &#9654;&#65039; Assistir Aula
             </button>
 
             <a id="linkMaterial"
                href="#"
                target="_blank"
                class="btn-acess-item aula-btn">
-                ðŸ“„ Material DidÃ¡tico
+                &#128196; Material Did&aacute;tico
             </a>
 
             <button class="btn-acess-item aula-btn aula-btn-exercicio"
                     onclick="abrirQuiz()">
-                âœï¸ Fazer ExercÃ­cios
+                &#9997;&#65039; Fazer Exerc&iacute;cios
             </button>
-
         </div>
 
         <button class="btn-voltar-gsa"
                 onclick="fecharJanelaAula()">
-            â† Voltar aos mÃ³dulos
+            &larr; Voltar aos m&oacute;dulos
         </button>
-
     </div>
 </div>
 
 <div id="ai-chat-wrapper">
     <button id="btn-ia-toggle" onclick="toggleAIChat()">
-        <span>ðŸ¤– GSA Assistente</span>
+        <span>&#129302; GSA Assistente</span>
     </button>
 
     <div id="chat-box-ia" class="chat-escondido">
         <div class="chat-header">
             <strong>IA GSA</strong>
-            <button onclick="toggleAIChat()">Ã—</button>
+            <button onclick="toggleAIChat()">&times;</button>
         </div>
         <div id="chat-messages">
-            <div class="msg-ia">OlÃ¡ Investidor(a)! Sou sua IA de economia. Qual sua dÃºvida sobre a estratÃ©gia GSA hoje?</div>
+            <div class="msg-ia">Ol&aacute; Investidor(a)! Sou sua IA de economia. Qual sua d&uacute;vida sobre a estrat&eacute;gia GSA hoje?</div>
         </div>
         <div class="chat-input">
             <input type="text" id="user-query" placeholder="Pergunte sobre Selic, FIIs...">
@@ -181,7 +175,7 @@
 
 <div id="acess-wrapper" style="position: fixed; bottom: 20px; left: 20px; z-index: 10000;">
     <button id="btn-acess-toggle" onclick="toggleAcessPanel()" style="background: #27272a; color: #fff; border: 1px solid #3f3f46; width: 50px; height: 50px; border-radius: 50%; cursor: pointer; font-size: 20px; display: flex; align-items: center; justify-content: center; box-shadow: 0 4px 15px rgba(0,0,0,0.3);">
-        â™¿
+        &#9855;
     </button>
 
     <div id="acess-panel" style="display: none; position: absolute; bottom: 60px; left: 0; width: 250px; background: rgba(30, 30, 35, 0.9); backdrop-filter: blur(15px); border: 1px solid rgba(255, 255, 255, 0.1); border-radius: 15px; padding: 20px; box-shadow: 0 10px 25px rgba(0,0,0,0.5);">

@@ -557,7 +557,21 @@ async function perguntarIA() {
     const query = input.value.trim();
     if (!query) return;
 
-    container.innerHTML += `<p><strong>Você:</strong> ${query}</p>`;
+    const escapeHtml = (texto) => texto
+        .replaceAll('&', '&amp;')
+        .replaceAll('<', '&lt;')
+        .replaceAll('>', '&gt;')
+        .replaceAll('"', '&quot;')
+        .replaceAll("'", '&#39;');
+
+    const adicionarMensagem = (classe, remetente, texto) => {
+        container.insertAdjacentHTML(
+            'beforeend',
+            `<div class="${classe}"><strong>${remetente}:</strong> ${escapeHtml(texto)}</div>`
+        );
+    };
+
+    adicionarMensagem('msg-user', 'Você', query);
     input.value = "";
 
     try {
@@ -572,14 +586,14 @@ async function perguntarIA() {
         const data = await response.json();
 
         if (!response.ok) {
-            container.innerHTML += `<p><strong>GSA:</strong> ${data.error || "Erro ao responder."}</p>`;
+            adicionarMensagem('msg-ia', 'GSA', data.error || "Erro ao responder.");
             return;
         }
 
-        container.innerHTML += `<p><strong>GSA:</strong> ${data.reply}</p>`;
+        adicionarMensagem('msg-ia', 'GSA', data.reply);
     } catch (error) {
         console.error(error);
-        container.innerHTML += `<p><strong>GSA:</strong> Erro ao conectar com a IA 🌐</p>`;
+        adicionarMensagem('msg-ia', 'GSA', 'Erro ao conectar com a IA 🌐');
     }
 
     container.scrollTop = container.scrollHeight;
