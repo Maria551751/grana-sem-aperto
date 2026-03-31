@@ -552,6 +552,7 @@ async function perguntarIA() {
     if (!query) return;
 
     container.innerHTML += `<p><strong>Você:</strong> ${query}</p>`;
+    input.value = "";
 
     try {
         const response = await fetch("/api/chat", {
@@ -563,15 +564,21 @@ async function perguntarIA() {
         });
 
         const data = await response.json();
-        container.innerHTML += `<p><strong>GSA:</strong> ${data.reply || "Sem resposta da IA."}</p>`;
+
+        if (!response.ok) {
+            container.innerHTML += `<p><strong>GSA:</strong> ${data.error || "Erro ao responder."}</p>`;
+            return;
+        }
+
+        container.innerHTML += `<p><strong>GSA:</strong> ${data.reply}</p>`;
     } catch (error) {
         console.error(error);
-        container.innerHTML += `<p>Erro ao conectar com a IA</p>`;
+        container.innerHTML += `<p><strong>GSA:</strong> Erro ao conectar com a IA 🌐</p>`;
     }
 
-    input.value = "";
     container.scrollTop = container.scrollHeight;
 }
+
 
 
 /* ===== TAXAS AUTOMÁTICAS CORRIGIDAS ===== */
