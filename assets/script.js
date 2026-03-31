@@ -551,6 +551,15 @@ async function perguntarIA() {
 
     container.innerHTML += `<p><strong>Você:</strong> ${query}</p>`;
 
+   async function perguntarIA() {
+    const input = document.getElementById('user-query');
+    const container = document.getElementById('chat-messages');
+
+    const query = input.value.trim();
+    if (!query) return;
+
+    container.innerHTML += `<p><strong>Você:</strong> ${query}</p>`;
+
     try {
         const response = await fetch("/api/chat", {
             method: "POST",
@@ -570,57 +579,6 @@ async function perguntarIA() {
 
     input.value = "";
 }
-
-    const query = input.value.trim();
-    if (!query) return;
-
-    const paginaAtual = document.title;
-    let contexto = "Você é o assistente da GSA (Grana Sem Aperto). Responda de forma simples para jovens investidores.";
-
-    if (paginaAtual.includes("Calculadora")) {
-        contexto = "Você é o especialista em matemática financeira da GSA. Ajude o usuário com os cálculos de juros e termos financeiros.";
-    } else if (paginaAtual.includes("Cursos")) {
-        contexto = "Você é o tutor de investimentos da GSA. Ajude o usuário com as dúvidas sobre os módulos e aulas.";
-    }
-
-    container.innerHTML += `<div class="msg-user">${query}</div>`;
-    input.value = "";
-
-    const aiMsgId = 'ai-' + Date.now();
-    container.innerHTML += `<div class="msg-ia" id="${aiMsgId}">Digitando... </div>`;
-    container.scrollTop = container.scrollHeight;
-
-    const url = new URL("https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent");
-    url.searchParams.append("key", API_KEY.trim());
-
-    try {
-        const response = await fetch(url, {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({
-                contents: [{
-                    parts: [{
-                        text: `${contexto} Pergunta do Investido(a): ${query}`
-                    }]
-                }]
-            })
-        });
-
-        const data = await response.json();
-
-        if (data.error) {
-            document.getElementById(aiMsgId).innerText = "Erro: " + data.error.message;
-            return;
-        }
-
-        const text = data?.candidates?.[0]?.content?.parts?.[0]?.text;
-        document.getElementById(aiMsgId).innerText = text || "Resposta vazia da IA 😅";
-    } catch (error) {
-        document.getElementById(aiMsgId).innerText = "Erro de conexão 🌐";
-        console.error(error);
-    }
-
-    container.scrollTop = container.scrollHeight;
 }
 
 /* ===== TAXAS AUTOMÁTICAS CORRIGIDAS ===== */
