@@ -1,3 +1,9 @@
+if (typeof window.CONFIG === 'undefined') {
+    window.CONFIG = {
+        GEMINI_API_KEY: ""
+    };
+}
+
 /* =========================================
    1. CONTROLE DA SIDEBAR (ABRIR/FECHAR)
    ========================================= */
@@ -772,5 +778,14 @@ window.addEventListener('DOMContentLoaded', () => {
     if (savedFont) {
         currentFontSize = parseInt(savedFont, 10);
         document.documentElement.style.fontSize = currentFontSize + 'px';
+    }
+
+    if (window.lucide && document.querySelector('[data-lucide]')) {
+        window.lucide.createIcons();
+    }
+
+    if (window.VLibras && document.querySelector('[vw]') && !window.__gsaVlibrasIniciado) {
+        new window.VLibras.Widget('https://vlibras.gov.br/app');
+        window.__gsaVlibrasIniciado = true;
     }
 });

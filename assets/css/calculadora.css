@@ -1,0 +1,56 @@
+.vidro-cinza {
+    background: rgba(30, 30, 35, 0.6) !important;
+    backdrop-filter: blur(20px) saturate(180%);
+    -webkit-backdrop-filter: blur(20px) saturate(180%);
+    border: 1px solid rgba(255, 255, 255, 0.15) !important;
+    box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.8);
+    border-radius: 24px;
+}
+
+.calc-inputs-vertical {
+    display: flex !important;
+    flex-direction: column !important;
+    gap: 20px !important;
+    width: 100%;
+}
+
+.input-group-vertical {
+    display: flex;
+    flex-direction: column;
+    text-align: left;
+}
+
+.input-group-vertical label {
+    color: #fff;
+    margin-bottom: 8px;
+    font-weight: 600;
+    font-size: 14px;
+}
+
+.input-group-vertical input {
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    padding: 15px;
+    border-radius: 12px;
+    color: #fff;
+    outline: none;
+    transition: 0.3s;
+}
+
+.input-group-vertical input:focus {
+    border-color: #22c55e;
+    background: rgba(255, 255, 255, 0.1);
+}
+
+.taxa-valor {
+    font-size: 20px;
+    display: block;
+}
+
+.taxa-status {
+    display: block;
+    margin-top: 6px;
+    font-size: 11px;
+    color: #8b8b8b;
+}
+
