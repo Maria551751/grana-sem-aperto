@@ -43,10 +43,26 @@ body {
 }
 
 .logo {
+    display: inline-flex;
+    align-items: center;
+    gap: 12px;
     color: var(--verde-gsa);
     font-size: 28px;
     font-weight: 800;
     text-decoration: none;
+}
+
+.logo-mark {
+    width: 42px;
+    height: 42px;
+    object-fit: cover;
+    border-radius: 10px;
+    flex-shrink: 0;
+}
+
+.logo-text {
+    display: inline-block;
+    line-height: 1;
 }
 
 .menu-desktop {
