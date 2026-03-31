@@ -546,14 +546,7 @@ async function perguntarIA() {
     const input = document.getElementById('user-query');
     const container = document.getElementById('chat-messages');
 
-    const query = input.value.trim();
-    if (!query) return;
-
-    container.innerHTML += `<p><strong>Você:</strong> ${query}</p>`;
-
-   async function perguntarIA() {
-    const input = document.getElementById('user-query');
-    const container = document.getElementById('chat-messages');
+    if (!input || !container) return;
 
     const query = input.value.trim();
     if (!query) return;
@@ -570,16 +563,16 @@ async function perguntarIA() {
         });
 
         const data = await response.json();
-
-        container.innerHTML += `<p><strong>GSA:</strong> ${data.reply}</p>`;
-
+        container.innerHTML += `<p><strong>GSA:</strong> ${data.reply || "Sem resposta da IA."}</p>`;
     } catch (error) {
+        console.error(error);
         container.innerHTML += `<p>Erro ao conectar com a IA</p>`;
     }
 
     input.value = "";
+    container.scrollTop = container.scrollHeight;
 }
-}
+
 
 /* ===== TAXAS AUTOMÁTICAS CORRIGIDAS ===== */
 function formatarPercentual(valor) {
