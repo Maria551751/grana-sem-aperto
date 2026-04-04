@@ -1090,6 +1090,265 @@ body {
     line-height: 1.4;
 }
 
+.chat-conteudo-html {
+    margin-top: 8px;
+    display: block;
+}
+
+.chat-conteudo-html-sem-remetente {
+    margin-top: 0;
+}
+
+.ia-resposta-card {
+    display: grid;
+    gap: 12px;
+    width: 100%;
+}
+
+.ia-resposta-card-interno {
+    gap: 10px;
+    padding: 12px;
+    border-radius: 14px;
+    background: rgba(255, 255, 255, 0.03);
+    border: 1px solid rgba(255, 255, 255, 0.06);
+}
+
+.ia-resposta-titulo {
+    font-size: 16px;
+    font-weight: 800;
+    line-height: 1.25;
+    letter-spacing: -0.02em;
+    color: #f8fafc;
+}
+
+.ia-resposta-resumo {
+    margin: 0;
+    color: rgba(255, 255, 255, 0.82);
+    line-height: 1.6;
+}
+
+.ia-resposta-explicacao {
+    margin: 0;
+    color: rgba(255, 255, 255, 0.9);
+    line-height: 1.68;
+}
+
+.ia-resposta-paragrafo {
+    margin: 0;
+    color: rgba(255, 255, 255, 0.82);
+    line-height: 1.65;
+}
+
+.ia-resposta-bloco {
+    display: grid;
+    gap: 8px;
+}
+
+.ia-resposta-subcard {
+    display: block;
+}
+
+.ia-resposta-secao {
+    display: grid;
+    gap: 10px;
+}
+
+.ia-resposta-secao-titulo {
+    font-size: 11px;
+    font-weight: 800;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: #67e8f9;
+}
+
+.ia-resposta-label {
+    font-size: 11px;
+    font-weight: 800;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: #86efac;
+}
+
+.ia-resposta-texto {
+    margin: 0;
+    color: rgba(255, 255, 255, 0.84);
+    line-height: 1.65;
+    word-break: break-word;
+}
+
+.ia-resposta-texto-destaque {
+    color: #f8fafc;
+}
+
+.ia-resposta-passos {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    display: grid;
+    gap: 8px;
+    counter-reset: ia-step;
+}
+
+.ia-resposta-passos li {
+    position: relative;
+    padding: 10px 12px 10px 42px;
+    border-radius: 12px;
+    background: rgba(255, 255, 255, 0.04);
+    border: 1px solid rgba(255, 255, 255, 0.07);
+    color: #f4f4f5;
+    line-height: 1.55;
+    word-break: break-word;
+}
+
+.ia-resposta-passos li::before {
+    counter-increment: ia-step;
+    content: counter(ia-step);
+    position: absolute;
+    left: 12px;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 20px;
+    height: 20px;
+    border-radius: 999px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 11px;
+    font-weight: 800;
+    color: #d1fae5;
+    background: rgba(16, 185, 129, 0.18);
+    border: 1px solid rgba(16, 185, 129, 0.38);
+}
+
+.ia-resposta-lista {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    display: grid;
+    gap: 8px;
+}
+
+.ia-resposta-lista li {
+    position: relative;
+    padding: 10px 12px 10px 32px;
+    border-radius: 12px;
+    background: rgba(255, 255, 255, 0.035);
+    border: 1px solid rgba(255, 255, 255, 0.06);
+    color: rgba(255, 255, 255, 0.88);
+    line-height: 1.55;
+    word-break: break-word;
+}
+
+.ia-resposta-lista li::before {
+    content: "";
+    position: absolute;
+    left: 14px;
+    top: 18px;
+    width: 7px;
+    height: 7px;
+    border-radius: 999px;
+    background: #34d399;
+    box-shadow: 0 0 0 4px rgba(52, 211, 153, 0.12);
+}
+
+.ia-resposta-exercicios {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    display: grid;
+    gap: 8px;
+    counter-reset: ia-exercicio;
+}
+
+.ia-resposta-exercicios li {
+    position: relative;
+    padding: 10px 12px 10px 42px;
+    border-radius: 12px;
+    background: rgba(59, 130, 246, 0.08);
+    border: 1px solid rgba(96, 165, 250, 0.18);
+    color: rgba(255, 255, 255, 0.9);
+    line-height: 1.55;
+    word-break: break-word;
+}
+
+.ia-resposta-exercicios li::before {
+    counter-increment: ia-exercicio;
+    content: counter(ia-exercicio);
+    position: absolute;
+    left: 12px;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 20px;
+    height: 20px;
+    border-radius: 999px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 11px;
+    font-weight: 800;
+    color: #dbeafe;
+    background: rgba(59, 130, 246, 0.24);
+    border: 1px solid rgba(147, 197, 253, 0.28);
+}
+
+.ia-resposta-alerta {
+    display: flex;
+    align-items: flex-start;
+    gap: 10px;
+    padding: 12px 14px;
+    border-radius: 12px;
+    background: rgba(250, 204, 21, 0.08);
+    border: 1px solid rgba(250, 204, 21, 0.18);
+    border-left: 3px solid #facc15;
+}
+
+.ia-resposta-alerta-icon {
+    flex-shrink: 0;
+    font-size: 0;
+    line-height: 1.2;
+}
+
+.ia-resposta-alerta-icon::before {
+    content: "\26A0\FE0F";
+    font-size: 16px;
+}
+
+.ia-resposta-alerta-label {
+    display: block;
+    margin-bottom: 6px;
+    font-size: 11px;
+    font-weight: 800;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: #fde68a;
+}
+
+.ia-resposta-alerta p {
+    margin: 0;
+    line-height: 1.55;
+    color: #fef3c7;
+    word-break: break-word;
+}
+
+.ia-resposta-extra {
+    margin: 0;
+    line-height: 1.55;
+    color: rgba(255, 255, 255, 0.82);
+    word-break: break-word;
+}
+
+@media (max-width: 480px) {
+    .ia-resposta-titulo {
+        font-size: 15px;
+    }
+
+    .ia-resposta-passos li,
+    .ia-resposta-lista li,
+    .ia-resposta-exercicios li {
+        padding-right: 10px;
+    }
+}
+
 .msg-user { 
     background: #10b981; 
     padding: 12px; 
@@ -1774,4 +2033,9 @@ body.alto-contraste strong {
     margin-top: 20px;
     border-top: 1px solid rgba(255,255,255,0.05);
     padding-top: 15px;
+}
+
+@keyframes girarQuiz {
+    from { transform: rotate(0deg); }
+    to { transform: rotate(360deg); }
 }
