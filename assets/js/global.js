@@ -4,7 +4,7 @@ if (typeof window.CONFIG === 'undefined') {
     };
 }
 
-const N8N_CHAT_WEBHOOK_URL = "http://127.0.0.1:5878/webhook/gsa-chat";
+const N8N_CHAT_WEBHOOK_URL = "https://gsa28xx.app.n8n.cloud/webhook/gsa-chat";
 
 /* =========================================
    1. CONTROLE DA SIDEBAR (ABRIR/FECHAR)
