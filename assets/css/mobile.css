@@ -27,6 +27,10 @@
         flex-direction: column;
     }
 
+    .gsa-ligacoes {
+        display: none;
+    }
+
     .hero-texto h2 {
         font-size: 45px;
     }
