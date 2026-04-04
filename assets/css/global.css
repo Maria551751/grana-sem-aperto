@@ -332,11 +332,24 @@ body {
 
 .gsa-grid:has(.gsa-card-reserva:hover) .ligacao-reserva,
 .gsa-grid:has(.gsa-card-renda:hover) .ligacao-renda,
-.gsa-grid:has(.gsa-card-fundos:hover) .ligacao-fundos,
-.gsa-grid:has(.gsa-card-acoes:hover) .ligacao-acoes {
+.gsa-grid:has(.gsa-card-fundos:hover) .ligacao-fundos {
     opacity: 1;
     stroke-dashoffset: 0;
     filter: drop-shadow(0 0 16px rgba(16, 185, 129, 0.28));
+}
+
+.gsa-grid:has(.gsa-card-acoes:hover) .ligacao-acoes {
+    opacity: 1;
+    stroke-dashoffset: 0;
+    filter: drop-shadow(0 0 18px rgba(245, 158, 11, 0.28));
+}
+
+.gsa-grid:has(.gsa-card-reserva:hover) .gsa-percentual-reserva,
+.gsa-grid:has(.gsa-card-renda:hover) .gsa-percentual-renda,
+.gsa-grid:has(.gsa-card-fundos:hover) .gsa-percentual-fundos,
+.gsa-grid:has(.gsa-card-acoes:hover) .gsa-percentual-acoes {
+    opacity: 1;
+    transform: translateY(0) scale(1);
 }
 
 /* --- O GRÁFICO CENTRAL (QUE TINHA SUMIDO) --- */
@@ -345,17 +358,39 @@ body {
     height: 320px;
     border-radius: 50%;
     background: conic-gradient(
-        var(--verde-gsa) 0% 40%, 
-        #facc15 40% 65%, 
-        #3b82f6 65% 85%, 
-        #ec4899 85% 100%
+        #1ec78d 0deg 128deg,
+        #f4c314 128deg 220deg,
+        #3f83f8 220deg 304deg,
+        #ec4899 304deg 360deg
     );
     display: flex;
     justify-content: center;
     align-items: center;
     position: relative;
-    box-shadow: 0 0 40px rgba(0, 0, 0, 0.1);
+    box-shadow:
+        0 22px 46px rgba(16, 185, 129, 0.14),
+        0 10px 30px rgba(0, 0, 0, 0.08);
     z-index: 3;
+}
+
+.grafico-circular::before {
+    content: '';
+    position: absolute;
+    inset: -12px;
+    border-radius: 50%;
+    background:
+        radial-gradient(circle at 50% 50%, rgba(255, 255, 255, 0.75) 0%, rgba(255, 255, 255, 0) 62%),
+        conic-gradient(
+            from 0deg,
+            rgba(30, 199, 141, 0.26),
+            rgba(244, 195, 20, 0.22),
+            rgba(63, 131, 248, 0.2),
+            rgba(236, 72, 153, 0.22),
+            rgba(30, 199, 141, 0.26)
+        );
+    filter: blur(18px);
+    opacity: 0.8;
+    z-index: -1;
 }
 
 .grafico-circular::after {
@@ -365,7 +400,80 @@ body {
     background: var(--branco-fundo);
     border-radius: 50%;
     position: absolute;
+    box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.9);
     z-index: 1; /* Fica atrás do texto */
+}
+
+.gsa-percentual {
+    position: absolute;
+    display: grid;
+    gap: 2px;
+    padding: 10px 14px;
+    border-radius: 999px;
+    background: rgba(255, 255, 255, 0.92);
+    box-shadow: 0 14px 32px rgba(15, 23, 42, 0.12);
+    text-align: center;
+    white-space: nowrap;
+    opacity: 0;
+    transform: translateY(8px) scale(0.96);
+    transition: opacity 0.25s ease, transform 0.35s ease;
+    pointer-events: none;
+    z-index: 4;
+}
+
+.gsa-percentual-valor {
+    font-size: 22px;
+    font-weight: 900;
+    line-height: 1;
+    color: #111827;
+}
+
+.gsa-percentual-label {
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: #6b7280;
+}
+
+.gsa-percentual-reserva {
+    top: 18px;
+    left: -16px;
+    border: 1px solid rgba(236, 72, 153, 0.24);
+}
+
+.gsa-percentual-reserva .gsa-percentual-valor {
+    color: #db2777;
+}
+
+.gsa-percentual-renda {
+    left: -54px;
+    bottom: 78px;
+    border: 1px solid rgba(63, 131, 248, 0.24);
+}
+
+.gsa-percentual-renda .gsa-percentual-valor {
+    color: #2563eb;
+}
+
+.gsa-percentual-fundos {
+    top: 86px;
+    right: -64px;
+    border: 1px solid rgba(30, 199, 141, 0.24);
+}
+
+.gsa-percentual-fundos .gsa-percentual-valor {
+    color: #059669;
+}
+
+.gsa-percentual-acoes {
+    right: 18px;
+    bottom: -26px;
+    border: 1px solid rgba(244, 195, 20, 0.28);
+}
+
+.gsa-percentual-acoes .gsa-percentual-valor {
+    color: #d97706;
 }
 
 .centro-grafico {
