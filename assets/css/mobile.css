@@ -1,0 +1,317 @@
+/* =========================================
+   RESPONSIVIDADE
+   Mobile e tablet separados do CSS base.
+   ========================================= */
+
+@media (max-width: 1100px) {
+    .hero {
+        flex-direction: column;
+        gap: 40px;
+        text-align: center;
+    }
+
+    .hero-texto {
+        width: 100%;
+        max-width: 720px;
+    }
+
+    .hero-imagem {
+        position: static;
+        width: 100%;
+        transform: none;
+        justify-content: center;
+        margin-top: 0;
+    }
+
+    .gsa-grid {
+        flex-direction: column;
+    }
+
+    .hero-texto h2 {
+        font-size: 45px;
+    }
+}
+
+@media (max-width: 900px) {
+    .card-gsa {
+        min-width: 80%;
+        scroll-snap-align: center;
+    }
+
+    .slider-container {
+        max-width: 100%;
+    }
+
+    .seta {
+        display: none;
+    }
+
+    .slider-wrapper {
+        overflow-x: auto;
+        scroll-snap-type: x proximity;
+        padding-bottom: 8px;
+    }
+}
+
+@media (max-width: 768px) {
+    .cabecalho {
+        padding: 18px 5%;
+        gap: 16px;
+    }
+
+    .logo {
+        gap: 10px;
+        font-size: 20px;
+    }
+
+    .logo-mark {
+        width: 52px;
+        height: 52px;
+    }
+
+    .logo-text {
+        max-width: 170px;
+    }
+
+    .menu-desktop {
+        gap: 12px;
+    }
+
+    .menu-desktop a:not(.btn-calculadora) {
+        display: none;
+    }
+
+    .menu-desktop .btn-calculadora {
+        padding: 10px 12px;
+        font-size: 13px;
+        text-align: center;
+    }
+
+    .menu-mobile-btn {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 32px;
+        line-height: 1;
+    }
+
+    .hero {
+        min-height: auto;
+        padding: 72px 5% 56px;
+    }
+
+    .hero-texto h2,
+    .titulo-gsa,
+    .gsa-titulo {
+        font-size: 36px;
+    }
+
+    .hero-texto p,
+    .subtitulo,
+    .cursos-subtitulo {
+        font-size: 16px;
+    }
+
+    .hero-btns {
+        display: flex;
+        flex-direction: column;
+        gap: 14px;
+    }
+
+    .btn-primario,
+    .btn-secundario {
+        width: 100%;
+        text-align: center;
+    }
+
+    .imagem-cofrinho {
+        max-width: 460px;
+    }
+
+    .gsa-secao,
+    .faq-secao,
+    .cursos-pagina,
+    .container-criadores {
+        padding-left: 5%;
+        padding-right: 5%;
+    }
+
+    .gsa-card,
+    .curso-card {
+        width: 100%;
+    }
+
+    .destaque-card {
+        transform: scale(1);
+    }
+
+    .cursos-titulo {
+        font-size: 34px;
+    }
+
+    .modal-content {
+        width: min(92vw, 500px);
+        max-height: 88vh;
+        padding: 28px 20px;
+        overflow-y: auto;
+    }
+
+    .modulo-item {
+        align-items: flex-start;
+        gap: 12px;
+    }
+
+    .calc-card,
+    .tutorial-grid,
+    .taxa-card {
+        width: 100% !important;
+    }
+
+    .res-grid {
+        flex-direction: column;
+        gap: 14px;
+    }
+
+    .tabela-gsa {
+        min-width: 620px;
+    }
+
+    #ai-chat-wrapper {
+        right: 12px;
+        bottom: 12px;
+    }
+
+    #btn-ia-toggle {
+        padding: 12px 16px;
+        font-size: 13px;
+        gap: 8px;
+    }
+
+    #chat-box-ia {
+        right: 0;
+        bottom: 72px;
+        width: min(92vw, 360px);
+        height: min(70vh, 460px);
+    }
+
+    #acess-wrapper {
+        left: 12px !important;
+        bottom: 12px !important;
+    }
+
+    #acess-panel {
+        width: min(78vw, 250px) !important;
+    }
+
+    .container-criadores {
+        padding-top: 40px !important;
+    }
+
+    .slider-container {
+        justify-content: flex-start;
+    }
+
+    .grid-criadores {
+        gap: 18px;
+        padding: 10px 2px 16px;
+    }
+
+    .card-gsa {
+        min-width: min(84vw, 320px);
+        width: min(84vw, 320px);
+        min-height: auto;
+    }
+
+    .foto-container {
+        height: 300px;
+    }
+
+    .sidebar {
+        width: min(86vw, 320px);
+        right: -320px;
+        padding: 24px 20px;
+    }
+}
+
+@media (max-width: 480px) {
+    .cabecalho {
+        padding: 16px 4%;
+    }
+
+    .logo {
+        font-size: 18px;
+    }
+
+    .logo-mark {
+        width: 46px;
+        height: 46px;
+    }
+
+    .logo-text {
+        max-width: 130px;
+    }
+
+    .menu-desktop .btn-calculadora {
+        display: none;
+    }
+
+    .hero {
+        padding: 56px 4% 44px;
+    }
+
+    .hero-texto h2,
+    .titulo-gsa,
+    .gsa-titulo,
+    .faq-titulo {
+        font-size: 30px;
+    }
+
+    .gsa-card,
+    .curso-card,
+    .calc-card {
+        padding: 24px !important;
+    }
+
+    .chat-header,
+    .chat-input,
+    #chat-messages {
+        padding-left: 12px;
+        padding-right: 12px;
+    }
+
+    .ia-resposta-titulo {
+        font-size: 15px;
+    }
+
+    .ia-resposta-passos li,
+    .ia-resposta-lista li,
+    .ia-resposta-exercicios li {
+        padding-right: 10px;
+    }
+
+    #btn-ia-toggle {
+        padding: 11px 14px;
+    }
+
+    #btn-ia-toggle span {
+        display: none;
+    }
+
+    #chat-box-ia {
+        width: calc(100vw - 24px);
+        height: min(68vh, 430px);
+    }
+
+    #acess-panel {
+        left: 0 !important;
+    }
+
+    .card-gsa {
+        min-width: calc(100vw - 40px);
+        width: calc(100vw - 40px);
+    }
+
+    .foto-container {
+        height: 260px;
+    }
+}

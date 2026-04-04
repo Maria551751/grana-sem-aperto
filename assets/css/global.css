@@ -126,6 +126,7 @@ body {
     color: var(--verde-gsa);
     font-size: 30px;
     cursor: pointer;
+    display: none;
 }
 
 /* =========================================
@@ -437,17 +438,6 @@ body {
 .delay-3 { transition-delay: 0.6s; }
 
 /* =========================================
-   8. RESPONSIVIDADE
-   ========================================= */
-@media (max-width: 1100px) {
-    .hero { flex-direction: column; text-align: center; }
-    .hero-texto { width: 100%; }
-    .hero-imagem { position: static; width: 100%; transform: none; justify-content: center; margin-top: 50px; }
-    .gsa-grid { flex-direction: column; }
-    .hero-texto h2 { font-size: 45px; }
-}
-
-/* =========================================
    SIDEBAR (MENU LATERAL + FEEDBACK)
    ========================================= */
 .sidebar {
@@ -698,16 +688,6 @@ body {
 .btn-destaque:hover {
     background: #059669;
     color: #ffffff;
-}
-
-/* Responsividade para os cards de curso */
-@media (max-width: 768px) {
-    .destaque-card {
-        transform: scale(1);
-    }
-    .curso-card {
-        width: 100%;
-    }
 }
 
 /* MODAL STYLE */
@@ -1337,18 +1317,6 @@ body {
     word-break: break-word;
 }
 
-@media (max-width: 480px) {
-    .ia-resposta-titulo {
-        font-size: 15px;
-    }
-
-    .ia-resposta-passos li,
-    .ia-resposta-lista li,
-    .ia-resposta-exercicios li {
-        padding-right: 10px;
-    }
-}
-
 .msg-user { 
     background: #10b981; 
     padding: 12px; 
@@ -1689,14 +1657,6 @@ body {
     transform: scale(1.1);            /* Dá um leve zoom */
     box-shadow: 0 0 20px rgba(34, 197, 94, 0.6); /* Aumenta o brilho */
 }
-/* --- RESPONSIVIDADE --- */
-@media (max-width: 900px) {
-    .card-gsa { min-width: 80%; }
-    .slider-container { max-width: 100%; }
-    .seta { display: none; }
-    .slider-wrapper { overflow-x: auto; }
-}
-
 /* --- DEFINIÇÃO DAS ANIMAÇÕES --- */
 
 /* Animação para o título e subtítulo (Vem de cima) */
