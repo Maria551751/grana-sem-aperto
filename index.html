@@ -75,18 +75,36 @@
         <div class="gsa-grid revelar delay-1">
             <div class="gsa-ligacoes" aria-hidden="true">
                 <svg viewBox="0 0 1180 520" preserveAspectRatio="none">
-                    <path class="ligacao-card" d="M278 115 C 370 70, 475 72, 560 150" />
-                    <path class="ligacao-card" d="M282 382 C 360 330, 455 300, 548 248" />
-                    <path class="ligacao-card" d="M904 144 C 828 164, 748 190, 634 208" />
-                    <path class="ligacao-card" d="M896 368 C 832 430, 714 442, 610 326" />
+                    <defs>
+                        <linearGradient id="ligacaoReserva" x1="278" y1="112" x2="520" y2="144" gradientUnits="userSpaceOnUse">
+                            <stop offset="0%" stop-color="#34d399" />
+                            <stop offset="100%" stop-color="#10b981" />
+                        </linearGradient>
+                        <linearGradient id="ligacaoRenda" x1="280" y1="380" x2="528" y2="276" gradientUnits="userSpaceOnUse">
+                            <stop offset="0%" stop-color="#6ee7b7" />
+                            <stop offset="100%" stop-color="#3b82f6" />
+                        </linearGradient>
+                        <linearGradient id="ligacaoFundos" x1="904" y1="144" x2="676" y2="200" gradientUnits="userSpaceOnUse">
+                            <stop offset="0%" stop-color="#6ee7b7" />
+                            <stop offset="100%" stop-color="#10b981" />
+                        </linearGradient>
+                        <linearGradient id="ligacaoAcoes" x1="896" y1="370" x2="662" y2="344" gradientUnits="userSpaceOnUse">
+                            <stop offset="0%" stop-color="#34d399" />
+                            <stop offset="100%" stop-color="#facc15" />
+                        </linearGradient>
+                    </defs>
+                    <path class="ligacao-card ligacao-reserva" d="M278 112 C 366 78, 448 78, 520 144" />
+                    <path class="ligacao-card ligacao-renda" d="M280 380 C 358 324, 434 306, 528 276" />
+                    <path class="ligacao-card ligacao-fundos" d="M904 144 C 830 158, 758 178, 676 200" />
+                    <path class="ligacao-card ligacao-acoes" d="M896 370 C 844 454, 736 454, 662 344" />
                 </svg>
             </div>
             <div class="gsa-coluna">
-                <div class="gsa-card">
+                <div class="gsa-card gsa-card-reserva">
                     <h3>💰 Reserva de Emergência</h3>
                     <p>Segurança total para os seus imprevistos do dia a dia.</p>
                 </div>
-                <div class="gsa-card">
+                <div class="gsa-card gsa-card-renda">
                     <h3>📈 Renda Fixa</h3>
                     <p>Rentabilidade com a segurança do Tesouro Nacional.</p>
                 </div>
@@ -100,11 +118,11 @@
             </div>
 
             <div class="gsa-coluna">
-                <div class="gsa-card">
+                <div class="gsa-card gsa-card-fundos">
                     <h3>🏢 Fundos Imobiliários</h3>
                     <p>Receba aluguéis todos os meses direto na sua conta.</p>
                 </div>
-                <div class="gsa-card">
+                <div class="gsa-card gsa-card-acoes">
                     <h3>🍎 Ações</h3>
                     <p>Torne-se sócio das maiores empresas do Brasil e do mundo.</p>
                 </div>

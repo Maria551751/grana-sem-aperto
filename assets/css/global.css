@@ -304,10 +304,39 @@ body {
 
 .ligacao-card {
     fill: none;
-    stroke: rgba(16, 185, 129, 0.82);
-    stroke-width: 14;
+    stroke-width: 12;
     stroke-linecap: round;
-    filter: drop-shadow(0 0 14px rgba(16, 185, 129, 0.35));
+    stroke-linejoin: round;
+    opacity: 0;
+    stroke-dasharray: 420;
+    stroke-dashoffset: 420;
+    transition: opacity 0.25s ease, stroke-dashoffset 0.65s cubic-bezier(0.22, 1, 0.36, 1), filter 0.35s ease;
+    filter: drop-shadow(0 0 8px rgba(16, 185, 129, 0.18));
+}
+
+.ligacao-reserva {
+    stroke: url(#ligacaoReserva);
+}
+
+.ligacao-renda {
+    stroke: url(#ligacaoRenda);
+}
+
+.ligacao-fundos {
+    stroke: url(#ligacaoFundos);
+}
+
+.ligacao-acoes {
+    stroke: url(#ligacaoAcoes);
+}
+
+.gsa-grid:has(.gsa-card-reserva:hover) .ligacao-reserva,
+.gsa-grid:has(.gsa-card-renda:hover) .ligacao-renda,
+.gsa-grid:has(.gsa-card-fundos:hover) .ligacao-fundos,
+.gsa-grid:has(.gsa-card-acoes:hover) .ligacao-acoes {
+    opacity: 1;
+    stroke-dashoffset: 0;
+    filter: drop-shadow(0 0 16px rgba(16, 185, 129, 0.28));
 }
 
 /* --- O GRÁFICO CENTRAL (QUE TINHA SUMIDO) --- */
@@ -380,6 +409,7 @@ body {
 .gsa-card:hover {
     border-color: var(--verde-gsa);
     transform: translateY(-10px);
+    box-shadow: 0 18px 36px rgba(16, 185, 129, 0.12);
 }
 
 .gsa-card h3 { color: #121214; margin-bottom: 10px; }
