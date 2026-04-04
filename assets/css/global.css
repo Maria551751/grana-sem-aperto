@@ -330,12 +330,17 @@ body {
     stroke: url(#ligacaoAcoes);
 }
 
-.gsa-grid:has(.gsa-card-reserva:hover) .ligacao-reserva,
 .gsa-grid:has(.gsa-card-renda:hover) .ligacao-renda,
 .gsa-grid:has(.gsa-card-fundos:hover) .ligacao-fundos {
     opacity: 1;
     stroke-dashoffset: 0;
     filter: drop-shadow(0 0 16px rgba(16, 185, 129, 0.28));
+}
+
+.gsa-grid:has(.gsa-card-reserva:hover) .ligacao-reserva {
+    opacity: 1;
+    stroke-dashoffset: 0;
+    filter: drop-shadow(0 0 16px rgba(236, 72, 153, 0.34));
 }
 
 .gsa-grid:has(.gsa-card-acoes:hover) .ligacao-acoes {
@@ -358,18 +363,19 @@ body {
     height: 320px;
     border-radius: 50%;
     background: conic-gradient(
-        #1ec78d 0deg 128deg,
-        #f4c314 128deg 220deg,
-        #3f83f8 220deg 304deg,
-        #ec4899 304deg 360deg
+        #19e6a2 0deg 128deg,
+        #ffd21f 128deg 220deg,
+        #3b82ff 220deg 304deg,
+        #ff4db8 304deg 360deg
     );
     display: flex;
     justify-content: center;
     align-items: center;
     position: relative;
     box-shadow:
-        0 22px 46px rgba(16, 185, 129, 0.14),
-        0 10px 30px rgba(0, 0, 0, 0.08);
+        0 0 34px rgba(25, 230, 162, 0.22),
+        0 0 48px rgba(59, 130, 255, 0.12),
+        0 20px 42px rgba(0, 0, 0, 0.1);
     z-index: 3;
 }
 
@@ -382,14 +388,14 @@ body {
         radial-gradient(circle at 50% 50%, rgba(255, 255, 255, 0.75) 0%, rgba(255, 255, 255, 0) 62%),
         conic-gradient(
             from 0deg,
-            rgba(30, 199, 141, 0.26),
-            rgba(244, 195, 20, 0.22),
-            rgba(63, 131, 248, 0.2),
-            rgba(236, 72, 153, 0.22),
-            rgba(30, 199, 141, 0.26)
+            rgba(25, 230, 162, 0.34),
+            rgba(255, 210, 31, 0.28),
+            rgba(59, 130, 255, 0.24),
+            rgba(255, 77, 184, 0.3),
+            rgba(25, 230, 162, 0.34)
         );
-    filter: blur(18px);
-    opacity: 0.8;
+    filter: blur(20px);
+    opacity: 0.95;
     z-index: -1;
 }
 
