@@ -1622,24 +1622,96 @@ async function perguntarIA() {
         return data;
     };
 
-    const adicionarMensagem = (classe, remetente, texto, opcoes = {}) => {
+    const esperar = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
+
+    const montarMarkupMensagem = (remetente, texto, opcoes = {}) => {
         const conteudo = opcoes.html
             ? (typeof texto === 'string' ? texto : formatarMensagemIA(texto))
             : formatarTexto(texto);
         const esconderRemetente = opcoes.esconderRemetente === true;
         const corpoMensagem = opcoes.html
             ? `<div class="chat-conteudo-html${esconderRemetente ? ' chat-conteudo-html-sem-remetente' : ''}">${conteudo}</div>`
-            : ` ${conteudo}`;
+            : `<div class="chat-conteudo-texto">${conteudo}</div>`;
 
-        container.insertAdjacentHTML(
-            'beforeend',
-            `<div class="${classe}">${esconderRemetente ? '' : `<strong>${escapeHtml(remetente)}:</strong>`}${corpoMensagem}</div>`
-        );
+        return `${esconderRemetente ? '' : `<strong>${escapeHtml(remetente)}:</strong>`}${corpoMensagem}`;
+    };
+
+    const adicionarMensagem = (classe, remetente, texto, opcoes = {}) => {
+
+        const elemento = document.createElement('div');
+        elemento.className = classe;
+        elemento.innerHTML = montarMarkupMensagem(remetente, texto, opcoes);
+        container.appendChild(elemento);
         container.scrollTop = container.scrollHeight;
+        return elemento;
+    };
+
+    const adicionarMensagemPensando = () => {
+        const elemento = document.createElement('div');
+        elemento.className = 'msg-ia msg-ia-pensando';
+        elemento.innerHTML = `
+            <strong>GSA:</strong>
+            <div class="chat-pensando" aria-label="IA pensando">
+                <span class="chat-pensando-ponto"></span>
+                <span class="chat-pensando-ponto"></span>
+                <span class="chat-pensando-ponto"></span>
+            </div>
+        `;
+        container.appendChild(elemento);
+        container.scrollTop = container.scrollHeight;
+        return elemento;
+    };
+
+    const animarMensagemExistente = async (elemento, remetente, texto, opcoes = {}) => {
+        if (!elemento) return;
+
+        elemento.className = 'msg-ia';
+        elemento.innerHTML = montarMarkupMensagem(remetente, texto, opcoes);
+
+        const alvoDigitacao = elemento.querySelector('.chat-conteudo-html, .chat-conteudo-texto');
+        if (!alvoDigitacao) return;
+
+        alvoDigitacao.classList.add('chat-digitando');
+
+        const walker = document.createTreeWalker(alvoDigitacao, NodeFilter.SHOW_TEXT, {
+            acceptNode(node) {
+                return node.textContent && node.textContent.trim()
+                    ? NodeFilter.FILTER_ACCEPT
+                    : NodeFilter.FILTER_REJECT;
+            }
+        });
+
+        const nosTexto = [];
+        let noAtual = walker.nextNode();
+
+        while (noAtual) {
+            nosTexto.push({
+                node: noAtual,
+                texto: noAtual.textContent
+            });
+            noAtual.textContent = '';
+            noAtual = walker.nextNode();
+        }
+
+        const totalCaracteres = nosTexto.reduce((total, item) => total + item.texto.length, 0);
+        const tamanhoBloco = totalCaracteres > 420 ? 4 : totalCaracteres > 220 ? 3 : 2;
+        const pausa = totalCaracteres > 420 ? 10 : totalCaracteres > 220 ? 14 : 18;
+
+        for (const item of nosTexto) {
+            for (let indice = 0; indice < item.texto.length; indice += tamanhoBloco) {
+                item.node.textContent += item.texto.slice(indice, indice + tamanhoBloco);
+                container.scrollTop = container.scrollHeight;
+                await esperar(pausa);
+            }
+        }
+
+        alvoDigitacao.classList.add('chat-digitando-finalizado');
     };
 
     adicionarMensagem('msg-user', 'Você', query);
     input.value = "";
+    const mensagemPensando = adicionarMensagemPensando();
+    const mensagemErroConexaoIa = 'Erro ao conectar com a IA.';
 
     try {
         const response = await fetch(N8N_CHAT_WEBHOOK_URL, {
@@ -1654,7 +1726,8 @@ async function perguntarIA() {
 
         if (!response.ok) {
             const mensagemErro = data?.mensagem || data?.error || data?.message || data?.hint || "Erro ao responder.";
-            adicionarMensagem('msg-ia', 'GSA', formatarMensagemIA(mensagemErro), { html: true });
+            await esperar(500);
+            await animarMensagemExistente(mensagemPensando, 'GSA', formatarMensagemIA(mensagemErro), { html: true });
             return;
         }
 
@@ -1674,7 +1747,8 @@ async function perguntarIA() {
                 (typeof payloadResposta === 'object' && !Array.isArray(payloadResposta) && Object.keys(payloadResposta).length === 0)
             )
         ) {
-            adicionarMensagem('msg-ia', 'GSA', 'A IA respondeu em um formato diferente do esperado.');
+            await esperar(500);
+            await animarMensagemExistente(mensagemPensando, 'GSA', 'A IA respondeu em um formato diferente do esperado.');
             return;
         }
 
@@ -1687,14 +1761,17 @@ async function perguntarIA() {
             : formatarMensagemIA(payloadResposta);
 
         if (!respostaFormatada) {
-            adicionarMensagem('msg-ia', 'GSA', 'A IA respondeu em um formato diferente do esperado.');
+            await esperar(500);
+            await animarMensagemExistente(mensagemPensando, 'GSA', 'A IA respondeu em um formato diferente do esperado.');
             return;
         }
 
-        adicionarMensagem('msg-ia', 'GSA', respostaFormatada, { html: true, esconderRemetente: true });
+        await esperar(650);
+        await animarMensagemExistente(mensagemPensando, 'GSA', respostaFormatada, { html: true, esconderRemetente: true });
     } catch (error) {
         console.error(error);
-        adicionarMensagem('msg-ia', 'GSA', 'Erro ao conectar com a IA 🌐');
+        await esperar(500);
+        return await animarMensagemExistente(mensagemPensando, 'GSA', mensagemErroConexaoIa);
     }
 }
 
