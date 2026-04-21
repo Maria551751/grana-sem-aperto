@@ -26,6 +26,13 @@ body {
     width: 100%;
     overflow-x: hidden;
     background-color: var(--preto-fundo);
+    caret-color: transparent;
+}
+
+input,
+textarea,
+[contenteditable="true"] {
+    caret-color: auto;
 }
 
 /* =========================================
