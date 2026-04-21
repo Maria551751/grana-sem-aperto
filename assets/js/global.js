@@ -436,9 +436,33 @@ const quizContextoPorAula = {
 };
 
 function limparQuizTexto(valor, fallback = '') {
-    return String(valor ?? fallback)
+    return corrigirTextoCorrompido(String(valor ?? fallback))
         .replace(/\s+/g, ' ')
         .trim();
+}
+
+function corrigirTextoCorrompido(valor) {
+    const textoOriginal = String(valor ?? '');
+    if (!textoOriginal) return '';
+
+    const temSinalDeMojibake = /Ã|Â|â€|â€œ|â€|â€™|ðŸ|ï¸|�/.test(textoOriginal);
+    if (!temSinalDeMojibake) {
+        return textoOriginal;
+    }
+
+    try {
+        const textoCorrigido = decodeURIComponent(escape(textoOriginal));
+        const originalRuim = (textoOriginal.match(/Ã|Â|â|ð|ï|�/g) || []).length;
+        const corrigidoRuim = (textoCorrigido.match(/Ã|Â|â|ð|ï|�/g) || []).length;
+
+        if (textoCorrigido && corrigidoRuim <= originalRuim) {
+            return textoCorrigido;
+        }
+    } catch (error) {
+        return textoOriginal;
+    }
+
+    return textoOriginal;
 }
 
 function sortearQuantidadeQuiz() {
@@ -455,7 +479,7 @@ function escaparQuizHtml(valor) {
 }
 
 function stripQuizCodeFences(valor) {
-    return String(valor ?? '')
+    return corrigirTextoCorrompido(String(valor ?? ''))
         .replace(/^```json\s*/i, '')
         .replace(/^```\s*/i, '')
         .replace(/```$/i, '')
@@ -527,7 +551,16 @@ function normalizarPerguntaQuiz(item) {
 }
 
 function normalizarRespostaQuiz(payload) {
-    const bruto = tentarParseQuizPayload(payload?.quiz ?? payload?.mensagem ?? payload);
+    const bruto = tentarParseQuizPayload(
+        payload?.quiz ??
+        payload?.mensagem ??
+        payload?.message ??
+        payload?.reply ??
+        payload?.response ??
+        payload?.output ??
+        payload?.content ??
+        payload
+    );
 
     if (!bruto || typeof bruto !== 'object' || Array.isArray(bruto)) {
         return null;
@@ -977,6 +1010,31 @@ function toggleAIChat() {
     if (chat) chat.classList.toggle('chat-escondido');
 }
 
+let iaEnviandoMensagem = false;
+
+function inicializarEnvioChatComEnter() {
+    const input = document.getElementById('user-query');
+
+    if (!input || input.dataset.enterInicializado === 'true') {
+        return;
+    }
+
+    input.dataset.enterInicializado = 'true';
+    input.addEventListener('keydown', (event) => {
+        if (event.key !== 'Enter' || event.shiftKey) {
+            return;
+        }
+
+        event.preventDefault();
+
+        if (!iaEnviandoMensagem) {
+            perguntarIA();
+        }
+    });
+}
+
+inicializarEnvioChatComEnter();
+
 async function perguntarIA() {
     const input = document.getElementById('user-query');
     const container = document.getElementById('chat-messages');
@@ -986,7 +1044,7 @@ async function perguntarIA() {
     const query = input.value.trim();
     if (!query) return;
 
-    const escapeHtml = (texto) => String(texto)
+    const escapeHtml = (texto) => corrigirTextoCorrompido(String(texto))
         .replaceAll('&', '&amp;')
         .replaceAll('<', '&lt;')
         .replaceAll('>', '&gt;')
@@ -999,7 +1057,7 @@ async function perguntarIA() {
         if (typeof valor !== 'string') return valor;
 
         const removerCercasMarkdown = (texto) => {
-            const textoLimpo = texto.trim();
+            const textoLimpo = corrigirTextoCorrompido(texto).trim();
             const matchBloco = textoLimpo.match(/^```(?:json)?\s*([\s\S]*?)\s*```$/i);
             return matchBloco ? matchBloco[1].trim() : textoLimpo;
         };
@@ -1038,11 +1096,11 @@ async function perguntarIA() {
     };
 
     const formatarRotulo = (chave) => {
-        const texto = String(chave).replaceAll('_', ' ').replaceAll('-', ' ');
+        const texto = corrigirTextoCorrompido(String(chave)).replaceAll('_', ' ').replaceAll('-', ' ');
         return texto.charAt(0).toUpperCase() + texto.slice(1);
     };
 
-    const normalizarChave = (chave) => String(chave)
+    const normalizarChave = (chave) => corrigirTextoCorrompido(String(chave))
         .normalize('NFD')
         .replace(/[\u0300-\u036f]/g, '')
         .toLowerCase()
@@ -1101,7 +1159,7 @@ async function perguntarIA() {
     };
 
     const gerarTituloFallback = () => {
-        const textoOriginal = String(query || '').trim().replace(/[?!.]+$/g, '');
+        const textoOriginal = corrigirTextoCorrompido(String(query || '')).trim().replace(/[?!.]+$/g, '');
 
         if (!textoOriginal) return '';
 
@@ -1113,7 +1171,7 @@ async function perguntarIA() {
         return titulo ? titulo.charAt(0).toUpperCase() + titulo.slice(1) : '';
     };
 
-    const limparTextoPlano = (texto) => String(texto)
+    const limparTextoPlano = (texto) => corrigirTextoCorrompido(String(texto))
         .replace(/\s+/g, ' ')
         .trim();
 
@@ -1523,6 +1581,47 @@ async function perguntarIA() {
         return formatarTexto(valor);
     };
 
+    const extrairPayloadRespostaIA = (data) => {
+        if (data === null || typeof data === 'undefined') {
+            return '';
+        }
+
+        if (typeof data === 'string' || typeof data === 'number' || typeof data === 'boolean') {
+            return data;
+        }
+
+        if (Array.isArray(data)) {
+            const itemUtil = data.find((item) => item !== null && typeof item !== 'undefined');
+            return typeof itemUtil === 'undefined' ? data : extrairPayloadRespostaIA(itemUtil);
+        }
+
+        if (typeof data !== 'object') {
+            return data;
+        }
+
+        const chavesPreferidas = [
+            'mensagem',
+            'message',
+            'reply',
+            'response',
+            'resposta',
+            'answer',
+            'output',
+            'content',
+            'text',
+            'body',
+            'data'
+        ];
+
+        for (const chave of chavesPreferidas) {
+            if (typeof data[chave] !== 'undefined' && data[chave] !== null && data[chave] !== '') {
+                return extrairPayloadRespostaIA(data[chave]);
+            }
+        }
+
+        return data;
+    };
+
     const adicionarMensagem = (classe, remetente, texto, opcoes = {}) => {
         const conteudo = opcoes.html
             ? (typeof texto === 'string' ? texto : formatarMensagemIA(texto))
@@ -1559,13 +1658,7 @@ async function perguntarIA() {
             return;
         }
 
-        const payloadResposta = (
-            typeof data?.mensagem !== 'undefined' &&
-            data?.mensagem !== null &&
-            data?.mensagem !== ''
-        )
-            ? data.mensagem
-            : data;
+        const payloadResposta = extrairPayloadRespostaIA(data);
 
         const temPayloadEstruturado = payloadResposta &&
             typeof payloadResposta === 'object' &&
@@ -1581,16 +1674,20 @@ async function perguntarIA() {
                 (typeof payloadResposta === 'object' && !Array.isArray(payloadResposta) && Object.keys(payloadResposta).length === 0)
             )
         ) {
-            adicionarMensagem('msg-ia', 'GSA', 'A IA respondeu em um formato inesperado.');
+            adicionarMensagem('msg-ia', 'GSA', 'A IA respondeu em um formato diferente do esperado.');
             return;
         }
 
         const respostaFormatada = temPayloadEstruturado
-            ? renderizarRespostaChatGSA(payloadResposta)
+            ? (
+                temRespostaPadraoGSA(payloadResposta)
+                    ? renderizarRespostaChatGSA(payloadResposta)
+                    : formatarMensagemIA(payloadResposta)
+            )
             : formatarMensagemIA(payloadResposta);
 
         if (!respostaFormatada) {
-            adicionarMensagem('msg-ia', 'GSA', 'A IA respondeu em um formato inesperado.');
+            adicionarMensagem('msg-ia', 'GSA', 'A IA respondeu em um formato diferente do esperado.');
             return;
         }
 
@@ -1604,6 +1701,23 @@ async function perguntarIA() {
 
 
 /* ===== TAXAS AUTOMÁTICAS CORRIGIDAS ===== */
+const perguntarIAOriginal = perguntarIA;
+perguntarIA = async function () {
+    const botaoEnviar = document.getElementById('btn-enviar-ia');
+
+    if (iaEnviandoMensagem) return;
+
+    iaEnviandoMensagem = true;
+    if (botaoEnviar) botaoEnviar.disabled = true;
+
+    try {
+        await perguntarIAOriginal();
+    } finally {
+        iaEnviandoMensagem = false;
+        if (botaoEnviar) botaoEnviar.disabled = false;
+    }
+};
+
 function formatarPercentual(valor) {
     return Number(valor).toLocaleString('pt-BR', {
         minimumFractionDigits: 2,
