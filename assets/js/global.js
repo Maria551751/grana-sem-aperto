@@ -4,7 +4,7 @@ if (typeof window.CONFIG === 'undefined') {
     };
 }
 
-const N8N_CHAT_WEBHOOK_URL = "https://granasemaperto.app.n8n.cloud/webhook/gsa-chat";
+const N8N_CHAT_WEBHOOK_URL = "";
 
 /* =========================================
    1. CONTROLE DA SIDEBAR (ABRIR/FECHAR)
@@ -435,6 +435,169 @@ const quizContextoPorAula = {
     "Rebalanceamento da Carteira": "alocacao de ativos, rebalanceamento, controle de risco, diversificacao e disciplina"
 };
 
+Object.assign(bancoDeQuizzes, {
+    "Mentalidade de Investidor": [
+        {
+            pergunta: "De acordo com o material, dinheiro é apenas matemática?",
+            opcoes: ["Sim, basta saber fórmulas.", "Não, dinheiro também é comportamento.", "Sim, emoções não influenciam."],
+            correta: 1,
+            explicacao: "Saber a teoria não basta sem disciplina. Dinheiro também envolve escolhas, hábitos e comportamento."
+        },
+        {
+            pergunta: "O que caracteriza o modo sobrevivência?",
+            opcoes: ["Investir em ações.", "Apenas pagar contas sem construir liberdade.", "Ter uma reserva de 12 meses."],
+            correta: 1,
+            explicacao: "Só pagar contas não constrói liberdade. Esse modo é viver apagando incêndios financeiros."
+        },
+        {
+            pergunta: "Qual mudança de mentalidade o curso incentiva primeiro?",
+            opcoes: ["Buscar lucro rápido a qualquer custo.", "Assumir controle das escolhas financeiras do dia a dia.", "Copiar investimentos sem estudar."],
+            correta: 1,
+            explicacao: "O primeiro passo é assumir controle do próprio comportamento financeiro antes de pensar em investir."
+        }
+    ],
+    "Organizando sua grana": [
+        {
+            pergunta: "Qual é a regra de divisão sugerida no método GSA?",
+            opcoes: ["50% desejos, 30% necessidades, 20% investimento.", "50% necessidades, 30% desejos, 20% investimento.", "60% contas, 40% investimento."],
+            correta: 1,
+            explicacao: "O método sugere 50% para necessidades, 30% para desejos pessoais e 20% para o seu futuro."
+        },
+        {
+            pergunta: "Na regra 50-30-20, onde entra o dinheiro do seu futuro?",
+            opcoes: ["Nos 20% destinados a investir e construir patrimônio.", "Nos 30% dos desejos.", "Nos 50% das necessidades básicas."],
+            correta: 0,
+            explicacao: "Os 20% são a parte reservada para investir, guardar e construir sua base financeira."
+        },
+        {
+            pergunta: "Qual é o principal benefício de organizar a grana antes de investir?",
+            opcoes: ["Comprar mais coisas por impulso.", "Saber para onde o dinheiro vai e evitar descontrole.", "Parar de pagar contas fixas."],
+            correta: 1,
+            explicacao: "Organização traz clareza, evita desperdícios e prepara o terreno para investir com consistência."
+        }
+    ],
+    "Montando a Reserva": [
+        {
+            pergunta: "Qual característica é essencial para a reserva de emergência?",
+            opcoes: ["Alta rentabilidade.", "Liquidez diária, com acesso rápido.", "Prazo fechado de 5 anos."],
+            correta: 1,
+            explicacao: "A reserva precisa estar disponível rapidamente quando um imprevisto real acontece."
+        },
+        {
+            pergunta: "Qual situação combina com o uso da reserva de emergência?",
+            opcoes: ["Aproveitar promoção de celular.", "Cobrir um conserto urgente do carro.", "Comprar um presente caro por impulso."],
+            correta: 1,
+            explicacao: "A reserva existe para imprevistos reais e urgentes, não para compras por vontade do momento."
+        },
+        {
+            pergunta: "Qual faixa o curso sugere como meta para a reserva?",
+            opcoes: ["De 3 a 12 meses dos gastos essenciais.", "Apenas 1 salário fixo.", "Exatamente 24 meses de renda."],
+            correta: 0,
+            explicacao: "A faixa de 3 a 12 meses adapta a reserva ao nível de segurança que cada pessoa precisa."
+        }
+    ],
+    "Cartão de Crédito sem Armadilha": [
+        {
+            pergunta: "Qual é um dos maiores perigos do cartão de crédito?",
+            opcoes: ["O parcelamento sem juros.", "O pagamento mínimo da fatura.", "Fazer compras online."],
+            correta: 1,
+            explicacao: "O pagamento mínimo ativa juros rotativos, uma das dívidas mais caras para o consumidor."
+        },
+        {
+            pergunta: "Qual atitude ajuda a usar o cartão com mais segurança?",
+            opcoes: ["Gastar sem olhar o limite.", "Acompanhar a fatura e pagar o valor total.", "Usar o rotativo por vários meses."],
+            correta: 1,
+            explicacao: "Controlar a fatura e pagar o total evita juros altos e impede a bola de neve."
+        },
+        {
+            pergunta: "Por que o limite do cartão não deve ser visto como renda extra?",
+            opcoes: ["Porque é dinheiro emprestado que depois vira conta.", "Porque o banco bloqueia compras acima de R$ 50.", "Porque cartão só serve para emergência médica."],
+            correta: 0,
+            explicacao: "Limite não é dinheiro seu. É crédito que precisará ser pago depois."
+        }
+    ],
+    "Tesouro Direto na Prática": [
+        {
+            pergunta: "Qual título costuma ser mais indicado para reserva de emergência?",
+            opcoes: ["Tesouro IPCA+.", "Tesouro Prefixado.", "Tesouro Selic."],
+            correta: 2,
+            explicacao: "O Tesouro Selic costuma ser mais estável e simples para quem está começando."
+        },
+        {
+            pergunta: "O que você faz ao investir no Tesouro Direto?",
+            opcoes: ["Empresta dinheiro ao governo em troca de rendimento.", "Compra uma ação da bolsa.", "Abre uma conta internacional."],
+            correta: 0,
+            explicacao: "No Tesouro Direto, o investidor empresta dinheiro ao governo e recebe juros por isso."
+        },
+        {
+            pergunta: "Qual vantagem torna o Tesouro Selic popular entre iniciantes?",
+            opcoes: ["Oscila fortemente todos os dias.", "Tem simplicidade, liquidez e baixo risco relativo.", "Garante lucro alto em qualquer prazo."],
+            correta: 1,
+            explicacao: "Ele costuma ser ponto de partida por ser simples, ter liquidez e risco mais controlado."
+        }
+    ],
+    "Dividendos com FIIs": [
+        {
+            pergunta: "O que é um FII?",
+            opcoes: ["Um empréstimo ao banco para construir casas.", "Um fundo que investe em imóveis e distribui renda aos cotistas.", "Uma forma de comprar um imóvel inteiro sozinho."],
+            correta: 1,
+            explicacao: "Ao comprar uma cota, você participa de um fundo imobiliário e pode receber parte dos resultados."
+        },
+        {
+            pergunta: "Qual é o erro comum ao olhar apenas para o Dividend Yield?",
+            opcoes: ["Achar que rendimento alto sempre significa bom negócio.", "Achar que o rendimento é garantido pelo governo.", "Ignorar que todos os FIIs pagam dividendos diários."],
+            correta: 0,
+            explicacao: "Um yield muito alto pode indicar queda no preço do ativo ou algum problema temporário."
+        },
+        {
+            pergunta: "O que deve ser analisado além do rendimento de um FII?",
+            opcoes: ["A qualidade da gestão e dos imóveis do fundo.", "A cor do aplicativo da corretora.", "O número de letras do ticker."],
+            correta: 0,
+            explicacao: "Gestão, vacância, qualidade dos ativos e contratos ajudam a entender se o fundo faz sentido."
+        }
+    ],
+    "Escolhendo Ações": [
+        {
+            pergunta: "Ao comprar uma ação, o que você está fazendo?",
+            opcoes: ["Apostando apenas na subida de um código.", "Tornando-se sócio de uma empresa real.", "Emprestando dinheiro para a empresa pagar dívidas."],
+            correta: 1,
+            explicacao: "Uma ação é uma pequena parte de uma empresa. Ser acionista é ser sócio do negócio."
+        },
+        {
+            pergunta: "Por que preço sozinho não diz se uma ação é boa?",
+            opcoes: ["Porque o preço das ações nunca muda.", "Porque uma ação barata pode ser armadilha e uma cara pode ser oportunidade.", "Porque o lucro define preço fixo para sempre."],
+            correta: 1,
+            explicacao: "É preciso entender a empresa, os riscos e os fundamentos antes de olhar só para o preço."
+        },
+        {
+            pergunta: "Antes de comprar uma ação, qual atitude combina mais com o curso?",
+            opcoes: ["Estudar o negócio, entender riscos e avaliar a empresa.", "Comprar porque alguém disse que vai subir.", "Olhar só o preço atual e decidir na hora."],
+            correta: 0,
+            explicacao: "O foco é investir com critério, estudando empresa, riscos e contexto antes de colocar dinheiro."
+        }
+    ],
+    "Rebalanceamento da Carteira": [
+        {
+            pergunta: "Qual é o principal objetivo do rebalanceamento de carteira?",
+            opcoes: ["Adivinhar qual ação vai subir amanhã.", "Manter o nível de risco definido na estratégia.", "Vender tudo que está caindo."],
+            correta: 1,
+            explicacao: "O rebalanceamento traz a carteira de volta aos percentuais definidos, ajudando no controle de risco."
+        },
+        {
+            pergunta: "Na prática, o que o rebalanceamento ajuda a fazer?",
+            opcoes: ["Comprar o que ficou caro e vender o que ficou barato.", "Pagar mais taxas sem necessidade.", "Comprar o que está abaixo da meta e vender o que ficou acima da meta."],
+            correta: 2,
+            explicacao: "Ele ajuda a seguir a meta de alocação, sem agir só por emoção."
+        },
+        {
+            pergunta: "Quando o rebalanceamento costuma ser necessário?",
+            opcoes: ["Quando a carteira se afasta muito dos percentuais definidos.", "Todos os dias, sem exceção.", "Apenas quando todas as ações caem."],
+            correta: 0,
+            explicacao: "Ele entra em cena quando a distribuição real foge da estratégia planejada."
+        }
+    ]
+});
+
 function limparQuizTexto(valor, fallback = '') {
     return corrigirTextoCorrompido(String(valor ?? fallback))
         .replace(/\s+/g, ' ')
@@ -676,6 +839,14 @@ async function abrirQuiz() {
     quizState.indiceAtual = 0;
     quizState.acertos = 0;
     quizState.quantidadeSolicitada = sortearQuantidadeQuiz();
+
+    quizState.perguntas = obterPerguntasQuizLocais();
+    quizState.origem = 'local';
+    quizState.titulo = `Quiz: ${aulaSelecionada}`;
+    quizState.descricao = "Quiz local ativo para a apresentação.";
+    atualizarCabecalhoQuiz(quizState.titulo, quizState.descricao);
+    carregarPergunta(0);
+    return;
 
     renderizarQuizCarregando();
 
@@ -1011,6 +1182,107 @@ function toggleAIChat() {
 }
 
 let iaEnviandoMensagem = false;
+
+function obterRespostaRapidaEducacaoFinanceira(perguntaUsuario) {
+    const normalizar = (texto) => corrigirTextoCorrompido(String(texto || ''))
+        .normalize('NFD')
+        .replace(/[\u0300-\u036f]/g, '')
+        .toLowerCase();
+
+    const pergunta = normalizar(perguntaUsuario);
+    const respostas = [
+        {
+            termos: ['reserva', 'emergencia', 'imprevisto'],
+            resposta: {
+                titulo: 'Reserva de emergência',
+                resumo: 'É um dinheiro separado para imprevistos reais, como perda de renda, saúde ou conserto urgente.',
+                explicacao: 'Comece com uma meta pequena, como R$ 500 ou 1 mês de gastos essenciais. Depois avance até 3 a 12 meses, conforme sua segurança e estabilidade de renda.',
+                pontos_chave: ['Precisa ter liquidez, ou seja, acesso rápido.', 'Não é para compras por impulso.', 'Pode ficar em opções conservadoras, como Tesouro Selic ou CDB com liquidez diária.'],
+                alerta: 'Antes de buscar rentabilidade alta, priorize segurança e acesso rápido.'
+            }
+        },
+        {
+            termos: ['cartao', 'credito', 'fatura', 'limite', 'rotativo'],
+            resposta: {
+                titulo: 'Cartão de crédito',
+                resumo: 'Cartão é uma forma de pagamento, não renda extra.',
+                explicacao: 'Use apenas se você já sabe como vai pagar a fatura total. O perigo aparece quando o limite vira extensão do salário ou quando entra no pagamento mínimo.',
+                pontos_chave: ['Acompanhe a fatura durante o mês.', 'Evite parcelar muitas compras ao mesmo tempo.', 'Pague sempre o valor total da fatura.'],
+                alerta: 'Pagamento mínimo pode virar dívida cara rapidamente.'
+            }
+        },
+        {
+            termos: ['50', '30', '20', 'orcamento', 'organizar', 'grana', 'salario'],
+            resposta: {
+                titulo: 'Regra 50-30-20',
+                resumo: 'É uma forma simples de dividir o dinheiro: 50% necessidades, 30% desejos e 20% futuro.',
+                explicacao: 'Ela serve como ponto de partida. Se sua renda ainda não permite guardar 20%, comece com o que for possível e aumente aos poucos.',
+                pontos_chave: ['Necessidades: aluguel, comida, transporte e contas.', 'Desejos: lazer, delivery e compras pessoais.', 'Futuro: reserva, investimentos e objetivos.'],
+                alerta: 'A regra ajuda, mas precisa caber na realidade de cada pessoa.'
+            }
+        },
+        {
+            termos: ['tesouro', 'selic', 'renda fixa', 'cdb', 'liquidez'],
+            resposta: {
+                titulo: 'Tesouro Selic e renda fixa',
+                resumo: 'São opções usadas por iniciantes porque tendem a ser mais simples e previsíveis.',
+                explicacao: 'No Tesouro Direto, você empresta dinheiro ao governo e recebe juros. Para reserva, o Tesouro Selic costuma ser citado por ter baixo risco relativo e liquidez.',
+                pontos_chave: ['Compare taxa, liquidez e segurança.', 'Evite prender a reserva em prazo longo.', 'Entenda o produto antes de investir.'],
+                alerta: 'Mesmo renda fixa tem regras, prazos e impostos.'
+            }
+        },
+        {
+            termos: ['fii', 'fiis', 'fundo imobiliario', 'dividendo', 'dividendos', 'yield'],
+            resposta: {
+                titulo: 'FIIs',
+                resumo: 'FIIs são fundos que investem no mercado imobiliário e podem distribuir renda aos cotistas.',
+                explicacao: 'Eles podem gerar renda recorrente, mas o preço das cotas varia e os rendimentos não são garantidos.',
+                pontos_chave: ['Olhe qualidade dos imóveis, vacância e gestão.', 'Dividend Yield alto sozinho não prova bom investimento.', 'Diversificação ajuda a reduzir riscos.'],
+                alerta: 'Não compre só porque pagou muito dividendo no mês passado.'
+            }
+        },
+        {
+            termos: ['acao', 'acoes', 'bolsa', 'empresa', 'preco', 'preço'],
+            resposta: {
+                titulo: 'Ações',
+                resumo: 'Comprar uma ação é comprar uma pequena parte de uma empresa.',
+                explicacao: 'O preço sozinho não diz se está barato ou caro. É preciso entender o negócio, os riscos, os resultados e se aquilo combina com seu perfil.',
+                pontos_chave: ['Estude antes de comprar.', 'Evite seguir dica sem entender.', 'Pense no longo prazo e diversifique.'],
+                alerta: 'Ações podem oscilar bastante no curto prazo.'
+            }
+        },
+        {
+            termos: ['divida', 'dividas', 'juros', 'nome sujo', 'emprestimo'],
+            resposta: {
+                titulo: 'Dívidas',
+                resumo: 'O primeiro passo é listar tudo: valor, juros, parcelas e vencimentos.',
+                explicacao: 'Priorize dívidas com juros maiores, tente negociar e evite assumir novas parcelas enquanto organiza o básico.',
+                pontos_chave: ['Troque dívida cara por uma mais barata se fizer sentido.', 'Monte um plano de pagamento realista.', 'Guarde uma pequena reserva para não se endividar de novo.'],
+                alerta: 'Não aceite uma renegociação que não cabe no seu mês.'
+            }
+        },
+        {
+            termos: ['comecar', 'começar', 'investir', 'iniciante', 'primeiro investimento'],
+            resposta: {
+                titulo: 'Como começar a investir',
+                resumo: 'Comece organizando a grana, criando reserva e entendendo seu perfil.',
+                explicacao: 'Investir sem organização pode virar ansiedade. Primeiro saiba quanto entra, quanto sai e quanto você consegue guardar com constância.',
+                pontos_chave: ['Quite ou controle dívidas caras.', 'Monte reserva de emergência.', 'Estude produtos simples antes de avançar.'],
+                alerta: 'Promessa de lucro rápido costuma ser sinal de risco alto.'
+            }
+        }
+    ];
+
+    const encontrada = respostas.find((item) => item.termos.some((termo) => pergunta.includes(normalizar(termo))));
+
+    return encontrada?.resposta || {
+        titulo: 'Educação financeira',
+        resumo: 'A base é gastar com consciência, evitar dívidas caras e guardar um pouco com frequência.',
+        explicacao: 'Tente transformar a dúvida em uma ação pequena: anotar gastos, revisar a fatura, separar a reserva ou estudar um produto antes de investir.',
+        pontos_chave: ['Organize entradas e saídas.', 'Separe desejos de necessidades.', 'Invista só no que você entende.'],
+        alerta: 'Estas respostas são educativas e não substituem uma recomendação financeira personalizada.'
+    };
+}
 
 function inicializarEnvioChatComEnter() {
     const input = document.getElementById('user-query');
@@ -1711,6 +1983,12 @@ async function perguntarIA() {
     adicionarMensagem('msg-user', 'Você', query);
     input.value = "";
     const mensagemPensando = adicionarMensagemPensando();
+    const respostaLocal = obterRespostaRapidaEducacaoFinanceira(query);
+
+    await esperar(450);
+    await animarMensagemExistente(mensagemPensando, 'GSA', renderizarRespostaChatGSA(respostaLocal), { html: true, esconderRemetente: true });
+    return;
+
     const mensagemErroConexaoIa = 'Erro ao conectar com a IA.';
 
     try {
