@@ -1,209 +1,93 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="pt-br">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Cursos | Grana Sem Aperto</title>
-    <meta name="description" content="GSA — Grana Sem Aperto. Plataforma gratuita de educação financeira para jovens com IA, calculadora de juros e trilhas de aprendizado.">
-    <meta name="keywords" content="GSA, Grana Sem Aperto, educação financeira, investimentos para jovens, calculadora de juros, reserva de emergência">
-    <link rel="icon" type="image/png" href="../assets/img/favicon.png">
-    <link rel="stylesheet" href="../assets/css/global.css?v=20260421-11">
-    <link rel="stylesheet" href="../assets/css/mobile.css">
-    <link rel="stylesheet" href="../assets/css/cursos.css">
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700;800;900&display=swap" rel="stylesheet">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Aprender | Grana Sem Aperto</title>
+  <meta name="description" content="Aprenda educação financeira com trilhas práticas, leituras objetivas e exercícios interativos do GSA." />
+  <link rel="icon" type="image/png" href="../assets/img/favicon.png" />
+  <link rel="stylesheet" href="../assets/css/global.css?v=20260820-12" />
+  <link rel="stylesheet" href="../assets/css/mobile.css" />
+  <link rel="stylesheet" href="../assets/css/cursos.css?v=20260820-7" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet" />
 </head>
+<body class="pagina-aprender">
+  <header class="cabecalho">
+    <a href="../index.html" class="logo"><img src="../assets/img/logo sem fundo GSA 3.0.png" alt="Logo Grana Sem Aperto" class="logo-mark" /><span class="logo-text">Grana Sem Aperto</span></a>
+    <nav class="menu-desktop" aria-label="Navegação principal"><a href="../index.html">Início</a><a href="../pages/Cursos.html" class="ativo" aria-current="page">Aprender</a><a href="../pages/calculadora.html">Ferramentas</a><a href="../pages/criadores.html">Sobre</a><button class="menu-mobile-btn" aria-label="Abrir menu">☰</button></nav>
+  </header>
+  <aside class="sidebar" id="sidebar"><div class="sidebar-header"><span class="logo">GSA</span><button class="fechar-sidebar" id="btnFechar" aria-label="Fechar menu">×</button></div><nav class="sidebar-links"><a href="../index.html">Início</a><a href="../pages/Cursos.html" aria-current="page">Aprender</a><a href="../pages/calculadora.html">Ferramentas</a><a href="../pages/criadores.html">Sobre</a></nav></aside><div class="overlay" id="overlay"></div>
 
-<body class="bg-dark">
+  <main>
+    <section class="aprender-hero">
+      <div class="aprender-hero-conteudo">
+        <div class="aprender-hero-texto revelar"><span class="aprender-etiqueta">CONHECIMENTO QUE VIRA AÇÃO</span><h1>Aprenda no seu ritmo. <span>Pratique na vida real.</span></h1><p>Sem aulas longas e sem enrolação. Leia o essencial, aplique em situações reais e teste o que aprendeu com exercícios interativos.</p><div class="aprender-acoes"><a href="#trilhas" class="btn-primario">Começar a trilha</a><a href="#metodo" class="btn-secundario">Como funciona</a></div></div>
+        <div class="aprender-painel revelar delay-1"><div class="painel-topo"><span>SUA JORNADA GSA</span><strong>8 módulos práticos</strong></div><div class="painel-fluxo"><div><span>01</span><strong>Leia</strong><small>Conteúdo objetivo</small></div><i>→</i><div><span>02</span><strong>Aplique</strong><small>Exemplos reais</small></div><i>→</i><div><span>03</span><strong>Pratique</strong><small>Quiz interativo</small></div></div><p><span>✓</span> Leitura, prática e autonomia desde o primeiro módulo.</p></div>
+      </div>
+    </section>
 
-<header class="cabecalho">
-    <a href="../index.html" class="logo">
-        <img src="../assets/img/logo sem fundo GSA 3.0.png" alt="Logo Grana Sem Aperto" class="logo-mark">
-        <span class="logo-text">Grana Sem Aperto</span>
-    </a>
+    <section class="metodo-aprender" id="metodo" aria-labelledby="metodo-titulo"><header class="metodo-cabecalho revelar"><span class="aprender-etiqueta">MÉTODO GSA</span><h2 id="metodo-titulo">Menos consumo passivo.<br /><span>Mais aprendizado ativo.</span></h2></header><div class="metodo-grid revelar delay-1"><article><span>01</span><h3>Leitura rápida</h3><p>Conceitos explicados de forma direta, com linguagem simples e sem excesso de teoria.</p></article><article><span>02</span><h3>Decisão prática</h3><p>Cada módulo conecta o assunto a uma escolha financeira possível no dia a dia.</p></article><article><span>03</span><h3>Exercício imediato</h3><p>Quizzes mostram o que você entendeu e ajudam a reforçar os pontos importantes.</p></article></div></section>
 
-    <div class="nav-direita">
-        <nav class="menu-desktop">
-            <a href="../index.html">In&iacute;cio</a>
-            <a href="../pages/criadores.html">Criadores</a>
-            <a href="../pages/calculadora.html" class="btn-calculadora">Calculadora de juros</a>
-            <button class="menu-mobile-btn">&#9776;</button>
-        </nav>
+    <section class="trilhas-secao" id="trilhas" aria-labelledby="trilhas-titulo"><header class="trilhas-cabecalho revelar"><div><span class="aprender-etiqueta">TRILHAS DE APRENDIZADO</span><h2 id="trilhas-titulo">Da organização à <span>Carteira GSA.</span></h2></div><aside class="trilhas-bussola" aria-label="Objetivo das trilhas"><span>SEU CAMINHO</span><div class="bussola-rota"><strong>Organizar</strong><i>→</i><strong>Proteger</strong><i>→</i><strong>Crescer</strong></div><p>Uma evolução financeira construída passo a passo.</p></aside></header>
+      <div class="trilhas-corpo">
+      <div class="cursos-grid">
+        <article class="curso-card revelar"><div class="curso-card-topo"><span class="curso-numero">TRILHA 01</span><span class="curso-tag">BASE FINANCEIRA</span></div><h3>O Despertar Financeiro</h3><p>Organize sua relação com o dinheiro e construa segurança antes de buscar crescimento.</p><ol class="curso-modulos"><li><span>01</span>Mentalidade de Investidor</li><li><span>02</span>Organizando sua grana</li><li><span>03</span>Montando a Reserva</li><li><span>04</span>Cartão sem Armadilha</li></ol><div class="curso-rodape"><span>4 leituras · 4 exercícios</span><button class="btn-curso">Explorar módulos ↗</button></div></article>
+        <article class="curso-card curso-card-destaque revelar delay-1"><div class="curso-card-topo"><span class="curso-numero">TRILHA 02</span><span class="curso-tag">CRESCIMENTO</span></div><h3>Mestre da Carteira GSA</h3><p>Entenda os principais ativos e aprenda a montar uma carteira com propósito e equilíbrio.</p><ol class="curso-modulos"><li><span>05</span>Tesouro Direto na Prática</li><li><span>06</span>Dividendos com FIIs</li><li><span>07</span>Escolhendo Ações</li><li><span>08</span>Rebalanceamento</li></ol><div class="curso-rodape"><span>4 leituras · 4 exercícios</span><button class="btn-curso">Explorar módulos ↗</button></div></article>
+      </div>
+      <aside class="trilhas-manifesto revelar delay-2" aria-label="Como avançar nas trilhas">
+        <span class="manifesto-indice">COMO AVANÇAR</span>
+        <div class="manifesto-degraus">
+          <div class="manifesto-degrau"><span>01</span><strong>Comece<br />pela base.</strong></div>
+          <div class="manifesto-degrau"><span>02</span><strong>Avance no<br />seu ritmo.</strong></div>
+          <div class="manifesto-degrau"><span>03</span><strong>Entenda antes<br />de agir.</strong></div>
+        </div>
+        <p>Conhecimento primeiro. Decisão depois.</p>
+      </aside>
+      </div>
+    </section>
+
+    <section class="aprender-cta revelar"><span>APRENDA E TESTE</span><h2>O conhecimento fica mais forte quando você coloca os números na mesa.</h2><a href="../pages/calculadora.html" class="btn-primario">Abrir ferramentas GSA</a></section>
+  </main>
+
+  <footer class="rodape-aprender">
+    <div class="rodape-aprender-conteudo">
+      <div class="rodape-marca">
+        <img src="../assets/img/logo sem fundo GSA 3.0.png" alt="" />
+        <div><strong>Grana Sem Aperto</strong><span>Educação financeira para escolhas conscientes.</span></div>
+      </div>
+      <nav class="rodape-links" aria-label="Links do rodapé">
+        <a href="../index.html">Início</a><a href="../pages/calculadora.html">Ferramentas</a><a href="../pages/criadores.html">Sobre</a>
+      </nav>
+      <div class="rodape-aviso"><span>CONTEÚDO EDUCACIONAL</span><p>Informação para planejamento — não é recomendação ou promessa de retorno.</p></div>
     </div>
-</header>
-
-<aside class="sidebar" id="sidebar">
-    <div class="sidebar-header">
-        <span class="logo">GSA</span>
-        <button class="fechar-sidebar" id="btnFechar">&times;</button>
+    <div class="rodape-aprender-base">
+      <span>© 2026 GSA · Grana Sem Aperto</span>
+      <button type="button" id="abrir-termos">Termos de responsabilidade</button>
     </div>
-    <nav class="sidebar-links">
-        <a href="../index.html">In&iacute;cio</a>
-        <a href="../pages/Cursos.html">Cursos</a>
-        <a href="../pages/calculadora.html">Calculadora de Juros</a>
-        <a href="../pages/criadores.html">Criadores</a>
-    </nav>
-</aside>
+  </footer>
 
-<div class="overlay" id="overlay" onclick="toggleMenu()"></div>
-
-<section class="cursos-pagina">
-    <h2 class="cursos-titulo revelar">
-        Nossos <span class="destaque-verde">Cursos</span>
-    </h2>
-
-    <p class="cursos-subtitulo revelar delay-1">
-        Escolha o seu n&iacute;vel e comece a investir agora.
-    </p>
-
-    <div class="cursos-grid revelar delay-1">
-        <div class="curso-card revelar">
-            <div class="curso-tag">Iniciante</div>
-            <h3>O Despertar Financeiro</h3>
-
-            <p>Domine sua mentalidade e monte sua reserva.</p>
-
-            <ul class="curso-lista">
-                <li>&#9989; Organiza&ccedil;&atilde;o 50-30-20</li>
-                <li>&#9989; Reserva</li>
-                <li>&#9989; CDB vs Poupan&ccedil;a</li>
-            </ul>
-
-            <button class="btn-curso">
-                Ver M&oacute;dulos
-            </button>
-        </div>
-
-        <div class="curso-card destaque-card revelar delay-1">
-            <div class="curso-tag">Mais Procurado</div>
-            <h3>Mestre da Carteira GSA</h3>
-
-            <p>Monte sua carteira de FIIs e A&ccedil;&otilde;es.</p>
-
-            <ul class="curso-lista">
-                <li>&#9989; Renda Fixa</li>
-                <li>&#9989; Dividendos</li>
-                <li>&#9989; A&ccedil;&otilde;es</li>
-            </ul>
-
-            <button class="btn-curso btn-destaque">
-                Come&ccedil;ar Agora
-            </button>
-        </div>
-    </div>
-</section>
-
-<div id="modalCursos" class="modal-container">
-    <div class="modal-content vidro-cinza">
-        <button class="fechar-modal" onclick="fecharModalGSA()">&times;</button>
-
-        <h2 id="modalTitulo" class="destaque-verde">M&oacute;dulos</h2>
-
-        <p id="modalDesc" class="modal-descricao">
-            Escolha um m&oacute;dulo para continuar
-        </p>
-
-        <div id="listaModulos" class="modal-lista"></div>
-
-        <div class="modal-acoes">
-            <button id="btnAcessarAula"
-                    class="btn-modal-acao"
-                    onclick="abrirJanelaAula()">
-                Selecione um m&oacute;dulo
-            </button>
-        </div>
-    </div>
-</div>
-
-<div id="modalAula" class="modal-container">
-    <div class="modal-content vidro-cinza modal-aula-box">
-        <button class="fechar-modal" onclick="fecharJanelaAula()">&times;</button>
-
-        <div class="aula-header">
-            <div class="aula-icone">&#128216;</div>
-
-            <h2 id="tituloAulaAtiva" class="destaque-verde">
-                Nome da Aula
-            </h2>
-
-            <p id="cursoPertencente" class="aula-curso">
-                Curso: Nome do Curso
-            </p>
-        </div>
-
-        <div class="aula-acoes">
-            <button class="btn-acess-item aula-btn">
-                &#9654;&#65039; Assistir Aula
-            </button>
-
-            <a id="linkMaterial"
-               href="#"
-               target="_blank"
-               class="btn-acess-item aula-btn">
-                &#128196; Material Did&aacute;tico
-            </a>
-
-            <button class="btn-acess-item aula-btn aula-btn-exercicio"
-                    onclick="abrirQuiz()">
-                &#9997;&#65039; Fazer Exerc&iacute;cios
-            </button>
-        </div>
-
-        <button class="btn-voltar-gsa"
-                onclick="fecharJanelaAula()">
-            &larr; Voltar aos m&oacute;dulos
-        </button>
-    </div>
-</div>
-
-<div id="ai-chat-wrapper">
-    <button id="btn-ia-toggle" onclick="toggleAIChat()">
-        <span>&#129302; GSA Assistente</span>
-    </button>
-
-    <div id="chat-box-ia" class="chat-escondido">
-        <div class="chat-header">
-            <strong>IA GSA</strong>
-            <button onclick="toggleAIChat()">&times;</button>
-        </div>
-        <div id="chat-messages">
-            <div class="msg-ia">Ol&aacute; Investidor(a)! Sou sua IA de economia. Qual sua d&uacute;vida sobre a estrat&eacute;gia GSA hoje?</div>
-        </div>
-        <div class="chat-input">
-            <input type="text" id="user-query" placeholder="Pergunte sobre Selic, FIIs...">
-            <button onclick="perguntarIA()" id="btn-enviar-ia" title="Enviar Mensagem">
-                <svg viewBox="0 0 24 24" width="20" height="20" fill="currentColor">
-                    <path d="M2.01 21L23 12 2.01 3 2 10l15 2-15 2z"></path>
-                </svg>
-            </button>
-        </div>
-    </div>
-</div>
-
-<div id="acess-wrapper" style="position: fixed; bottom: 20px; left: 20px; z-index: 10000;">
-    <button id="btn-acess-toggle" onclick="toggleAcessPanel()" style="background: #27272a; color: #fff; border: 1px solid #3f3f46; width: 50px; height: 50px; border-radius: 50%; cursor: pointer; font-size: 20px; display: flex; align-items: center; justify-content: center; box-shadow: 0 4px 15px rgba(0,0,0,0.3);">
-        &#9855;
-    </button>
-
-    <div id="acess-panel" style="display: none; position: absolute; bottom: 60px; left: 0; width: 250px; background: rgba(30, 30, 35, 0.9); backdrop-filter: blur(15px); border: 1px solid rgba(255, 255, 255, 0.1); border-radius: 15px; padding: 20px; box-shadow: 0 10px 25px rgba(0,0,0,0.5);">
-        <h3 style="color: #22c55e; font-size: 16px; margin-bottom: 15px; border-bottom: 1px solid #3f3f46; padding-bottom: 5px;">Acessibilidade</h3>
-
-        <div style="display: flex; flex-direction: column; gap: 12px;">
-            <button onclick="mudarFonte(1)" class="btn-acess-item">Aumentar Texto (A+)</button>
-            <button onclick="mudarFonte(-1)" class="btn-acess-item">Diminuir Texto (A-)</button>
-            <button onclick="toggleContraste()" class="btn-acess-item">Alto Contraste</button>
-        </div>
-    </div>
-</div>
-
-<div vw class="enabled">
-  <div vw-access-button class="active"></div>
-  <div vw-plugin-wrapper>
-    <div class="vw-plugin-top-wrapper"></div>
+  <div class="termos-overlay" id="termos-overlay" hidden>
+    <section class="termos-dialogo" role="dialog" aria-modal="true" aria-labelledby="termos-titulo">
+      <button class="termos-fechar" id="fechar-termos" type="button" aria-label="Fechar termos">×</button>
+      <span class="aprender-etiqueta">TRANSPARÊNCIA GSA</span>
+      <h2 id="termos-titulo">Termos de responsabilidade</h2>
+      <p class="termos-intro">Ao utilizar os materiais e ferramentas do GSA, você reconhece os pontos abaixo.</p>
+      <div class="termos-lista">
+        <article><span>01</span><div><h3>Finalidade educacional</h3><p>O conteúdo explica conceitos de finanças pessoais e investimentos. Ele não constitui recomendação individual, consultoria financeira, oferta de produto ou promessa de rentabilidade.</p></div></article>
+        <article><span>02</span><div><h3>Decisões e riscos</h3><p>Investimentos podem oscilar e gerar perdas. A decisão de aplicar, manter ou retirar recursos é de responsabilidade do próprio usuário, de acordo com seus objetivos e perfil de risco.</p></div></article>
+        <article><span>03</span><div><h3>Simulações e informações</h3><p>Cálculos, exemplos e projeções são estimativas educacionais. Taxas, regras, preços, impostos e características dos produtos podem mudar e devem ser confirmados em fontes oficiais.</p></div></article>
+        <article><span>04</span><div><h3>Uso por menores</h3><p>Pessoas menores de idade devem conversar com seus responsáveis antes de tomar decisões financeiras ou abrir contas e contratar produtos.</p></div></article>
+      </div>
+      <p class="termos-nota">Quando necessário, procure uma instituição autorizada ou um profissional habilitado. Última atualização: agosto de 2026.</p>
+    </section>
   </div>
-</div>
 
-<script src="https://vlibras.gov.br/app/vlibras-plugin.js"></script>
-<script src="../assets/js/global.js?v=20260421-10"></script>
-<script src="../assets/js/cursos.js"></script>
+  <div id="modalCursos" class="modal-container"><div class="modal-content modal-trilha"><button class="fechar-modal" onclick="fecharModalGSA()" aria-label="Fechar módulos">×</button><span class="aprender-etiqueta">ESCOLHA O PRÓXIMO PASSO</span><h2 id="modalTitulo">Módulos</h2><p id="modalDesc" class="modal-descricao">Selecione um módulo para continuar</p><div id="listaModulos" class="modal-lista"></div><div class="modal-acoes"><button id="btnAcessarAula" class="btn-modal-acao" onclick="abrirJanelaAula()">Selecione um módulo</button></div></div></div>
+  <div id="modalAula" class="modal-container"><div class="modal-content modal-aula-box"><button class="fechar-modal" onclick="fecharJanelaAula()" aria-label="Fechar conteúdo">×</button><div class="aula-header"><div class="aula-icone">◇</div><h2 id="tituloAulaAtiva">Nome do módulo</h2><p id="cursoPertencente" class="aula-curso">Trilha GSA</p></div><div class="aula-acoes"></div><button class="btn-voltar-gsa" onclick="fecharJanelaAula()">← Voltar aos módulos</button></div></div>
+
+  <div id="ai-chat-wrapper"><button id="btn-ia-toggle" onclick="toggleAIChat()"><span>🤖 GSA Assistente</span></button><div id="chat-box-ia" class="chat-escondido"><div class="chat-header"><strong>IA GSA</strong><button onclick="toggleAIChat()" aria-label="Fechar assistente">×</button></div><div id="chat-messages"><div class="msg-ia">Quer ajuda para entender algum módulo?</div></div><div class="chat-input"><input type="text" id="user-query" placeholder="Pergunte sobre o conteúdo..." /><button onclick="perguntarIA()" id="btn-enviar-ia">➤</button></div></div></div>
+  <div id="acess-wrapper"><button id="btn-acess-toggle" type="button" aria-label="Abrir opções de acessibilidade" aria-controls="acess-panel" aria-expanded="false">♿</button><div id="acess-panel" role="dialog" aria-label="Opções de acessibilidade" hidden><div class="acess-cabecalho"><span class="acess-icone">♿</span><div><span>Preferências</span><h3>Acessibilidade</h3></div></div><div class="acess-controles"><button type="button" onclick="mudarFonte(1)" class="btn-acess-item"><span>A+</span> Aumentar visualização</button><button type="button" onclick="mudarFonte(-1)" class="btn-acess-item"><span>A−</span> Diminuir visualização</button><button type="button" onclick="toggleContraste()" class="btn-acess-item" id="btn-contraste"><span>◐</span> Alto contraste</button><button type="button" onclick="resetarAcessibilidade()" class="btn-acess-item btn-acess-reset"><span>↺</span> Restaurar padrão</button></div><p id="acess-status" class="acess-status" aria-live="polite">Visualização em 100%</p></div></div>
+  <div vw class="enabled"><div vw-access-button class="active"></div><div vw-plugin-wrapper><div class="vw-plugin-top-wrapper"></div></div></div>
+  <script src="https://vlibras.gov.br/app/vlibras-plugin.js"></script><script src="../assets/js/global.js?v=20260820-11"></script><script src="../assets/js/cursos.js?v=20260820-3"></script>
 </body>
 </html>

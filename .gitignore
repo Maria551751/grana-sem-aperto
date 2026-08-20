@@ -12,3 +12,6 @@ config.local.js
 .DS_Store
 Thumbs.db
 .vscode/
+
+# Arquivos temporários de geração e testes
+tmp/

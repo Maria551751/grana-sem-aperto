@@ -18,6 +18,7 @@ function toggleMenu() {
     if (sidebar && overlay) {
         sidebar.classList.toggle('ativo');
         overlay.classList.toggle('ativo');
+        document.body.classList.toggle('menu-lateral-aberto', sidebar.classList.contains('ativo'));
     }
 }
 
@@ -29,6 +30,7 @@ document.querySelectorAll('.sidebar-links a').forEach(link => {
     link.addEventListener('click', () => {
         sidebar?.classList.remove('ativo');
         overlay?.classList.remove('ativo');
+        document.body.classList.remove('menu-lateral-aberto');
     });
 });
 
@@ -97,7 +99,7 @@ function atualizarBotao() {
     if (!btnAcao) return;
 
     if (aulaSelecionada) {
-        btnAcao.innerText = `VER AULA: ${aulaSelecionada.toUpperCase()} 🚀`;
+        btnAcao.innerText = `ABRIR MÓDULO: ${aulaSelecionada.toUpperCase()} ↗`;
         btnAcao.disabled = false;
         btnAcao.style.opacity = "1";
     } else {
@@ -154,7 +156,7 @@ document.querySelectorAll('.btn-curso').forEach(botao => {
 
 function abrirJanelaAula() {
     if (!aulaSelecionada) {
-        alert("Selecione uma aula primeiro 😊");
+        alert("Selecione um módulo primeiro 😊");
         return;
     }
 
@@ -172,17 +174,27 @@ function abrirJanelaAula() {
     tituloAula.innerText = aulaSelecionada;
     cursoPertencente.innerText = `Curso: ${cursoSelecionado}`;
 
+    const resumosAula = {
+        "Mentalidade de Investidor": "Entenda como comportamento, disciplina e escolhas diárias influenciam sua vida financeira antes mesmo do primeiro investimento.",
+        "Organizando sua grana": "Aprenda a visualizar entradas, gastos e prioridades para criar um planejamento que realmente caiba na sua realidade.",
+        "Montando a Reserva": "Descubra como construir uma proteção para imprevistos, priorizando segurança, liquidez e constância.",
+        "Cartão de Crédito sem Armadilha": "Use o crédito como ferramenta de organização, compreendendo limite, vencimento, juros e o custo de parcelar.",
+        "Tesouro Direto na Prática": "Conheça os títulos públicos, seus objetivos e os cuidados necessários para escolher de acordo com prazo e necessidade.",
+        "Dividendos com FIIs": "Entenda como funcionam os fundos imobiliários, a distribuição de rendimentos e os riscos que precisam ser avaliados.",
+        "Escolhendo Ações": "Aprenda a enxergar uma ação como parte de uma empresa e a analisar o negócio antes de observar apenas o preço.",
+        "Rebalanceamento da Carteira": "Veja como revisar os percentuais da carteira ajuda a manter a estratégia e o nível de risco planejados."
+    };
+
     containerAcoes.innerHTML = `
-        <button class="btn-acess-item" onclick="alert('Iniciando vídeo...')">
-            <span>▶️</span> Assistir Aula
-        </button>
-
-        <a id="linkMaterial" href="#" target="_blank" class="btn-acess-item" style="text-decoration: none; color: inherit;">
-            <span>📄</span> Material Didático
+        <div class="leitura-modulo">
+            <span>LEITURA ESSENCIAL</span>
+            <p>${resumosAula[aulaSelecionada] || "Leia o conteúdo do módulo e conecte o conceito a uma decisão financeira do seu cotidiano."}</p>
+        </div>
+        <a id="linkMaterial" href="#" target="_blank" class="btn-acess-item" style="text-decoration:none;color:inherit;">
+            <span>📖</span> Abrir leitura completa
         </a>
-
-        <button class="btn-acess-item" style="border-color: #facc15; color: #facc15;" onclick="abrirQuiz()">
-            <span>✍️</span> Fazer Exercícios
+        <button class="btn-acess-item" style="border-color:#facc15;color:#facc15;" onclick="abrirQuiz()">
+            <span>✍️</span> Praticar com exercícios
         </button>
     `;
 
@@ -1050,6 +1062,61 @@ window.addEventListener('click', (e) => {
     if (e.target === modalLista) fecharModalGSA();
     if (e.target === modalAula) fecharJanelaAula();
 });
+
+/* =========================================
+   RODAPÉ GLOBAL E TERMOS DE RESPONSABILIDADE
+   ========================================= */
+function iniciarRodapeGlobal() {
+    const caminho = window.location.pathname.toLowerCase();
+    if (caminho.includes('criadores')) return;
+
+    const dentroDePages = caminho.includes('/pages/');
+    const prefixo = dentroDePages ? '../' : '';
+
+    if (!document.querySelector('.rodape-aprender')) {
+        document.body.insertAdjacentHTML('beforeend', `
+          <footer class="rodape-aprender">
+            <div class="rodape-aprender-conteudo">
+              <div class="rodape-marca"><img src="${prefixo}assets/img/logo sem fundo GSA 3.0.png" alt="" /><div><strong>Grana Sem Aperto</strong><span>Educação financeira para escolhas conscientes.</span></div></div>
+              <nav class="rodape-links" aria-label="Links do rodapé"><a href="${prefixo}index.html">Início</a><a href="${prefixo}pages/Cursos.html">Aprender</a><a href="${prefixo}pages/calculadora.html">Ferramentas</a><a href="${prefixo}pages/criadores.html">Sobre</a></nav>
+              <div class="rodape-aviso"><span>CONTEÚDO EDUCACIONAL</span><p>Informação para planejamento — não é recomendação ou promessa de retorno.</p></div>
+            </div>
+            <div class="rodape-aprender-base"><span>© 2026 GSA · Grana Sem Aperto</span><button type="button" id="abrir-termos">Termos de responsabilidade</button></div>
+          </footer>
+        `);
+    }
+
+    if (!document.getElementById('termos-overlay')) {
+        document.body.insertAdjacentHTML('beforeend', `
+          <div class="termos-overlay" id="termos-overlay" hidden>
+            <section class="termos-dialogo" role="dialog" aria-modal="true" aria-labelledby="termos-titulo">
+              <button class="termos-fechar" id="fechar-termos" type="button" aria-label="Fechar termos">×</button>
+              <span class="termos-etiqueta">TRANSPARÊNCIA GSA</span><h2 id="termos-titulo">Termos de responsabilidade</h2>
+              <p class="termos-intro">Ao utilizar os materiais e ferramentas do GSA, você reconhece os pontos abaixo.</p>
+              <div class="termos-lista">
+                <article><span>01</span><div><h3>Finalidade educacional</h3><p>O conteúdo explica conceitos de finanças pessoais e investimentos. Ele não constitui recomendação individual, consultoria financeira, oferta de produto ou promessa de rentabilidade.</p></div></article>
+                <article><span>02</span><div><h3>Decisões e riscos</h3><p>Investimentos podem oscilar e gerar perdas. A decisão de aplicar, manter ou retirar recursos é de responsabilidade do usuário, conforme seus objetivos e perfil de risco.</p></div></article>
+                <article><span>03</span><div><h3>Simulações e informações</h3><p>Cálculos, exemplos e projeções são estimativas educacionais. Taxas, regras, preços, impostos e características podem mudar e devem ser confirmados em fontes oficiais.</p></div></article>
+                <article><span>04</span><div><h3>Uso por menores</h3><p>Pessoas menores de idade devem conversar com seus responsáveis antes de tomar decisões financeiras, abrir contas ou contratar produtos.</p></div></article>
+              </div><p class="termos-nota">Quando necessário, procure uma instituição autorizada ou profissional habilitado. Última atualização: agosto de 2026.</p>
+            </section>
+          </div>
+        `);
+    }
+
+    const overlay = document.getElementById('termos-overlay');
+    const abrir = document.getElementById('abrir-termos');
+    const fechar = document.getElementById('fechar-termos');
+    const mostrar = () => { overlay.hidden = false; document.body.style.overflow = 'hidden'; fechar?.focus(); };
+    const esconder = () => { overlay.hidden = true; document.body.style.overflow = ''; abrir?.focus(); };
+
+    abrir?.addEventListener('click', mostrar);
+    fechar?.addEventListener('click', esconder);
+    overlay?.addEventListener('click', (event) => { if (event.target === overlay) esconder(); });
+    document.addEventListener('keydown', (event) => { if (event.key === 'Escape' && !overlay?.hidden) esconder(); });
+}
+
+iniciarRodapeGlobal();
 
 /* =========================================
    4. LÓGICA DA CALCULADORA GSA
@@ -2204,36 +2271,80 @@ function slide(direcao) {
 /* =========================================
    10. ACESSIBILIDADE
    ========================================= */
-function toggleAcessPanel() {
+let currentZoom = Number(localStorage.getItem('gsaZoom')) || 100;
+
+function atualizarStatusAcessibilidade(mensagem) {
+    const status = document.getElementById('acess-status');
+    if (status) status.textContent = mensagem;
+}
+
+function aplicarZoom() {
+    document.documentElement.style.zoom = currentZoom / 100;
+    localStorage.setItem('gsaZoom', String(currentZoom));
+    atualizarStatusAcessibilidade(`Visualização em ${currentZoom}%`);
+}
+
+function toggleAcessPanel(forcarAberto) {
     const panel = document.getElementById('acess-panel');
-    if (panel) {
-        panel.style.display = panel.style.display === 'none' ? 'block' : 'none';
+    const botao = document.getElementById('btn-acess-toggle');
+    if (!panel || !botao) return;
+
+    const deveAbrir = typeof forcarAberto === 'boolean' ? forcarAberto : panel.hidden;
+    panel.hidden = !deveAbrir;
+    botao.setAttribute('aria-expanded', String(deveAbrir));
+    botao.setAttribute(
+        'aria-label',
+        deveAbrir ? 'Fechar opções de acessibilidade' : 'Abrir opções de acessibilidade'
+    );
+
+    if (deveAbrir) {
+        panel.querySelector('button')?.focus();
     }
 }
 
-let currentFontSize = 16;
-
 function mudarFonte(delta) {
-    currentFontSize += delta;
+    currentZoom = Math.min(125, Math.max(85, currentZoom + delta * 10));
+    aplicarZoom();
+}
 
-    if (currentFontSize < 12) currentFontSize = 12;
-    if (currentFontSize > 22) currentFontSize = 22;
+function atualizarBotaoContraste() {
+    const botao = document.getElementById('btn-contraste');
+    const contrasteAtivo = document.body.classList.contains('alto-contraste');
+    if (!botao) return;
 
-    document.documentElement.style.fontSize = currentFontSize + 'px';
-    localStorage.setItem('gsaFontSize', currentFontSize);
+    botao.classList.toggle('ativo', contrasteAtivo);
+    botao.setAttribute('aria-pressed', String(contrasteAtivo));
 }
 
 function toggleContraste() {
     document.body.classList.toggle('alto-contraste');
     const isContraste = document.body.classList.contains('alto-contraste');
-    localStorage.setItem('gsaContraste', isContraste);
+    localStorage.setItem('gsaContraste', String(isContraste));
+    atualizarBotaoContraste();
+    atualizarStatusAcessibilidade(
+        isContraste ? 'Alto contraste ativado' : `Visualização em ${currentZoom}%`
+    );
 }
 
+function resetarAcessibilidade() {
+    currentZoom = 100;
+    document.body.classList.remove('alto-contraste');
+    localStorage.removeItem('gsaContraste');
+    aplicarZoom();
+    atualizarBotaoContraste();
+    atualizarStatusAcessibilidade('Preferências restauradas');
+}
+
+window.toggleAcessPanel = toggleAcessPanel;
+window.mudarFonte = mudarFonte;
+window.toggleContraste = toggleContraste;
+window.resetarAcessibilidade = resetarAcessibilidade;
+
 function toggleVLibras() {
-    const widget = document.getElementById('vlibras-widget');
+    const widget = document.querySelector('[vw]');
 
     if (widget) {
-        if (widget.style.display === 'none' || widget.style.display === '') {
+        if (widget.style.display === 'none') {
             widget.style.display = 'block';
 
             if (!window.VLibras) {
@@ -2254,16 +2365,138 @@ function toggleVLibras() {
     }
 }
 
+function prepararVLibrasMovel() {
+    let posicaoSalva = null;
+    try {
+        posicaoSalva = JSON.parse(localStorage.getItem('gsaVlibrasPosicao') || 'null');
+    } catch (erro) {
+        localStorage.removeItem('gsaVlibrasPosicao');
+    }
+    if (posicaoSalva && Number.isFinite(posicaoSalva.x) && Number.isFinite(posicaoSalva.y)) {
+        document.body.classList.add('vlibras-posicionado');
+        document.body.style.setProperty('--vlibras-x', `${posicaoSalva.x * window.innerWidth}px`);
+        document.body.style.setProperty('--vlibras-y', `${posicaoSalva.y * window.innerHeight}px`);
+    }
+
+    const observarBotao = new MutationObserver(() => {
+        const botao = document.querySelector('[vw-access-button]');
+        if (!botao || botao.dataset.gsaMovel === 'true') return;
+
+        botao.dataset.gsaMovel = 'true';
+        botao.classList.add('vlibras-arrastavel');
+        botao.setAttribute('title', 'Arraste o VLibras para qualquer lugar da tela');
+        botao.setAttribute('draggable', 'false');
+        botao.addEventListener('dragstart', (evento) => evento.preventDefault());
+        let inicioX = 0;
+        let inicioY = 0;
+        let arrastou = false;
+        let ultimoX = 0;
+        let ultimoY = 0;
+
+        botao.addEventListener('pointerdown', (evento) => {
+            inicioX = evento.clientX;
+            inicioY = evento.clientY;
+            ultimoX = evento.clientX;
+            ultimoY = evento.clientY;
+            arrastou = false;
+            botao.setPointerCapture?.(evento.pointerId);
+            botao.classList.add('arrastando');
+        });
+
+        botao.addEventListener('pointermove', (evento) => {
+            if (!botao.hasPointerCapture?.(evento.pointerId)) return;
+            if (Math.hypot(evento.clientX - inicioX, evento.clientY - inicioY) <= 6 && !arrastou) return;
+            arrastou = true;
+            evento.preventDefault();
+
+            const largura = botao.offsetWidth || 50;
+            const altura = botao.offsetHeight || 50;
+            ultimoX = Math.min(window.innerWidth - largura / 2, Math.max(largura / 2, evento.clientX));
+            ultimoY = Math.min(window.innerHeight - altura / 2, Math.max(altura / 2, evento.clientY));
+            document.body.classList.add('vlibras-posicionado');
+            document.body.style.setProperty('--vlibras-x', `${ultimoX}px`);
+            document.body.style.setProperty('--vlibras-y', `${ultimoY}px`);
+        });
+
+        botao.addEventListener('pointerup', (evento) => {
+            botao.releasePointerCapture?.(evento.pointerId);
+            botao.classList.remove('arrastando');
+            if (!arrastou) return;
+            localStorage.setItem('gsaVlibrasPosicao', JSON.stringify({
+                x: ultimoX / window.innerWidth,
+                y: ultimoY / window.innerHeight
+            }));
+            localStorage.removeItem('gsaVlibrasLado');
+        });
+
+        botao.addEventListener('click', (evento) => {
+            if (!arrastou) return;
+            evento.preventDefault();
+            evento.stopImmediatePropagation();
+            arrastou = false;
+        }, true);
+    });
+
+    observarBotao.observe(document.body, { childList: true, subtree: true });
+}
+
+function integrarVLibrasAcessibilidade() {
+    document.body.classList.remove('vlibras-posicionado', 'vlibras-esquerda');
+    document.body.style.removeProperty('--vlibras-x');
+    document.body.style.removeProperty('--vlibras-y');
+    localStorage.removeItem('gsaVlibrasPosicao');
+    localStorage.removeItem('gsaVlibrasLado');
+
+    const controles = document.querySelector('.acess-controles');
+    if (!controles || controles.querySelector('#btn-vlibras-integrado')) return;
+
+    const botao = document.createElement('button');
+    botao.type = 'button';
+    botao.id = 'btn-vlibras-integrado';
+    botao.className = 'btn-acess-item';
+    botao.innerHTML = '<span aria-hidden="true">☝</span> Libras (VLibras)';
+    botao.addEventListener('click', () => {
+        const acessoVLibras = document.querySelector('[vw-access-button]');
+        if (acessoVLibras) {
+            acessoVLibras.click();
+            atualizarStatusAcessibilidade('VLibras aberto');
+            toggleAcessPanel(false);
+        } else {
+            atualizarStatusAcessibilidade('VLibras ainda está carregando');
+        }
+    });
+
+    const restaurar = controles.querySelector('.btn-acess-reset');
+    controles.insertBefore(botao, restaurar || null);
+}
+
 window.addEventListener('DOMContentLoaded', () => {
+    integrarVLibrasAcessibilidade();
     if (localStorage.getItem('gsaContraste') === 'true') {
         document.body.classList.add('alto-contraste');
     }
 
-    const savedFont = localStorage.getItem('gsaFontSize');
-    if (savedFont) {
-        currentFontSize = parseInt(savedFont, 10);
-        document.documentElement.style.fontSize = currentFontSize + 'px';
-    }
+    aplicarZoom();
+    atualizarBotaoContraste();
+
+    const botaoAcessibilidade = document.getElementById('btn-acess-toggle');
+    const painelAcessibilidade = document.getElementById('acess-panel');
+
+    botaoAcessibilidade?.addEventListener('click', () => toggleAcessPanel());
+
+    document.addEventListener('click', (evento) => {
+        const wrapper = document.getElementById('acess-wrapper');
+        if (wrapper && !wrapper.contains(evento.target) && painelAcessibilidade && !painelAcessibilidade.hidden) {
+            toggleAcessPanel(false);
+        }
+    });
+
+    document.addEventListener('keydown', (evento) => {
+        if (evento.key === 'Escape' && painelAcessibilidade && !painelAcessibilidade.hidden) {
+            toggleAcessPanel(false);
+            botaoAcessibilidade?.focus();
+        }
+    });
 
     if (window.lucide && document.querySelector('[data-lucide]')) {
         window.lucide.createIcons();

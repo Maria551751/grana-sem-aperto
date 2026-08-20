@@ -1,0 +1,194 @@
+/* =========================================
+   1. RESET E CONFIGURAÇÕES GERAIS
+   ========================================= */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+body {
+    /* EFEITO DE PALETAS DIAGONAIS ALTERNADAS */
+    background: repeating-linear-gradient(
+        45deg,
+        #09090b,
+        #09090b 40px,
+        #0c0c0e 40px,
+        #0c0c0e 80px
+    );
+    color: #ffffff;
+    overflow-x: hidden;
+    min-height: 100vh;
+}
+
+/* =========================================
+   2. CABEÇALHO (HEADER)
+   ========================================= */
+.cabecalho {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 20px 5%;
+    background-color: rgba(24, 24, 27, 0.8);
+    border-bottom: 2px solid #27272a;
+    backdrop-filter: blur(12px);
+    position: sticky;
+    top: 0;
+    z-index: 100;
+}
+
+.logo {
+    color: #10b981; 
+    font-size: 32px;
+    font-weight: bold;
+    text-decoration: none;
+}
+
+.menu-desktop {
+    display: flex;
+    align-items: center;
+    gap: 25px;
+}
+
+.menu-desktop a {
+    color: #ffffff;
+    text-decoration: none;
+    font-size: 16px;
+    transition: 0.3s;
+}
+
+.menu-desktop a:hover {
+    color: #10b981;
+}
+
+.btn-calculadora {
+    background-color: #facc15;
+    color: #000000 !important;
+    padding: 12px 20px;
+    border-radius: 8px;
+    font-weight: bold;
+    transition: 0.3s;
+}
+
+.btn-calculadora:hover {
+    background-color: #eab308;
+    transform: scale(1.05);
+}
+
+.menu-mobile-btn {
+    background: none;
+    border: none;
+    color: #10b981;
+    font-size: 35px;
+    cursor: pointer;
+}
+
+/* =========================================
+   3. SEÇÃO PRINCIPAL (HERO)
+   ========================================= */
+.hero {
+    display: flex;
+    align-items: center;
+    padding: 0 5%;
+    min-height: 90vh;
+    position: relative; /* Base para a imagem flutuar */
+}
+
+.hero-texto {
+    width: 45%; 
+    z-index: 10; /* Garante que o texto fique por cima de tudo */
+}
+
+.hero-texto h1 {
+    font-size: 68px;
+    line-height: 1.1;
+    margin-bottom: 20px;
+    color: #ffffff
+}
+
+.destaque-verde {
+    color: #10b981;
+}
+
+.hero-texto p {
+    font-size: 20px;
+    color: #a1a1aa;
+    margin-bottom: 40px;
+}
+
+/* Botões de Ação */
+.botoes-acao {
+    display: flex;
+    gap: 20px;
+}
+
+.btn-primario {
+    background-color: #10b981;
+    color: #09090b;
+    padding: 18px 35px;
+    border-radius: 10px;
+    text-decoration: none;
+    font-weight: bold;
+    transition: 0.3s;
+}
+
+.btn-secundario {
+    background-color: transparent;
+    color: #ffffff;
+    padding: 18px 35px;
+    border-radius: 10px;
+    text-decoration: none;
+    border: 2px solid #27272a;
+    transition: 0.3s;
+}
+
+/* =========================================
+   4. ÁREA DA IMAGEM GIGANTE (SEM EMPURRAR TEXTO)
+   ========================================= */
+.hero-imagem {
+    position: absolute; /* Ela flutua sobre o fundo */
+    right: 5%; /* Alinhada à direita com margem */
+    top: 50%;
+    transform: translateY(-50%);
+    width: 55%; /* Espaço que ela pode ocupar */
+    display: flex;
+    justify-content: flex-end;
+    pointer-events: none; /* Deixa você clicar no que estiver atrás dela */
+}
+
+.imagem-cofrinho {
+    width: 100%;
+    /* AUMENTE AQUI SE QUISER MAIOR AINDA */
+    max-width: 900px; 
+    height: auto;
+    filter: drop-shadow(0px 0px 60px rgba(16, 185, 129, 0.3));
+    animation: flutuar 4s ease-in-out infinite alternate;
+}
+
+@keyframes flutuar {
+    from { transform: translateY(0px); }
+    to { transform: translateY(-30px); }
+}
+
+/* Ajuste para telas menores */
+@media (max-width: 1100px) {
+    .hero-texto h1 { font-size: 50px; }
+    .imagem-cofrinho { max-width: 600px; }
+}
+
+@media (max-width: 900px) {
+    .hero {
+        flex-direction: column;
+        justify-content: center;
+        text-align: center;
+        padding-top: 50px;
+    }
+    .hero-texto { width: 100%; margin-bottom: 50px; }
+    .hero-imagem {
+        position: static;
+        width: 100%;
+        transform: none;
+        justify-content: center;
+    }
+}

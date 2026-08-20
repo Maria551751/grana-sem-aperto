@@ -1,266 +1,91 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="pt-br">
-
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Criadores | GSA</title>
-    <link rel="icon" type="image/png" href="../assets/img/favicon.png">
-    <link rel="stylesheet" href="../assets/css/global.css?v=20260421-11">
-    <link rel="stylesheet" href="../assets/css/mobile.css">
-    <script src="https://unpkg.com/lucide@latest"></script>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Conheça as pessoas que criaram o Grana Sem Aperto, uma plataforma de educação financeira feita por jovens para jovens." />
+  <title>Sobre o GSA | Grana Sem Aperto</title>
+  <link rel="icon" type="image/png" href="../assets/img/favicon.png" />
+  <link rel="stylesheet" href="../assets/css/global.css?v=20260820-12" />
+  <link rel="stylesheet" href="../assets/css/mobile.css" />
+  <link rel="stylesheet" href="../assets/css/criadores.css?v=20260819-5" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet" />
 </head>
+<body class="pagina-sobre">
+  <header class="cabecalho">
+    <a href="../index.html" class="logo"><img src="../assets/img/logo sem fundo GSA 3.0.png" alt="Logo Grana Sem Aperto" class="logo-mark" /><span class="logo-text">Grana Sem Aperto</span></a>
+    <nav class="menu-desktop" aria-label="Navegação principal">
+      <a href="../index.html">Início</a><a href="../pages/Cursos.html">Aprender</a><a href="../pages/calculadora.html">Ferramentas</a><a href="../pages/criadores.html" class="ativo" aria-current="page">Sobre</a><button class="menu-mobile-btn" aria-label="Abrir menu" title="Abrir menu">☰</button>
+    </nav>
+  </header>
 
-<body class="bg-dark">
+  <aside class="sidebar" id="sidebar"><div class="sidebar-header"><span class="logo">GSA</span><button class="fechar-sidebar" id="btnFechar" aria-label="Fechar menu">×</button></div><nav class="sidebar-links"><a href="../index.html">Início</a><a href="../pages/Cursos.html">Aprender</a><a href="../pages/calculadora.html">Ferramentas</a><a href="../pages/criadores.html" aria-current="page">Sobre</a></nav></aside>
+  <div class="overlay" id="overlay"></div>
 
-   <header class="cabecalho">
-        <a href="../index.html" class="logo">
-            <img src="../assets/img/logo sem fundo GSA 3.0.png" alt="Logo Grana Sem Aperto" class="logo-mark">
-            <span class="logo-text">Grana Sem Aperto</span>
-        </a>
-        <nav class="menu-desktop">
-            <a href="../index.html">Início</a>
-            <button class="menu-mobile-btn">☰</button>
-        </nav>
-    </header>
-
-    <aside class="sidebar" id="sidebar">
-        <div class="sidebar-header">
-            <span class="logo">GSA</span>
-           <button class="fechar-sidebar" id="btnFechar">×</button>
+  <main>
+    <section class="sobre-hero">
+      <div class="sobre-hero-conteudo">
+        <div class="sobre-hero-texto revelar">
+          <span class="sobre-etiqueta">QUEM CONSTRÓI O GSA</span>
+          <h1>Uma ideia que nasceu jovem e quer <span>crescer junto.</span></h1>
+          <p>Somos um time de jovens que acredita que educação financeira não precisa ser distante, difícil ou cheia de palavras complicadas. O GSA transforma conhecimento em ferramentas para a vida real.</p>
+          <div class="sobre-hero-acoes"><a href="#equipe" class="btn-primario">Conheça a equipe</a><a href="../index.html#sobre-gsa" class="btn-secundario">Nossa proposta</a></div>
         </div>
-        <nav class="sidebar-links">
-            <a href="../index.html">Início</a>
-            <a href="../pages/Cursos.html">Cursos</a>
-            <a href="../pages/calculadora.html">Calculadora de Juros</a> 
-            <a href="../pages/criadores.html">Criadores</a>
-        </nav>
-    </aside>
-
-    <div class="overlay" id="overlay" onclick="toggleMenu()"></div>
-
-    <main class="container-criadores">
-        <section class="hero-texto-criadores">
-            <h1 class="titulo-gsa">
-                Mentes por trás do <span class="destaque-verde">GSA</span>
-            </h1>
-            <p class="subtitulo">
-                Conheça o time que está construindo o futuro da sua liberdade financeira.
-            </p>
-        </section>
-
-        <div class="slider-container">
-            <button class="seta-esquerda" onclick="slide('esquerda')">
-                <i data-lucide="arrow-left"></i>
-            </button>
-
-            <div class="slider-wrapper" id="slider">
-                <div class="grid-criadores">
-
-                    <div class="card-gsa">
-                        <div class="foto-container">
-                            <img src="../assets/img/Maria eduarda.jpeg" alt="Foto">
-                        </div>
-                        <div class="card-content">
-                            <h3>Maria Eduarda Carneiro dos Santos</h3>
-                            <p>Estudante de Ciência da Computação<br>Jovem Aprendiz do IBOL</p>
-                            <div class="social-icons">
-                                <a href="https://github.com/Maria551751" target="_blank">
-                                    <img src="https://cdn-icons-png.flaticon.com/512/25/25231.png" alt="GitHub"
-                                        class="social-logo">
-                                </a>
-                                <a href="https://www.linkedin.com/in/maria-eduarda-carneiro-dos-santos-351193329/"
-                                    target="_blank">
-                                    <img src="https://cdn-icons-png.flaticon.com/512/174/174857.png" alt="LinkedIn"
-                                        class="social-logo">
-                                </a>
-                                <a href="https://www.instagram.com/mari._.darks/" target="_blank">
-                                    <img src="https://cdn-icons-png.flaticon.com/512/174/174855.png" alt="Instagram"
-                                        class="social-logo">
-                                </a>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="card-gsa">
-                        <div class="foto-container">
-                            <img src="../assets/img/Arthur.jpeg" alt="Foto">
-                        </div>
-                        <div class="card-content">
-                            <h3>Arthur da Silva <br>Araujo</h3>
-                            <p>Estudante de Engenharia da Computação<br>Jovem Aprendiz do IBOL</p>
-                            <div class="social-icons">
-                                </a>
-                                <a href="https://www.linkedin.com/in/arthur-araujo-30bab3298/" target="_blank">
-                                    <img src="https://cdn-icons-png.flaticon.com/512/174/174857.png" alt="LinkedIn"
-                                        class="social-logo">
-                                </a>
-                                <a href="https://www.instagram.com/artplw/" target="_blank">
-                                    <img src="https://cdn-icons-png.flaticon.com/512/174/174855.png" alt="Instagram"
-                                        class="social-logo">
-                                </a>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="card-gsa">
-                        <div class="foto-container">
-                            <img src="../assets/img/Gabriel (2).png" alt="Foto">
-                        </div>
-                        <div class="card-content">
-                            <h3>Gabriel Marques Bessa</h3>
-                            <p>Vestibulando<br>Jovem Aprendiz da Courtyard by Marriott</p>
-                            <div class="social-icons">
-                                <a href="https://www.instagram.com/gabriel.marques_/" target="_blank">
-                                    <img src="https://cdn-icons-png.flaticon.com/512/174/174855.png" alt="Instagram"
-                                        class="social-logo">
-                                </a>
-                                 <a href="https://www.linkedin.com/in/gabriel-marques-702998391?utm_source=share_via&utm_content=profile&utm_medium=member_ios"
-                                    target="_blank">
-                                    <img src="https://cdn-icons-png.flaticon.com/512/174/174857.png" alt="LinkedIn"
-                                        class="social-logo">
-                                      </a>  
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="card-gsa">
-                        <div class="foto-container">
-                            <img src="../assets/img/Thalys.jpeg" alt="Foto">
-                        </div>
-                        <div class="card-content">
-                            <h3>Thalys Gomes de Lima da Silva</h3>
-                            <p>Estudante<br>Jovem Aprendiz do IBOL</p>
-                            <div class="social-icons">
-                                <a href="https://www.instagram.com/021_thgomes/" target="_blank">
-                                    <img src="https://cdn-icons-png.flaticon.com/512/174/174855.png" alt="Instagram"
-                                        class="social-logo">
-                                </a>
-                                 <a href="https://www.linkedin.com/in/thalys-gomes-de-lima-da-silva-3592653b0?utm_source=share_via&utm_content=profile&utm_medium=member_android"
-                                    target="_blank">
-                                    <img src="https://cdn-icons-png.flaticon.com/512/174/174857.png" alt="LinkedIn"
-                                        class="social-logo">
-                                      </a>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="card-gsa">
-                        <div class="foto-container">
-                            <img src="../assets/img/Vitor.png" alt="Foto">
-                        </div>
-                        <div class="card-content">
-                            <h3>Vitor Hugo <br>Scaldaferri</h3>
-                            <p>Estudante de Arquitetura<br>Jovem Aprendiz da Aço Brasil</p>
-                            <div class="social-icons">
-                                <a href="https://www.instagram.com/euvt_hxl/" target="_blank">
-                                    <img src="https://cdn-icons-png.flaticon.com/512/174/174855.png" alt="Instagram"
-                                        class="social-logo">
-                                </a>
-                                 <a href="https://www.linkedin.com/in/vitor-scaldaferri-65a9993bb?utm_source=share&utm_campaign=share_via&utm_content=profile&utm_medium=android_app"
-                                    target="_blank">
-                                    <img src="https://cdn-icons-png.flaticon.com/512/174/174857.png" alt="LinkedIn"
-                                        class="social-logo">
-                                      </a>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="card-gsa">
-                        <div class="foto-container">
-                            <img src="../assets/img/Vinicius .png" alt="Foto">
-                        </div>
-                        <div class="card-content">
-                            <h3>Vinicius Coelho Conde</h3>
-                            <p>Vestibulando<br>Jovem Aprendiz da Courtyard by Marriott</p>
-                            <div class="social-icons">
-                                <a href="https://www.instagram.com/_crvg_vinicius/" target="_blank">
-                                    <img src="https://cdn-icons-png.flaticon.com/512/174/174855.png" alt="Instagram"
-                                        class="social-logo">
-                                </a>
-                                 <a href="https://www.linkedin.com/in/vinicius-conde-435954279?utm_source=share_via&utm_content=profile&utm_medium=member_android"
-                                    target="_blank">
-                                    <img src="https://cdn-icons-png.flaticon.com/512/174/174857.png" alt="LinkedIn"
-                                        class="social-logo">
-                                      </a>
-                            </div>
-                        </div>
-                    </div>
-
-
-                </div>
-            </div>
-
-            <button class="seta-direta" onclick="slide('direita')">
-                <i data-lucide="arrow-right"></i>
-            </button>
+        <div class="sobre-manifesto revelar delay-1">
+          <span class="manifesto-numero">06</span>
+          <div><strong>pessoas, uma missão</strong><p>Dar a outros jovens mais clareza para escolher, planejar e construir o próprio futuro financeiro.</p></div>
+          <span class="manifesto-linha" aria-hidden="true"></span>
         </div>
-    </main>
-    <script src="https://unpkg.com/lucide@latest"></script>
-    <script>
-        // Inicializa os ícones uma única vez
-        lucide.createIcons();
+      </div>
+    </section>
 
-        function slide(direcao) {
-            const slider = document.getElementById('slider');
-            const scrollAmount = slider.clientWidth;
+    <section class="sobre-valores" aria-label="Valores do projeto">
+      <article><span>01</span><strong>Clareza antes da complexidade</strong></article>
+      <article><span>02</span><strong>Planejamento antes da pressa</strong></article>
+      <article><span>03</span><strong>Autonomia antes da promessa</strong></article>
+    </section>
 
-            if (direcao === 'direita') {
-                slider.scrollBy({ left: scrollAmount, behavior: 'smooth' });
-            } else {
-                slider.scrollBy({ left: -scrollAmount, behavior: 'smooth' });
-            }
-        }
-    </script>
+    <section class="equipe-secao" id="equipe" aria-labelledby="equipe-titulo">
+      <header class="equipe-cabecalho revelar"><div><span class="sobre-etiqueta">AS PESSOAS POR TRÁS</span><h2 id="equipe-titulo">Conheça o <span>Time GSA.</span></h2></div><p>Experiências diferentes, reunidas para criar uma plataforma mais próxima de quem está começando.</p></header>
+      <div class="equipe-grid">
+        <article class="membro-card revelar">
+          <div class="membro-foto"><img src="../assets/img/Maria eduarda.jpeg" alt="Maria Eduarda Carneiro dos Santos" /><span>01</span></div>
+          <div class="membro-conteudo"><span class="membro-area">CIÊNCIA DA COMPUTAÇÃO</span><h3>Maria Eduarda<br />Carneiro dos Santos</h3><p>Estudante e Jovem Aprendiz do IBOL.</p><nav class="membro-redes" aria-label="Redes sociais de Maria Eduarda"><a href="https://github.com/Maria551751" target="_blank" rel="noopener noreferrer">GitHub ↗</a><a href="https://www.linkedin.com/in/maria-eduarda-carneiro-dos-santos-351193329/" target="_blank" rel="noopener noreferrer">LinkedIn ↗</a></nav></div>
+        </article>
+        <article class="membro-card revelar delay-1">
+          <div class="membro-foto"><img src="../assets/img/Arthur.jpeg" alt="Arthur da Silva Araujo" /><span>02</span></div>
+          <div class="membro-conteudo"><span class="membro-area">ENGENHARIA DA COMPUTAÇÃO</span><h3>Arthur da Silva<br />Araujo</h3><p>Estudante e Jovem Aprendiz do IBOL.</p><nav class="membro-redes" aria-label="Redes sociais de Arthur"><a href="https://www.linkedin.com/in/arthur-araujo-30bab3298/" target="_blank" rel="noopener noreferrer">LinkedIn ↗</a><a href="https://www.instagram.com/artplw/" target="_blank" rel="noopener noreferrer">Instagram ↗</a></nav></div>
+        </article>
+        <article class="membro-card revelar">
+          <div class="membro-foto"><img src="../assets/img/Gabriel (2).png" alt="Gabriel Marques Bessa" /><span>03</span></div>
+          <div class="membro-conteudo"><span class="membro-area">NOVAS PERSPECTIVAS</span><h3>Gabriel Marques<br />Bessa</h3><p>Vestibulando e Jovem Aprendiz da Courtyard by Marriott.</p><nav class="membro-redes" aria-label="Redes sociais de Gabriel"><a href="https://www.linkedin.com/in/gabriel-marques-702998391" target="_blank" rel="noopener noreferrer">LinkedIn ↗</a><a href="https://www.instagram.com/gabriel.marques_/" target="_blank" rel="noopener noreferrer">Instagram ↗</a></nav></div>
+        </article>
+        <article class="membro-card revelar delay-1">
+          <div class="membro-foto"><img src="../assets/img/Thalys.jpeg" alt="Thalys Gomes de Lima da Silva" /><span>04</span></div>
+          <div class="membro-conteudo"><span class="membro-area">APRENDIZADO CONTÍNUO</span><h3>Thalys Gomes<br />de Lima da Silva</h3><p>Estudante e Jovem Aprendiz do IBOL.</p><nav class="membro-redes" aria-label="Redes sociais de Thalys"><a href="https://www.linkedin.com/in/thalys-gomes-de-lima-da-silva-3592653b0" target="_blank" rel="noopener noreferrer">LinkedIn ↗</a><a href="https://www.instagram.com/021_thgomes/" target="_blank" rel="noopener noreferrer">Instagram ↗</a></nav></div>
+        </article>
+        <article class="membro-card revelar">
+          <div class="membro-foto"><img src="../assets/img/Vitor.png" alt="Vitor Hugo Scaldaferri" /><span>05</span></div>
+          <div class="membro-conteudo"><span class="membro-area">ARQUITETURA</span><h3>Vitor Hugo<br />Scaldaferri</h3><p>Estudante e Jovem Aprendiz da Aço Brasil.</p><nav class="membro-redes" aria-label="Redes sociais de Vitor"><a href="https://www.linkedin.com/in/vitor-scaldaferri-65a9993bb" target="_blank" rel="noopener noreferrer">LinkedIn ↗</a><a href="https://www.instagram.com/euvt_hxl/" target="_blank" rel="noopener noreferrer">Instagram ↗</a></nav></div>
+        </article>
+        <article class="membro-card revelar delay-1">
+          <div class="membro-foto"><img src="../assets/img/Vinicius .png" alt="Vinicius Coelho Conde" /><span>06</span></div>
+          <div class="membro-conteudo"><span class="membro-area">NOVAS PERSPECTIVAS</span><h3>Vinicius Coelho<br />Conde</h3><p>Vestibulando e Jovem Aprendiz da Courtyard by Marriott.</p><nav class="membro-redes" aria-label="Redes sociais de Vinicius"><a href="https://www.linkedin.com/in/vinicius-conde-435954279" target="_blank" rel="noopener noreferrer">LinkedIn ↗</a><a href="https://www.instagram.com/_crvg_vinicius/" target="_blank" rel="noopener noreferrer">Instagram ↗</a></nav></div>
+        </article>
+      </div>
+    </section>
 
-    <div id="acess-wrapper" style="position: fixed; bottom: 20px; left: 20px; z-index: 10000;">
-    <button id="btn-acess-toggle" onclick="toggleAcessPanel()" style="background: #27272a; color: #fff; border: 1px solid #3f3f46; width: 50px; height: 50px; border-radius: 50%; cursor: pointer; font-size: 20px; display: flex; align-items: center; justify-content: center; box-shadow: 0 4px 15px rgba(0,0,0,0.3);">
-        ♿
-    </button>
+    <section class="sobre-cta revelar">
+      <span class="sobre-cta-marca" aria-hidden="true">GSA</span>
+      <div class="sobre-cta-principal"><span>O PRÓXIMO PASSO É SEU</span><h2>Conhecimento vira liberdade quando entra em movimento.</h2><div class="sobre-cta-acoes"><a href="../pages/Cursos.html" class="btn-primario">Começar a aprender</a><a href="../pages/calculadora.html" class="btn-secundario">Testar ferramentas</a></div></div>
+      <div class="sobre-cta-info" aria-label="Características do Grana Sem Aperto"><div><strong>100%</strong><span>gratuito</span></div><div><strong>Direto</strong><span>sem complicação</span></div><div><strong>Prático</strong><span>para a vida real</span></div></div>
+    </section>
+  </main>
 
-    <div id="acess-panel" style="display: none; position: absolute; bottom: 60px; left: 0; width: 250px; background: rgba(30, 30, 35, 0.9); backdrop-filter: blur(15px); border: 1px solid rgba(255, 255, 255, 0.1); border-radius: 15px; padding: 20px; box-shadow: 0 10px 25px rgba(0,0,0,0.5);">
-        <h3 style="color: #22c55e; font-size: 16px; margin-bottom: 15px; border-bottom: 1px solid #3f3f46; padding-bottom: 5px;">Acessibilidade</h3>
-        
-        <div style="display: flex; flex-direction: column; gap: 12px;">
-            <button onclick="mudarFonte(1)" class="btn-acess-item">Aumentar Texto (A+)</button>
-            <button onclick="mudarFonte(-1)" class="btn-acess-item">Diminuir Texto (A-)</button>
-            <button onclick="toggleContraste()" class="btn-acess-item">Alto Contraste</button>
-        </div>
-    </div>
-</div>
-
-<div id="ai-chat-wrapper">
-    <button id="btn-ia-toggle" onclick="toggleAIChat()">
-        <span>🤖 GSA Assistente</span>
-    </button>
-
-     <div id="chat-box-ia" class="chat-escondido">
-        <div class="chat-header">
-            <strong>IA GSA</strong>
-            <button onclick="toggleAIChat()">×</button>
-        </div>
-        <div id="chat-messages">
-            <div class="msg-ia">Olá Investidor(a)! Sou sua IA de economia. Qual sua dúvida sobre a estratégia GSA hoje?</div>
-        </div>
-        <div class="chat-input">
-            <input type="text" id="user-query" placeholder="Pergunte sobre Selic, FIIs...">
-           <button onclick="perguntarIA()" id="btn-enviar-ia" title="Enviar Mensagem">
-    <svg viewBox="0 0 24 24" width="20" height="20" fill="currentColor">
-        <path d="M2.01 21L23 12 2.01 3 2 10l15 2-15 2z"></path>
-    </svg>
-</button>
-        </div>
-    </div>
-</div>
-
-<div vw class="enabled">
-  <div vw-access-button class="active"></div>
-  <div vw-plugin-wrapper>
-    <div class="vw-plugin-top-wrapper"></div>
-  </div>
-</div>
-
-<script src="https://vlibras.gov.br/app/vlibras-plugin.js"></script>
-<script src="../assets/js/global.js?v=20260421-10"></script>
+  <div id="ai-chat-wrapper"><button id="btn-ia-toggle" onclick="toggleAIChat()"><span>🤖 GSA Assistente</span></button><div id="chat-box-ia" class="chat-escondido"><div class="chat-header"><strong>IA GSA</strong><button onclick="toggleAIChat()" aria-label="Fechar assistente">×</button></div><div id="chat-messages"><div class="msg-ia">Olá! Quer conhecer melhor o projeto GSA?</div></div><div class="chat-input"><input type="text" id="user-query" placeholder="Faça sua pergunta..." /><button onclick="perguntarIA()" id="btn-enviar-ia" title="Enviar mensagem">➤</button></div></div></div>
+  <div id="acess-wrapper"><button id="btn-acess-toggle" type="button" aria-label="Abrir opções de acessibilidade" aria-controls="acess-panel" aria-expanded="false" title="Acessibilidade">♿</button><div id="acess-panel" role="dialog" aria-label="Opções de acessibilidade" hidden><div class="acess-cabecalho"><span class="acess-icone" aria-hidden="true">♿</span><div><span>Preferências</span><h3>Acessibilidade</h3></div></div><div class="acess-controles"><button type="button" onclick="mudarFonte(1)" class="btn-acess-item"><span aria-hidden="true">A+</span> Aumentar visualização</button><button type="button" onclick="mudarFonte(-1)" class="btn-acess-item"><span aria-hidden="true">A−</span> Diminuir visualização</button><button type="button" onclick="toggleContraste()" class="btn-acess-item" id="btn-contraste"><span aria-hidden="true">◐</span> Alto contraste</button><button type="button" onclick="resetarAcessibilidade()" class="btn-acess-item btn-acess-reset"><span aria-hidden="true">↺</span> Restaurar padrão</button></div><p id="acess-status" class="acess-status" aria-live="polite">Visualização em 100%</p></div></div>
+  <div vw class="enabled"><div vw-access-button class="active"></div><div vw-plugin-wrapper><div class="vw-plugin-top-wrapper"></div></div></div>
+  <script src="https://vlibras.gov.br/app/vlibras-plugin.js"></script>
+  <script src="../assets/js/global.js?v=20260819-6"></script>
 </body>
 </html>

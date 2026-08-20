@@ -1,195 +1,139 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="pt-br">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Calculadora GSA | Grana Sem Aperto</title>
-    <link rel="icon" type="image/png" href="../assets/img/favicon.png">
-    <link rel="stylesheet" href="../assets/css/global.css?v=20260421-11">
-    <link rel="stylesheet" href="../assets/css/mobile.css">
-    <link rel="stylesheet" href="../assets/css/calculadora.css">
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700;900&display=swap" rel="stylesheet">
-    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Simule investimentos e desenvolva o hábito de planejar com a Calculadora GSA." />
+  <title>Ferramentas GSA | Grana Sem Aperto</title>
+  <link rel="icon" type="image/png" href="../assets/img/favicon.png" />
+  <link rel="stylesheet" href="../assets/css/global.css?v=20260820-12" />
+  <link rel="stylesheet" href="../assets/css/mobile.css" />
+  <link rel="stylesheet" href="../assets/css/calculadora.css?v=20260818-4" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet" />
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>
+  <script type="importmap">{"imports":{"three":"https://cdn.jsdelivr.net/npm/three@0.185.1/build/three.module.js","three/addons/":"https://cdn.jsdelivr.net/npm/three@0.185.1/examples/jsm/"}}</script>
 </head>
+<body class="pagina-ferramentas">
+  <header class="cabecalho">
+    <a href="../index.html" class="logo">
+      <img src="../assets/img/logo sem fundo GSA 3.0.png" alt="Logo Grana Sem Aperto" class="logo-mark" />
+      <span class="logo-text">Grana Sem Aperto</span>
+    </a>
+    <nav class="menu-desktop" aria-label="Navegação principal">
+      <a href="../index.html">Início</a>
+      <a href="../pages/Cursos.html">Aprender</a>
+      <a href="../pages/calculadora.html" class="ativo" aria-current="page">Ferramentas</a>
+      <a href="../pages/criadores.html">Sobre</a>
+      <button class="menu-mobile-btn" aria-label="Abrir menu" title="Abrir menu">☰</button>
+    </nav>
+  </header>
 
-<body class="bg-dark">
+  <aside class="sidebar" id="sidebar">
+    <div class="sidebar-header"><span class="logo">GSA</span><button class="fechar-sidebar" id="btnFechar" aria-label="Fechar menu">×</button></div>
+    <nav class="sidebar-links">
+      <a href="../index.html">Início</a><a href="../pages/Cursos.html">Aprender</a><a href="../pages/calculadora.html" aria-current="page">Ferramentas</a><a href="../pages/criadores.html">Sobre</a>
+    </nav>
+  </aside>
+  <div class="overlay" id="overlay"></div>
 
-    <header class="cabecalho">
-        <a href="../index.html" class="logo">
-            <img src="../assets/img/logo sem fundo GSA 3.0.png" alt="Logo Grana Sem Aperto" class="logo-mark">
-            <span class="logo-text">Grana Sem Aperto</span>
-        </a>
-        <nav class="menu-desktop">
-            <a href="../index.html">Início</a>
-            <a href="../pages/Cursos.html">Cursos</a>
-            <a href="../pages/criadores.html">Criadores</a>
-            <button class="menu-mobile-btn">☰</button>
-        </nav>
-    </header>
-
-    <aside class="sidebar" id="sidebar">
-        <div class="sidebar-header">
-            <span class="logo">GSA</span>
-            <button class="fechar-sidebar" id="btnFechar">×</button>
+  <main>
+    <section class="ferramentas-hero">
+      <div class="ferramentas-hero-conteudo">
+        <div class="ferramentas-hero-texto revelar">
+          <span class="ferramentas-etiqueta">PLANEJAMENTO QUE GANHA FORMA</span>
+          <h1>Transforme números em <span>decisões.</span></h1>
+          <p>Registre um investimento, acompanhe uma estimativa de rendimento e descubra como pequenos aportes podem crescer com o tempo.</p>
+          <div class="ferramentas-hero-acoes"><a href="#simulador" class="btn-primario">Começar simulação</a><a href="#como-usar" class="btn-secundario">Entender a ferramenta</a></div>
+          <div class="ferramentas-selo"><span aria-hidden="true">✓</span><p><strong>Ferramenta educacional</strong> · Projeções não são garantia de retorno.</p></div>
         </div>
-        <nav class="sidebar-links">
-            <a href="../index.html">Início</a>
-            <a href="../pages/Cursos.html">Cursos</a>
-            <a href="../pages/calculadora.html">Calculadora de Juros</a>
-            <a href="../pages/criadores.html">Criadores</a>
-        </nav>
-    </aside>
-
-    <div class="overlay" id="overlay" onclick="toggleMenu()"></div>
-
-    <main class="container-criadores" style="padding-top: 100px;">
-        <section class="calc-container" style="display: flex; flex-direction: column; align-items: center; gap: 40px; width: 100%;">
-
-            <div class="calc-card revelar vidro-cinza" style="max-width: 800px; width: 90%; padding: 40px;">
-
-                <div class="taxas-atuais" style="display: flex; gap: 15px; margin-bottom: 30px; justify-content: center; flex-wrap: wrap;">
-
-                    <div class="taxa-card" style="background: rgba(255, 255, 255, 0.05); border: 1px solid rgba(255, 255, 255, 0.1); padding: 15px; border-radius: 12px; min-width: 160px; text-align: center;">
-                        <span style="font-size: 12px; color: #a0a0a0; display: block;">Selic (Anual)</span>
-                        <strong id="selicValor" class="taxa-valor" style="color: #22c55e;">Carregando...</strong>
-                        <span id="selicStatus" class="taxa-status">Atualizando dados</span>
-                    </div>
-
-                    <div class="taxa-card" style="background: rgba(255, 255, 255, 0.05); border: 1px solid rgba(255, 255, 255, 0.1); padding: 15px; border-radius: 12px; min-width: 160px; text-align: center;">
-                        <span style="font-size: 12px; color: #a0a0a0; display: block;">CDI (Hoje)</span>
-                        <strong id="cdiValor" class="taxa-valor" style="color: #facc15;">Carregando...</strong>
-                        <span id="cdiStatus" class="taxa-status">Atualizando dados</span>
-                    </div>
-
-                    <div class="taxa-card" style="background: rgba(255, 255, 255, 0.05); border: 1px solid rgba(255, 255, 255, 0.1); padding: 15px; border-radius: 12px; min-width: 160px; text-align: center;">
-                        <span style="font-size: 12px; color: #a0a0a0; display: block;">Poupança</span>
-                        <strong id="poupancaValor" class="taxa-valor" style="color: #ec4899;">Carregando...</strong>
-                        <span id="poupancaStatus" class="taxa-status">Atualizando dados</span>
-                    </div>
-
-                </div>
-
-                <h2 class="destaque-verde" style="margin-bottom: 20px; text-align: center;">Como usar a calculadora GSA</h2>
-
-                <div class="tutorial-grid" style="text-align: left; display: grid; gap: 15px; color: #e0e0e0;">
-                    <p><strong style="color: var(--verde-gsa);">Passo 1:</strong> Preencha o "Valor Inicial" com o que você tem hoje.</p>
-                    <p><strong style="color: var(--verde-gsa);">Passo 2:</strong> No "Aporte Mensal", coloque quanto pretende investir por mês.</p>
-                    <p><strong style="color: var(--verde-gsa);">Passo 3:</strong> Informe a taxa de juros anual esperada. Você pode usar a taxa CDI carregada automaticamente acima.</p>
-                    <p><strong style="color: var(--verde-gsa);">Passo 4:</strong> Escolha por quanto tempo (em anos) quer simular.</p>
-                </div>
-
-            </div>
-
-            <div class="calc-card revelar delay-1 vidro-cinza" style="max-width: 500px; width: 90%; padding: 40px;">
-
-                <h2 class="destaque-verde" style="text-align: center;">Simulador GSA</h2>
-                <p style="color: #a0a0a0; margin-bottom: 25px; text-align: center;">Tudo o que você precisa em um só lugar:</p>
-
-                <div class="calc-inputs-vertical">
-                    <div class="input-group-vertical">
-                        <label>Investimento Inicial (R$)</label>
-                        <input type="number" id="valorInicial" placeholder="Ex: 1000">
-                    </div>
-                    <div class="input-group-vertical">
-                        <label>Aporte Mensal (R$)</label>
-                        <input type="number" id="valorMensal" placeholder="Ex: 200">
-                    </div>
-                    <div class="input-group-vertical">
-                        <label>Taxa de Juros Anual (%)</label>
-                        <input type="number" id="taxaAnual" placeholder="Ex: 14.65">
-                    </div>
-                    <div class="input-group-vertical">
-                        <label>Tempo (Anos)</label>
-                        <input type="number" id="tempoAnos" placeholder="Ex: 5">
-                    </div>
-                </div>
-
-                <button onclick="calcularGSA()" class="btn-primario" style="width: 100%; margin-top: 30px; padding: 15px; font-weight: bold; background: #22c55e; border: none; border-radius: 12px; cursor: pointer; color: #000;">
-                    Calcular Futuro 🚀
-                </button>
-
-                <div id="resultadoGSA" style="display: none; margin-top: 30px; background: rgba(0,0,0,0.2); padding: 20px; border-radius: 16px; border: 1px solid rgba(255,255,255,0.05);">
-                    <div style="display: flex; justify-content: space-between; margin-bottom: 15px;">
-                        <span style="color: #a0a0a0;">Total Investido</span>
-                        <strong id="totalInvestido" style="color: #fff;">R$ 0,00</strong>
-                    </div>
-                    <div style="display: flex; justify-content: space-between; margin-bottom: 15px;">
-                        <span style="color: #a0a0a0;">Total em Juros</span>
-                        <strong style="color: #22c55e;" id="totalJuros">R$ 0,00</strong>
-                    </div>
-                    <hr style="border: 0; border-top: 1px solid rgba(255,255,255,0.1); margin: 20px 0;">
-                    <div style="text-align: center;">
-                        <span style="color: #a0a0a0;">Montante Final</span>
-                        <h2 id="montanteFinal" style="color: #22c55e; font-size: 32px; margin-top: 10px;">R$ 0,00</h2>
-                    </div>
-                    <div class="grafico-box" style="margin-top: 30px; background: rgba(0,0,0,0.4); padding: 15px; border-radius: 12px;">
-                        <canvas id="graficoEvolucao"></canvas>
-                    </div>
-                    <div class="tabela-wrapper" style="margin-top: 40px; overflow-x: auto;">
-                        <h3 style="color: #fff; margin-bottom: 15px; font-size: 16px; text-align: center;">Detalhamento Mensal</h3>
-                        <table class="tabela-gsa" id="tabelaMensal">
-                            <thead>
-                                <tr>
-                                    <th>Mês</th>
-                                    <th>Juros</th>
-                                    <th>Total Investido</th>
-                                    <th>Total Juros</th>
-                                    <th>Total Acumulado</th>
-                                </tr>
-                            </thead>
-                            <tbody></tbody>
-                        </table>
-                    </div>
-                </div>
-            </div>
-        </section>
-    </main>
-
-    <div id="ai-chat-wrapper" style="position: fixed; bottom: 20px; right: 20px; z-index: 9999;">
-        <button id="btn-ia-toggle" onclick="toggleAIChat()" style="background: #22c55e; color: #000; border: none; padding: 12px 20px; border-radius: 50px; font-weight: bold; cursor: pointer; display: flex; align-items: center; gap: 8px;">
-            🤖 GSA Assistente
-        </button>
-        <div id="chat-box-ia" style="display: none; position: absolute; bottom: 70px; right: 0; width: 300px; background: #000; border: 1px solid #27272a; border-radius: 15px; overflow: hidden; box-shadow: 0 10px 25px rgba(0,0,0,0.8);">
-            <div style="background: #22c55e; padding: 15px; color: #000; font-weight: bold; display: flex; justify-content: space-between;">
-                <span>IA GSA</span>
-                <button onclick="toggleAIChat()">×</button>
-            </div>
-            <div id="chat-messages" style="height: 300px; padding: 15px; overflow-y: auto; color: #fff; font-size: 14px;">
-                <div class="msg-ia">As taxas acima são carregadas automaticamente. Quer simular com a CDI atual?</div>
-            </div>
-            <div class="chat-input" style="padding: 10px; display: flex; gap: 5px; background: #09090b;">
-                <input type="text" id="user-query" placeholder="Sua dúvida..." style="flex: 1; background: #18181b; border: 1px solid #27272a; color: #fff; padding: 8px; border-radius: 5px;">
-                <button onclick="perguntarIA()" style="background: #22c55e; border: none; padding: 5px 10px; border-radius: 5px; cursor: pointer;">➤</button>
-            </div>
+        <div class="ferramentas-hero-visual revelar delay-1">
+          <canvas id="ferramentas-3d" aria-hidden="true"></canvas>
+          <div class="hero-3d-legenda" aria-hidden="true"><span>Crescimento projetado</span><strong>Planejar → Aportar → Acompanhar</strong></div>
         </div>
-    </div>
+      </div>
+    </section>
 
+    <section class="taxas-secao" aria-labelledby="taxas-titulo">
+      <div class="secao-cabecalho revelar"><span class="secao-etiqueta">REFERÊNCIAS DO MERCADO</span><h2 id="taxas-titulo">Taxas para orientar sua <span>simulação</span></h2><p>Dados de referência carregados automaticamente. Clique em uma taxa para utilizá-la no simulador.</p></div>
+      <div class="taxas-atuais revelar delay-1">
+        <button class="taxa-card taxa-selic" type="button" data-usar-taxa="selicValor"><span class="taxa-icone" aria-hidden="true">S</span><span class="taxa-nome">Selic anual</span><strong id="selicValor" class="taxa-valor">Carregando...</strong><span id="selicStatus" class="taxa-status">Atualizando dados</span><span class="taxa-acao">Usar esta taxa →</span></button>
+        <button class="taxa-card taxa-cdi recomendada" type="button" data-usar-taxa="cdiValor"><span class="taxa-recomendada">SUGESTÃO INICIAL</span><span class="taxa-icone" aria-hidden="true">C</span><span class="taxa-nome">CDI anual estimado</span><strong id="cdiValor" class="taxa-valor">Carregando...</strong><span id="cdiStatus" class="taxa-status">Atualizando dados</span><span class="taxa-acao">Usar esta taxa →</span></button>
+        <button class="taxa-card taxa-poupanca" type="button" data-usar-taxa="poupancaValor"><span class="taxa-icone" aria-hidden="true">P</span><span class="taxa-nome">Poupança estimada</span><strong id="poupancaValor" class="taxa-valor">Carregando...</strong><span id="poupancaStatus" class="taxa-status">Atualizando dados</span><span class="taxa-acao">Usar esta taxa →</span></button>
+      </div>
+    </section>
 
-    <div id="acess-wrapper" style="position: fixed; bottom: 20px; left: 20px; z-index: 10000;">
-        <button id="btn-acess-toggle" onclick="toggleAcessPanel()" style="background: #27272a; color: #fff; border: 1px solid #3f3f46; width: 50px; height: 50px; border-radius: 50%; cursor: pointer; font-size: 20px; display: flex; align-items: center; justify-content: center; box-shadow: 0 4px 15px rgba(0,0,0,0.3);">
-            ♿
-        </button>
-
-        <div id="acess-panel" style="display: none; position: absolute; bottom: 60px; left: 0; width: 250px; background: rgba(30, 30, 35, 0.9); backdrop-filter: blur(15px); border: 1px solid rgba(255, 255, 255, 0.1); border-radius: 15px; padding: 20px; box-shadow: 0 10px 25px rgba(0,0,0,0.5);">
-            <h3 style="color: #22c55e; font-size: 16px; margin-bottom: 15px; border-bottom: 1px solid #3f3f46; padding-bottom: 5px;">Acessibilidade</h3>
-
-            <div style="display: flex; flex-direction: column; gap: 12px;">
-                <button onclick="mudarFonte(1)" class="btn-acess-item">Aumentar Texto (A+)</button>
-                <button onclick="mudarFonte(-1)" class="btn-acess-item">Diminuir Texto (A-)</button>
-                <button onclick="toggleContraste()" class="btn-acess-item">Alto Contraste</button>
+    <section class="simulador-secao" id="simulador" aria-labelledby="simulador-titulo">
+      <div class="simulador-layout">
+        <form class="simulador-form revelar" id="formSimulador">
+          <div class="simulador-form-topo"><div><span class="secao-etiqueta">SIMULADOR GSA</span><h2 id="simulador-titulo">Monte seu cenário</h2></div><span class="simulador-passos">01 · DADOS</span></div>
+          <div class="form-grid">
+            <div class="input-group-vertical campo-largo"><label for="nomeInvestimento">Nome do objetivo</label><input type="text" id="nomeInvestimento" placeholder="Ex.: Minha reserva" maxlength="50" /></div>
+            <div class="input-group-vertical campo-largo tipo-investimento-campo">
+              <label for="tipoInvestimento">Tipo de investimento</label>
+              <div class="select-investimento">
+                <select id="tipoInvestimento" name="tipoInvestimento">
+                  <option value="renda-fixa">Renda fixa</option>
+                  <option value="fii">Fundo imobiliário (FII)</option>
+                  <option value="acao">Ação</option>
+                  <option value="outro">Outro investimento</option>
+                </select>
+                <span class="select-seta" aria-hidden="true">⌄</span>
+              </div>
             </div>
-        </div>
-    </div>
+            <div class="input-group-vertical"><label for="valorInicial">Valor investido recentemente</label><div class="campo-prefixo"><span>R$</span><input type="number" id="valorInicial" min="0" step="0.01" placeholder="1.000,00" required /></div></div>
+            <div class="input-group-vertical"><label for="dataInvestimento">Data do investimento</label><input type="date" id="dataInvestimento" required /></div>
+            <div class="input-group-vertical"><label for="valorMensal">Aporte mensal planejado</label><div class="campo-prefixo"><span>R$</span><input type="number" id="valorMensal" min="0" step="0.01" placeholder="300,00" /></div></div>
+            <div class="input-group-vertical"><label for="taxaAnual">Rentabilidade anual estimada</label><div class="campo-sufixo"><input type="number" id="taxaAnual" min="0" max="100" step="0.01" placeholder="13,90" required /><span>% a.a.</span></div></div>
+            <div class="input-group-vertical"><label for="dataFinal">Data final do objetivo</label><input type="date" id="dataFinal" required /></div>
+            <div class="input-group-vertical"><label for="diaRendimento">Dia do aviso mensal</label><input type="number" id="diaRendimento" min="1" max="28" value="10" /></div>
+          </div>
+          <p class="form-ajuda">O aviso usa a rentabilidade informada para criar uma estimativa educacional. Ele não confirma pagamentos reais de dividendos ou proventos.</p>
+          <div class="form-acoes">
+            <button class="btn-calcular" type="submit"><span>Calcular meu futuro</span><span aria-hidden="true">↗</span></button>
+            <button class="btn-limpar" id="btnLimparSimulador" type="button"><span aria-hidden="true">↺</span><span>Limpar campos</span></button>
+          </div>
+          <p class="form-erro" id="erroSimulador" role="alert" hidden></p>
+        </form>
 
-    <div vw class="enabled">
-        <div vw-access-button class="active"></div>
-        <div vw-plugin-wrapper>
-            <div class="vw-plugin-top-wrapper"></div>
+        <div class="simulador-resultado revelar delay-1" id="resultadoGSA" aria-live="polite">
+          <div class="resultado-vazio" id="resultadoVazio"><div class="resultado-vazio-icone" aria-hidden="true">↗</div><span>Seu planejamento aparecerá aqui</span><p>Preencha os dados ao lado para visualizar a evolução estimada.</p></div>
+          <div class="resultado-conteudo" id="resultadoConteudo" hidden>
+            <div class="resultado-topo"><div><span class="secao-etiqueta">PROJEÇÃO ESTIMADA</span><h3 id="resultadoNome">Meu investimento</h3></div><span class="resultado-prazo" id="resultadoPrazo">—</span></div>
+            <div class="montante-principal"><span>Montante projetado</span><strong id="montanteFinal">R$ 0,00</strong><small id="crescimentoPercentual">Estimativa de crescimento</small></div>
+            <div class="resultado-metricas"><div><span>Total aplicado</span><strong id="totalInvestido">R$ 0,00</strong></div><div><span>Rendimento estimado</span><strong id="totalJuros">R$ 0,00</strong></div><div><span>Estimativa até hoje</span><strong id="rendimentoAteHoje">R$ 0,00</strong></div></div>
+            <div class="aviso-rendimento" id="avisoRendimento"><span class="aviso-rendimento-icone" aria-hidden="true">✦</span><div><strong id="avisoTitulo">Continue planejando</strong><p id="avisoTexto">Sua mensagem aparecerá aqui.</p></div></div>
+            <div class="grafico-box"><canvas id="graficoEvolucao" aria-label="Gráfico da evolução estimada do investimento"></canvas></div>
+            <label class="confirmacao-educacional"><input type="checkbox" id="confirmarEstimativa" /><span>Entendi que os valores são estimativas educacionais e não garantem retorno.</span></label>
+            <button class="btn-salvar" type="button" id="btnSalvarAcompanhamento">Salvar acompanhamento neste dispositivo</button>
+          </div>
         </div>
-    </div>
+      </div>
 
-    <script src="https://vlibras.gov.br/app/vlibras-plugin.js"></script>
-<script src="../assets/js/global.js?v=20260421-10"></script>
-    <script src="../assets/js/calculadora.js"></script>
+      <section class="acompanhamento" id="acompanhamento" hidden>
+        <div class="acompanhamento-texto"><span class="secao-etiqueta">MEU ACOMPANHAMENTO</span><h2>Um lembrete para manter o hábito</h2><p>Este registro fica salvo somente neste navegador enquanto a área de login ainda não está pronta.</p></div>
+        <div class="acompanhamento-card"><div><span>Objetivo salvo</span><strong id="acompanhamentoNome">—</strong></div><div><span>Próximo aviso</span><strong id="acompanhamentoAviso">—</strong></div><div><span>Projeção final</span><strong id="acompanhamentoMontante">—</strong></div><button type="button" id="btnExcluirAcompanhamento" aria-label="Excluir acompanhamento salvo">Excluir</button></div>
+      </section>
+    </section>
+
+    <section class="como-usar-secao" id="como-usar" aria-labelledby="como-usar-titulo">
+      <div class="secao-cabecalho revelar"><span class="secao-etiqueta">SIMPLES E TRANSPARENTE</span><h2 id="como-usar-titulo">Como usar a calculadora GSA</h2></div>
+      <div class="tutorial-grid revelar delay-1"><article><span>01</span><h3>Registre</h3><p>Informe quanto investiu e a data em que começou.</p></article><article><span>02</span><h3>Planeje</h3><p>Defina aportes, taxa estimada e a data do seu objetivo.</p></article><article><span>03</span><h3>Compare</h3><p>Veja quanto é dinheiro aplicado e quanto seria rendimento.</p></article><article><span>04</span><h3>Acompanhe</h3><p>Salve o cenário e receba mensagens educativas de progresso.</p></article></div>
+    </section>
+
+    <section class="aviso-educacional" aria-labelledby="aviso-titulo">
+      <div class="aviso-educacional-icone" aria-hidden="true">◇</div>
+      <div class="aviso-educacional-conteudo"><span class="secao-etiqueta">ANTES DE INVESTIR</span><h2 id="aviso-titulo">Informação para decidir melhor.</h2><p>O Grana Sem Aperto é uma iniciativa de educação financeira. Nosso objetivo não é incentivar gastos, prometer ganhos ou recomendar investimentos específicos, mas ajudar você a desenvolver hábitos de planejamento e tomar decisões mais conscientes.</p><p>Os resultados apresentados são estimativas baseadas nos dados informados. Taxas, rendimentos, dividendos e preços de ativos podem variar, e resultados passados não garantem retornos futuros.</p><p>Todo investimento envolve riscos, inclusive a possibilidade de perda parcial ou total do valor aplicado. Considere seus objetivos, sua situação financeira e seu perfil de risco. A decisão final é sempre do investidor.</p><strong>O GSA não oferece consultoria, análise ou recomendação individual de investimentos.</strong></div>
+    </section>
+  </main>
+
+  <div id="ai-chat-wrapper"><button id="btn-ia-toggle" onclick="toggleAIChat()"><span>🤖 GSA Assistente</span></button><div id="chat-box-ia" class="chat-escondido"><div class="chat-header"><strong>IA GSA</strong><button onclick="toggleAIChat()" aria-label="Fechar assistente">×</button></div><div id="chat-messages"><div class="msg-ia">Quer ajuda para entender alguma taxa ou simulação?</div></div><div class="chat-input"><input type="text" id="user-query" placeholder="Pergunte sobre investimentos..." /><button onclick="perguntarIA()" id="btn-enviar-ia" title="Enviar mensagem">➤</button></div></div></div>
+
+  <div id="acess-wrapper"><button id="btn-acess-toggle" type="button" aria-label="Abrir opções de acessibilidade" aria-controls="acess-panel" aria-expanded="false" title="Acessibilidade">♿</button><div id="acess-panel" role="dialog" aria-label="Opções de acessibilidade" hidden><div class="acess-cabecalho"><span class="acess-icone" aria-hidden="true">♿</span><div><span>Preferências</span><h3>Acessibilidade</h3></div></div><div class="acess-controles"><button type="button" onclick="mudarFonte(1)" class="btn-acess-item"><span aria-hidden="true">A+</span> Aumentar visualização</button><button type="button" onclick="mudarFonte(-1)" class="btn-acess-item"><span aria-hidden="true">A−</span> Diminuir visualização</button><button type="button" onclick="toggleContraste()" class="btn-acess-item" id="btn-contraste"><span aria-hidden="true">◐</span> Alto contraste</button><button type="button" onclick="resetarAcessibilidade()" class="btn-acess-item btn-acess-reset"><span aria-hidden="true">↺</span> Restaurar padrão</button></div><p id="acess-status" class="acess-status" aria-live="polite">Visualização em 100%</p></div></div>
+
+  <div vw class="enabled"><div vw-access-button class="active"></div><div vw-plugin-wrapper><div class="vw-plugin-top-wrapper"></div></div></div>
+  <script src="https://vlibras.gov.br/app/vlibras-plugin.js"></script>
+  <script src="../assets/js/global.js?v=20260820-11"></script>
+  <script src="../assets/js/calculadora.js?v=20260818-4"></script>
+  <script type="module" src="../assets/js/calculadora-3d.js?v=20260820-1"></script>
 </body>
 </html>

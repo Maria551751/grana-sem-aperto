@@ -1,255 +1,445 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="pt-br">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Grana Sem Aperto | GSA</title>
-    <meta name="description" content="GSA — Grana Sem Aperto. Plataforma gratuita de educação financeira para jovens com IA, calculadora de juros e trilhas de aprendizado.">
-    <meta name="keywords" content="GSA, Grana Sem Aperto, educação financeira, investimentos para jovens, calculadora de juros, reserva de emergência">
-    <link rel="icon" type="image/png" href="assets/img/favicon.png">
-    <link rel="shortcut icon" href="assets/img/favicon.png">
-    <link rel="stylesheet" href="assets/css/global.css?v=20260421-11">
-    <link rel="stylesheet" href="assets/css/mobile.css">
-    <link rel="stylesheet" href="assets/css/home.css">
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700;800;900&display=swap" rel="stylesheet">
-    <meta name="google-site-verification" content="C2fbdqseDEl3Dq93hVQVXl6aj-t4FyTtnNhdQn5X7x8" />
+    <meta
+      name="description"
+      content="GSA — Grana Sem Aperto. Plataforma gratuita de educação financeira para jovens com IA, calculadora de juros e trilhas de aprendizado."
+    />
+    <meta
+      name="keywords"
+      content="GSA, Grana Sem Aperto, educação financeira, investimentos para jovens, calculadora de juros, reserva de emergência"
+    />
+    <link rel="icon" type="image/png" href="assets/img/favicon.png" />
+    <link rel="shortcut icon" href="assets/img/favicon.png" />
+    <link rel="stylesheet" href="assets/css/global.css?v=20260820-12" />
+    <link rel="stylesheet" href="assets/css/mobile.css" />
+    <link rel="stylesheet" href="assets/css/home.css" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700;800;900&display=swap"
+      rel="stylesheet"
+    />
+    <meta
+      name="google-site-verification"
+      content="C2fbdqseDEl3Dq93hVQVXl6aj-t4FyTtnNhdQn5X7x8"
+    />
     <meta name="msvalidate.01" content="E4B1106B9AFB30E04A19411652A25A89" />
-</head>
-<body>
-
+    <script type="importmap">
+      {
+        "imports": {
+          "three": "https://cdn.jsdelivr.net/npm/three@0.185.1/build/three.module.js",
+          "three/addons/": "https://cdn.jsdelivr.net/npm/three@0.185.1/examples/jsm/"
+        }
+      }
+    </script>
+  </head>
+  <body>
     <header class="cabecalho">
-        <a href="index.html" class="logo">
-            <img src="assets/img/logo sem fundo GSA 3.0.png" alt="Logo Grana Sem Aperto" class="logo-mark">
-            <span class="logo-text">Grana Sem Aperto</span>
-        </a>
-        
-        <div class="nav-direita">
-            <nav class="menu-desktop">
-                <a href="index.html">Início</a>
-                <a href="pages/Cursos.html">Cursos</a>
-                <a href="pages/calculadora.html" class="btn-calculadora">Calculadora de Juros</a>
-                <button class="menu-mobile-btn">☰</button>
-            </nav>
-        </div>
+      <a href="index.html" class="logo">
+        <img
+          src="assets/img/logo sem fundo GSA 3.0.png"
+          alt="Logo Grana Sem Aperto"
+          class="logo-mark"
+        />
+        <span class="logo-text">Grana Sem Aperto</span>
+      </a>
+
+      <div class="nav-direita">
+        <nav class="menu-desktop">
+          <a href="index.html" class="ativo" aria-current="page">Início</a>
+          <a href="pages/Cursos.html">Aprender</a>
+          <a href="pages/calculadora.html">Ferramentas</a>
+          <a href="#sobre-gsa">Sobre</a>
+          <button class="menu-mobile-btn" aria-label="Abrir menu" title="Abrir menu">☰</button>
+        </nav>
+      </div>
     </header>
 
     <aside class="sidebar" id="sidebar">
-        <div class="sidebar-header">
-            <span class="logo">GSA</span>
-            <button class="fechar-sidebar" id="btnFechar">×</button>
-        </div>
+      <div class="sidebar-header">
+        <span class="logo">GSA</span>
+        <button class="fechar-sidebar" id="btnFechar">×</button>
+      </div>
 
-        <nav class="sidebar-links">
-            <a href="index.html">Início</a>
-            <a href="pages/Cursos.html">Cursos</a>
-            <a href="pages/calculadora.html">Calculadora de Juros</a> 
-            <a href="pages/criadores.html">Criadores</a>
-        </nav> 
+      <nav class="sidebar-links">
+        <a href="index.html" aria-current="page">Início</a>
+        <a href="pages/Cursos.html">Aprender</a>
+        <a href="pages/calculadora.html">Ferramentas</a>
+        <a href="#sobre-gsa">Sobre</a>
+      </nav>
 
-        <div class="sidebar-feedback">
-            <h4>O que está achando?</h4>
-            <p>Sua opinião ajuda o GSA a crescer!</p>
-            <textarea id="feedbackText" placeholder="Manda sua sugestão aqui..."></textarea>
-            <button class="btn-enviar-feedback">Enviar Feedback</button>
-        </div>
     </aside>
 
     <div class="overlay" id="overlay"></div>
 
     <section class="hero">
+      <div class="hero-conteudo">
         <div class="hero-texto revelar">
-            <h2>Domine suas finanças com a <span class="destaque-verde">estratégia GSA</span></h2>
-            <p>A metodologia focada em simplificar investimentos para jovens que querem liberdade.</p>
-            <div class="hero-btns">
-                <a href="pages/Cursos.html" class="btn-primario">Começar Agora</a>
-                <a href="pages/Cursos.html" class="btn-secundario">Ver Cursos</a>
-            </div>
+          <h1>
+            Seu dinheiro.<br />
+            Suas escolhas.<br />
+            <span class="destaque-verde">Seu futuro.</span>
+          </h1>
+          <p>
+            A metodologia focada em simplificar investimentos para jovens que
+            querem liberdade.
+          </p>
+          <div class="hero-btns">
+            <a href="pages/Cursos.html" class="btn-primario">Começar Agora</a>
+            <a href="pages/Cursos.html" class="btn-secundario">Ver Cursos</a>
+          </div>
         </div>
         <div class="hero-imagem revelar delay-1">
-            <img src="assets/img/hero-dinheiro (4).png" alt="Cofrinho GSA" class="imagem-cofrinho">
+          <canvas id="hero-3d" aria-hidden="true"></canvas>
         </div>
+      </div>
     </section>
 
-    <hr class="divisor-led">
+    <hr class="divisor-led" />
 
     <section class="gsa-secao">
-        <div id="fundoAnimado" class="background-neon"></div>
-        
-        <h2 class="gsa-titulo revelar">Monte sua carteira <span class="destaque-verde">GSA</span></h2>
+      <header class="gsa-cabecalho revelar">
+        <span class="gsa-etiqueta">ESTRATÉGIA GSA</span>
 
-        <div class="gsa-grid revelar delay-1">
-            <div class="gsa-ligacoes" aria-hidden="true">
-                <svg viewBox="0 0 1180 520" preserveAspectRatio="none">
-                    <defs>
-                        <linearGradient id="ligacaoReserva" x1="278" y1="112" x2="520" y2="144" gradientUnits="userSpaceOnUse">
-                            <stop offset="0%" stop-color="#f472b6" />
-                            <stop offset="100%" stop-color="#ec4899" />
-                        </linearGradient>
-                        <linearGradient id="ligacaoRenda" x1="280" y1="380" x2="528" y2="276" gradientUnits="userSpaceOnUse">
-                            <stop offset="0%" stop-color="#6ee7b7" />
-                            <stop offset="100%" stop-color="#3b82f6" />
-                        </linearGradient>
-                        <linearGradient id="ligacaoFundos" x1="904" y1="144" x2="676" y2="200" gradientUnits="userSpaceOnUse">
-                            <stop offset="0%" stop-color="#6ee7b7" />
-                            <stop offset="100%" stop-color="#10b981" />
-                        </linearGradient>
-                        <linearGradient id="ligacaoAcoes" x1="900" y1="374" x2="630" y2="408" gradientUnits="userSpaceOnUse">
-                            <stop offset="0%" stop-color="#f59e0b" />
-                            <stop offset="55%" stop-color="#f97316" />
-                            <stop offset="100%" stop-color="#facc15" />
-                        </linearGradient>
-                    </defs>
-                    <path class="ligacao-card ligacao-reserva" d="M278 112 C 366 78, 448 78, 520 144" />
-                    <path class="ligacao-card ligacao-renda" d="M280 380 C 358 324, 434 306, 528 276" />
-                    <path class="ligacao-card ligacao-fundos" d="M904 144 C 830 158, 758 178, 676 200" />
-                    <path class="ligacao-card ligacao-acoes" d="M900 374 C 864 404, 826 430, 780 448 C 734 462, 684 462, 630 408" />
-                </svg>
-            </div>
-            <div class="gsa-coluna">
-                <div class="gsa-card gsa-card-reserva">
-                    <h3>💰 Reserva de Emergência</h3>
-                    <p>Segurança total para os seus imprevistos do dia a dia.</p>
-                </div>
-                <div class="gsa-card gsa-card-renda">
-                    <h3>📈 Renda Fixa</h3>
-                    <p>Rentabilidade com a segurança do Tesouro Nacional.</p>
-                </div>
-            </div>
+        <h2 class="gsa-titulo">
+          Segurança primeiro.
+          <span>Crescimento depois.</span>
+        </h2>
 
-            <div class="grafico-circular">
-                <div class="gsa-percentual gsa-percentual-reserva" aria-hidden="true">
-                    <span class="gsa-percentual-valor">15%</span>
-                    <span class="gsa-percentual-label">Reserva</span>
-                </div>
-                <div class="gsa-percentual gsa-percentual-renda" aria-hidden="true">
-                    <span class="gsa-percentual-valor">23%</span>
-                    <span class="gsa-percentual-label">Renda Fixa</span>
-                </div>
-                <div class="gsa-percentual gsa-percentual-fundos" aria-hidden="true">
-                    <span class="gsa-percentual-valor">36%</span>
-                    <span class="gsa-percentual-label">Fundos</span>
-                </div>
-                <div class="gsa-percentual gsa-percentual-acoes" aria-hidden="true">
-                    <span class="gsa-percentual-valor">26%</span>
-                    <span class="gsa-percentual-label">Ações</span>
-                </div>
-                <div class="centro-grafico">
-                    <span class="label-carteira">CARTEIRA</span>
-                    <span class="destaque-gsa">GSA</span>
-                </div>
-            </div>
+        <p class="gsa-introducao">
+          Uma distribuição educacional criada para construir uma base
+          financeira sólida antes de diversificar seus investimentos.
+        </p>
+      </header>
 
-            <div class="gsa-coluna">
-                <div class="gsa-card gsa-card-fundos">
-                    <h3>🏢 Fundos Imobiliários</h3>
-                    <p>Receba aluguéis todos os meses direto na sua conta.</p>
-                </div>
-                <div class="gsa-card gsa-card-acoes">
-                    <h3>🍎 Ações</h3>
-                    <p>Torne-se sócio das maiores empresas do Brasil e do mundo.</p>
-                </div>
+      <div class="carteira-interativa revelar delay-1" data-carteira-interativa>
+        <div class="carteira-grafico">
+          <div class="carteira-grafico-topo">
+            <div>
+              <span class="carteira-sobretitulo">Distribuição da carteira</span>
+              <h3>Da base ao crescimento</h3>
             </div>
+            <span class="carteira-total">100%</span>
+          </div>
+
+          <div class="carteira-colunas" aria-label="Distribuição da Carteira GSA">
+            <button
+              class="carteira-coluna ativo"
+              type="button"
+              data-carteira="reserva"
+              style="--valor: 60%; --cor: #10b981; --cor-rgb: 16, 185, 129"
+              aria-label="Reserva de Emergência: 60%"
+              aria-pressed="true"
+            >
+              <span class="carteira-trilho">
+                <span class="carteira-preenchimento"></span>
+                <span class="carteira-nome">Reserva</span>
+              </span>
+              <strong class="carteira-porcentagem">60%</strong>
+            </button>
+
+            <button
+              class="carteira-coluna"
+              type="button"
+              data-carteira="renda"
+              style="--valor: 20%; --cor: #3b82f6; --cor-rgb: 59, 130, 246"
+              aria-label="Renda Fixa: 20%"
+              aria-pressed="false"
+            >
+              <span class="carteira-trilho">
+                <span class="carteira-preenchimento"></span>
+                <span class="carteira-nome">Renda Fixa</span>
+              </span>
+              <strong class="carteira-porcentagem">20%</strong>
+            </button>
+
+            <button
+              class="carteira-coluna"
+              type="button"
+              data-carteira="fundos"
+              style="--valor: 10%; --cor: #f4c714; --cor-rgb: 244, 199, 20"
+              aria-label="Fundos Imobiliários: 10%"
+              aria-pressed="false"
+            >
+              <span class="carteira-trilho">
+                <span class="carteira-preenchimento"></span>
+                <span class="carteira-nome">Fundos Imobiliários</span>
+              </span>
+              <strong class="carteira-porcentagem">10%</strong>
+            </button>
+
+            <button
+              class="carteira-coluna"
+              type="button"
+              data-carteira="acoes"
+              style="--valor: 10%; --cor: #ec4899; --cor-rgb: 236, 72, 153"
+              aria-label="Ações: 10%"
+              aria-pressed="false"
+            >
+              <span class="carteira-trilho">
+                <span class="carteira-preenchimento"></span>
+                <span class="carteira-nome">Ações</span>
+              </span>
+              <strong class="carteira-porcentagem">10%</strong>
+            </button>
+          </div>
         </div>
+
+        <div class="carteira-explicacoes">
+          <div class="carteira-explicacoes-topo">
+            <span class="carteira-sobretitulo">Entenda a estratégia</span>
+            <h3>Clique para conectar</h3>
+            <p>Selecione uma etapa e veja a coluna correspondente ganhar destaque.</p>
+          </div>
+
+          <button
+            class="carteira-explicacao ativo"
+            type="button"
+            data-carteira="reserva"
+            aria-pressed="true"
+          >
+            <span class="explicacao-indice">01</span>
+            <span class="explicacao-conteudo">
+              <strong>Reserva de Emergência</strong>
+              <span>A base da Carteira GSA: proteção para lidar com imprevistos antes de buscar crescimento.</span>
+            </span>
+            <span class="explicacao-valor">60%</span>
+          </button>
+
+          <button
+            class="carteira-explicacao"
+            type="button"
+            data-carteira="renda"
+            aria-pressed="false"
+          >
+            <span class="explicacao-indice">02</span>
+            <span class="explicacao-conteudo">
+              <strong>Renda Fixa</strong>
+              <span>Uma camada de estabilidade para equilibrar a carteira e avançar com mais previsibilidade.</span>
+            </span>
+            <span class="explicacao-valor">20%</span>
+          </button>
+
+          <button
+            class="carteira-explicacao"
+            type="button"
+            data-carteira="fundos"
+            aria-pressed="false"
+          >
+            <span class="explicacao-indice">03</span>
+            <span class="explicacao-conteudo">
+              <strong>Fundos Imobiliários</strong>
+              <span>Exposição ao mercado imobiliário e possibilidade de renda recorrente dentro da diversificação.</span>
+            </span>
+            <span class="explicacao-valor">10%</span>
+          </button>
+
+          <button
+            class="carteira-explicacao"
+            type="button"
+            data-carteira="acoes"
+            aria-pressed="false"
+          >
+            <span class="explicacao-indice">04</span>
+            <span class="explicacao-conteudo">
+              <strong>Ações</strong>
+              <span>A parcela de crescimento, voltada à participação em empresas e ao horizonte de longo prazo.</span>
+            </span>
+            <span class="explicacao-valor">10%</span>
+          </button>
+        </div>
+      </div>
     </section>
 
-    <hr class="divisor-led">
+    <section class="sobre-home" id="sobre-gsa" aria-labelledby="sobre-home-titulo">
+      <div class="sobre-home-grade" aria-hidden="true"></div>
+      <div class="sobre-home-conteudo">
+        <div class="sobre-home-texto revelar">
+          <span class="sobre-home-etiqueta">POR TRÁS DO GSA</span>
+          <h2 id="sobre-home-titulo">Educação financeira feita por jovens, <span>para jovens.</span></h2>
+          <p>O Grana Sem Aperto nasceu para transformar assuntos financeiros complicados em escolhas mais simples, visuais e conscientes. Construímos cada ferramenta pensando em quem está começando agora.</p>
+          <div class="sobre-home-acoes">
+            <a href="pages/criadores.html" class="btn-primario">Conheça o time</a>
+            <a href="pages/Cursos.html" class="btn-secundario">Explore o projeto</a>
+          </div>
+        </div>
+        <div class="sobre-principios revelar delay-1">
+          <article><span>01</span><div><strong>Clareza</strong><p>Conteúdo direto, sem complicação e com linguagem próxima.</p></div></article>
+          <article><span>02</span><div><strong>Planejamento</strong><p>Ferramentas para testar cenários antes de tomar decisões.</p></div></article>
+          <article><span>03</span><div><strong>Autonomia</strong><p>Conhecimento para você construir seu próprio caminho financeiro.</p></div></article>
+        </div>
+      </div>
+      <div class="sobre-time revelar delay-1" aria-label="Equipe do Grana Sem Aperto">
+        <div class="sobre-time-cabecalho"><span>UMA IDEIA, SEIS PERSPECTIVAS</span><strong>Time GSA</strong></div>
+        <div class="sobre-retratos">
+          <a href="pages/criadores.html" aria-label="Conhecer Maria Eduarda"><img src="assets/img/Maria eduarda.jpeg" alt="Maria Eduarda" /></a>
+          <a href="pages/criadores.html" aria-label="Conhecer Arthur"><img src="assets/img/Arthur.jpeg" alt="Arthur" /></a>
+          <a href="pages/criadores.html" aria-label="Conhecer Gabriel"><img src="assets/img/Gabriel (2).png" alt="Gabriel" /></a>
+          <a href="pages/criadores.html" aria-label="Conhecer Thalys"><img src="assets/img/Thalys.jpeg" alt="Thalys" /></a>
+          <a href="pages/criadores.html" aria-label="Conhecer Vitor"><img src="assets/img/Vitor.png" alt="Vitor" /></a>
+          <a href="pages/criadores.html" aria-label="Conhecer Vinicius"><img src="assets/img/Vinicius .png" alt="Vinicius" /></a>
+        </div>
+      </div>
+    </section>
+
+    <hr class="divisor-led" />
 
     <section class="faq-secao">
-        <h2 class="faq-titulo revelar">Perguntas <span class="destaque-verde">frequentes</span></h2>
-        
-        <div class="faq-grid revelar delay-1">
-            <div class="faq-item">
-                <div class="faq-pergunta">
-                    <h3>O que é o Grana Sem Aperto? </h3>
-                </div>
-                <div class="faq-resposta">
-                    <p>Uma metodologia focada em simplificar as finanças para jovens, ensinando desde a reserva de emergência até o investimento em ações.</p>
-                </div>
-            </div>
+      <header class="faq-cabecalho revelar">
+        <span class="faq-etiqueta">CENTRAL DE DÚVIDAS</span>
+        <h2 class="faq-titulo">
+          Perguntas <span class="destaque-verde">frequentes</span>
+        </h2>
+        <p>
+          Respostas diretas para você começar sua jornada financeira com mais
+          clareza e menos complicação.
+        </p>
+      </header>
 
-            <div class="faq-item">
-                <div class="faq-pergunta">
-                    <h3>Vou precisar de muito tempo pra aprender?</h3>
-                </div>
-                <div class="faq-resposta">
-                    <p>Que nada! O GSA foi feito pra ser direto ao ponto. Em poucos minutos você já entende o caminho das pedras pra não passar aperto.</p>
-                </div>
-            </div>
-
-            <div class="faq-item">
-                <div class="faq-pergunta">
-                    <h3>Dá pra começar com pouco mesmo?</h3>
-                </div>
-                <div class="faq-resposta">
-                    <p>Com certeza. Esquece essa ideia de que precisa ser rico. Com o preço de um lanche você já consegue comprar sua primeira ação ou fundo imobiliário.</p>
-                </div>
-            </div>
+      <div class="faq-grid revelar delay-1">
+        <div class="faq-item">
+          <span class="faq-numero">01</span>
+          <div class="faq-pergunta">
+            <h3>O que é o Grana Sem Aperto?</h3>
+          </div>
+          <div class="faq-resposta">
+            <p>
+              Uma metodologia focada em simplificar as finanças para jovens,
+              ensinando desde a reserva de emergência até o investimento em
+              ações.
+            </p>
+          </div>
         </div>
+
+        <div class="faq-item">
+          <span class="faq-numero">02</span>
+          <div class="faq-pergunta">
+            <h3>Vou precisar de muito tempo pra aprender?</h3>
+          </div>
+          <div class="faq-resposta">
+            <p>
+              Que nada! O GSA foi feito pra ser direto ao ponto. Em poucos
+              minutos você já entende o caminho das pedras pra não passar
+              aperto.
+            </p>
+          </div>
+        </div>
+
+        <div class="faq-item">
+          <span class="faq-numero">03</span>
+          <div class="faq-pergunta">
+            <h3>Dá pra começar com pouco mesmo?</h3>
+          </div>
+          <div class="faq-resposta">
+            <p>
+              Com certeza. Esquece essa ideia de que precisa ser rico. Com o
+              preço de um lanche você já consegue comprar sua primeira ação ou
+              fundo imobiliário.
+            </p>
+          </div>
+        </div>
+      </div>
     </section>
     <div id="ai-chat-wrapper">
-    <button id="btn-ia-toggle" onclick="toggleAIChat()">
-    <span>🤖 GSA Assistente</span>
-</button>
+      <button id="btn-ia-toggle" onclick="toggleAIChat()">
+        <span>🤖 GSA Assistente</span>
+      </button>
 
-    <div id="chat-box-ia" class="chat-escondido">
+      <div id="chat-box-ia" class="chat-escondido">
         <div class="chat-header">
-            <strong>IA GSA</strong>
-            <button onclick="toggleAIChat()">×</button>
+          <strong>IA GSA</strong>
+          <button onclick="toggleAIChat()">×</button>
         </div>
         <div id="chat-messages">
-            <div class="msg-ia">Olá Investidor(a)! Sou sua IA de economia. Qual sua dúvida sobre a estratégia GSA hoje?</div>
+          <div class="msg-ia">
+            Olá Investidor(a)! Sou sua IA de economia. Qual sua dúvida sobre a
+            estratégia GSA hoje?
+          </div>
         </div>
         <div class="chat-input">
-            <input type="text" id="user-query" placeholder="Pergunte sobre Selic, FIIs...">
-           <button onclick="perguntarIA()" id="btn-enviar-ia" title="Enviar Mensagem">
-    <svg viewBox="0 0 24 24" width="20" height="20" fill="currentColor">
-        <path d="M2.01 21L23 12 2.01 3 2 10l15 2-15 2z"></path>
-    </svg>
-</button>
+          <input
+            type="text"
+            id="user-query"
+            placeholder="Pergunte sobre Selic, FIIs..."
+          />
+          <button
+            onclick="perguntarIA()"
+            id="btn-enviar-ia"
+            title="Enviar Mensagem"
+          >
+            <svg viewBox="0 0 24 24" width="20" height="20" fill="currentColor">
+              <path d="M2.01 21L23 12 2.01 3 2 10l15 2-15 2z"></path>
+            </svg>
+          </button>
         </div>
+      </div>
     </div>
-</div>
 
-<div id="acess-wrapper" style="position: fixed; bottom: 20px; left: 20px; z-index: 10000;">
-    <button id="btn-acess-toggle" onclick="toggleAcessPanel()" style="background: #27272a; color: #fff; border: 1px solid #3f3f46; width: 50px; height: 50px; border-radius: 50%; cursor: pointer; font-size: 20px; display: flex; align-items: center; justify-content: center; box-shadow: 0 4px 15px rgba(0,0,0,0.3);">
+    <div id="acess-wrapper">
+      <button
+        id="btn-acess-toggle"
+        type="button"
+        aria-label="Abrir opções de acessibilidade"
+        aria-controls="acess-panel"
+        aria-expanded="false"
+        title="Acessibilidade"
+      >
         ♿
-    </button>
+      </button>
 
-    <div id="acess-panel" style="display: none; position: absolute; bottom: 60px; left: 0; width: 250px; background: rgba(30, 30, 35, 0.9); backdrop-filter: blur(15px); border: 1px solid rgba(255, 255, 255, 0.1); border-radius: 15px; padding: 20px; box-shadow: 0 10px 25px rgba(0,0,0,0.5);">
-        <h3 style="color: #22c55e; font-size: 16px; margin-bottom: 15px; border-bottom: 1px solid #3f3f46; padding-bottom: 5px;">Acessibilidade</h3>
-        
-        <div style="display: flex; flex-direction: column; gap: 12px;">
-            <button onclick="mudarFonte(1)" class="btn-acess-item">Aumentar Texto (A+)</button>
-            <button onclick="mudarFonte(-1)" class="btn-acess-item">Diminuir Texto (A-)</button>
-            <button onclick="toggleContraste()" class="btn-acess-item">Alto Contraste</button>
+      <div id="acess-panel" role="dialog" aria-label="Opções de acessibilidade" hidden>
+        <div class="acess-cabecalho">
+          <span class="acess-icone" aria-hidden="true">♿</span>
+          <div>
+            <span>Preferências</span>
+            <h3>Acessibilidade</h3>
+          </div>
         </div>
+
+        <div class="acess-controles">
+          <button type="button" onclick="mudarFonte(1)" class="btn-acess-item">
+            <span aria-hidden="true">A+</span> Aumentar visualização
+          </button>
+          <button type="button" onclick="mudarFonte(-1)" class="btn-acess-item">
+            <span aria-hidden="true">A−</span> Diminuir visualização
+          </button>
+          <button type="button" onclick="toggleContraste()" class="btn-acess-item" id="btn-contraste">
+            <span aria-hidden="true">◐</span> Alto contraste
+          </button>
+          <button type="button" onclick="resetarAcessibilidade()" class="btn-acess-item btn-acess-reset">
+            <span aria-hidden="true">↺</span> Restaurar padrão
+          </button>
+        </div>
+
+        <p id="acess-status" class="acess-status" aria-live="polite">Visualização em 100%</p>
+      </div>
     </div>
-</div>
 
-<div vw class="enabled">
-  <div vw-access-button class="active"></div>
-  <div vw-plugin-wrapper>
-    <div class="vw-plugin-top-wrapper"></div>
-  </div>
-</div>
+    <div vw class="enabled">
+      <div vw-access-button class="active"></div>
+      <div vw-plugin-wrapper>
+        <div class="vw-plugin-top-wrapper"></div>
+      </div>
+    </div>
 
-<script src="https://vlibras.gov.br/app/vlibras-plugin.js"></script>
+    <script src="https://vlibras.gov.br/app/vlibras-plugin.js"></script>
 
-
-<script>
-    // Se o config.js não existir (no Vercel), ele cria o objeto vazio para não dar erro
-    if (typeof CONFIG === 'undefined') {
-        window.CONFIG = { 
-            // Se você quiser testar no Vercel AGORA, pode colocar a chave aqui, 
-            // MAS lembre-se: se o repo é público, qualquer um verá.
-            // O ideal é usar um arquivo PHP ou uma Vercel Function, 
-            // mas para o seu nível atual, vamos focar em não deixar o site quebrar.
-            GEMINI_API_KEY: "" 
+    <script>
+      // Se o config.js não existir (no Vercel), ele cria o objeto vazio para não dar erro
+      if (typeof CONFIG === "undefined") {
+        window.CONFIG = {
+          // Se você quiser testar no Vercel AGORA, pode colocar a chave aqui,
+          // MAS lembre-se: se o repo é público, qualquer um verá.
+          // O ideal é usar um arquivo PHP ou uma Vercel Function,
+          // mas para o seu nível atual, vamos focar em não deixar o site quebrar.
+          GEMINI_API_KEY: "",
         };
-    }
-</script>
-<script src="assets/js/global.js?v=20260421-10"></script>
-<script src="assets/js/home.js"></script>
-
-</body>
+      }
+    </script>
+    <script src="assets/js/global.js?v=20260820-11"></script>
+    <script src="assets/js/home.js?v=20260818-2"></script>
+    <script type="module" src="assets/js/hero-3d.js?v=20260820-2"></script>
+  </body>
 </html>
