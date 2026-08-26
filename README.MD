@@ -18,16 +18,6 @@ Plataforma interativa que combina simulação de investimentos, trilhas educacio
 
 ---
 
-## 📸 Preview
-
- ![Preview](./assets/img/image.png)
-
-![Home](./assets/preview-home.png)
-![Calculadora](./assets/preview-calculadora.png)
-![Cursos](./assets/preview-cursos.png)
-
----
-
 ## 💡 Sobre o Projeto
 
 O **Grana Sem Aperto (GSA)** é uma plataforma digital de educação financeira voltada para jovens que querem começar a investir de forma prática.
