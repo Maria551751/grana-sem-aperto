@@ -198,7 +198,7 @@ Projeto que começou em grupo para apresentação no Senac e que depois foi cons
 * Uso de IA em aplicações web
 * Estruturação de produto digital
 * Foco em UX/UI
-* Desenvolvimento web completo do conceito à entrega
+* Desenvolvimento web 
 
 ---
 
