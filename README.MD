@@ -1,6 +1,6 @@
 # 🚀 Grana Sem Aperto (GSA)
 
-## 🧠 Projeto de Educação Financeira com IA e Dados Reais
+## 🧠 Projeto de Educação Financeira com IA e Dados Financeiros via API
 
 Plataforma interativa que combina simulação de investimentos, trilhas educacionais e inteligência artificial para ensinar finanças de forma prática.
 
@@ -65,14 +65,14 @@ O GSA resolve isso com:
 
 ### 📡 Taxas em Tempo Real
 
-Integração com API do Banco Central:
+Integração com API do Banco Central para obter dados financeiros oficiais:
 
 * Selic anual atualizada
-* CDI diário convertido para anual
+* CDI diário fornecido pela API e convertido para anual
 * Poupança calculada automaticamente
 
 ✔ Atualização automática
-✔ Dados reais
+✔ Dados financeiros reais vindos da API
 ✔ Fallback em caso de erro
 
 ---
@@ -115,7 +115,7 @@ Integração com API do Banco Central:
 
 * **Frontend:** HTML, CSS, JavaScript
 * **IA:** Google Gemini API
-* **Dados financeiros:** API Banco Central
+* **Dados financeiros:** API do Banco Central do Brasil
 * **Gráficos:** Chart.js
 * **Deploy:** Vercel
 
@@ -146,7 +146,7 @@ window.API_ENV_KEY = "SUA_CHAVE_AQUI";
 
 * `secret.js` não é versionado (gitignore)
 * Uso de variáveis de ambiente em produção
-* Nenhuma chave sensível exposta
+* As chaves sensíveis ficam fora do repositório público
 
 ---
 
@@ -154,7 +154,7 @@ window.API_ENV_KEY = "SUA_CHAVE_AQUI";
 
 ### CDI
 
-O CDI fornecido pelo Banco Central é diário e convertido para anual:
+O CDI é obtido pela API do Banco Central do Brasil em base diária e convertido para anual:
 
 ```
 (1 + taxa_diaria) ^ 252 - 1
@@ -192,12 +192,13 @@ O CDI fornecido pelo Banco Central é diário e convertido para anual:
 
 ## 💬 Sobre o Projeto
 
-Projeto desenvolvido para apresentação no Senac e como portfólio profissional, demonstrando:
+Projeto que começou em grupo para apresentação no Senac e que depois foi consolidado como portfólio autoral, aplicando:
 
 * Integração com APIs reais
 * Uso de IA em aplicações web
 * Estruturação de produto digital
 * Foco em UX/UI
+* Desenvolvimento web completo do conceito à entrega
 
 ---
 
