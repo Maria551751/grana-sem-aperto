@@ -4,7 +4,11 @@ if (typeof window.CONFIG === 'undefined') {
     };
 }
 
+// Não coloque a URL do n8n aqui: este arquivo é público. O chat chama o n8n pelo servidor
+// (api/chat.mjs, variável N8N_WEBHOOK_URL na Vercel). Ver n8n/README.md.
 const N8N_CHAT_WEBHOOK_URL = "";
+const IA_CHAT_ENDPOINT = "/api/chat";
+const LIMITE_HISTORICO_CHAT_IA = 6;
 
 /* =========================================
    1. CONTROLE DA SIDEBAR (ABRIR/FECHAR)
@@ -93,6 +97,19 @@ const modulosData = {
         "Escolhendo Ações",
         "Rebalanceamento da Carteira"
     ]
+};
+
+// Videoaulas: cole o link do vídeo (YouTube, por exemplo) quando estiver pronto.
+// Vazio = aparece "Em breve" na página Cursos e no módulo.
+const videoaulasPorModulo = {
+    "Mentalidade de Investidor": "",
+    "Organizando sua grana": "",
+    "Montando a Reserva": "",
+    "Cartão de Crédito sem Armadilha": "",
+    "Tesouro Direto na Prática": "",
+    "Dividendos com FIIs": "",
+    "Escolhendo Ações": "",
+    "Rebalanceamento da Carteira": ""
 };
 
 function atualizarBotao() {
@@ -190,6 +207,9 @@ function abrirJanelaAula() {
             <span>LEITURA ESSENCIAL</span>
             <p>${resumosAula[aulaSelecionada] || "Leia o conteúdo do módulo e conecte o conceito a uma decisão financeira do seu cotidiano."}</p>
         </div>
+        ${videoaulasPorModulo[aulaSelecionada]
+            ? `<a href="${videoaulasPorModulo[aulaSelecionada]}" target="_blank" rel="noopener noreferrer" class="btn-acess-item" style="text-decoration:none;color:inherit;"><span>▶</span> Assistir videoaula</a>`
+            : `<button type="button" class="btn-acess-item btn-videoaula-em-breve" disabled><span>▶</span> Videoaula em breve</button>`}
         <a id="linkMaterial" href="#" target="_blank" class="btn-acess-item" style="text-decoration:none;color:inherit;">
             <span>📖</span> Abrir leitura completa
         </a>
@@ -1078,7 +1098,7 @@ function iniciarRodapeGlobal() {
           <footer class="rodape-aprender">
             <div class="rodape-aprender-conteudo">
               <div class="rodape-marca"><img src="${prefixo}assets/img/logo sem fundo GSA 3.0.png" alt="" /><div><strong>Grana Sem Aperto</strong><span>Educação financeira para escolhas conscientes.</span></div></div>
-              <nav class="rodape-links" aria-label="Links do rodapé"><a href="${prefixo}index.html">Início</a><a href="${prefixo}pages/Cursos.html">Aprender</a><a href="${prefixo}pages/calculadora.html">Ferramentas</a><a href="${prefixo}pages/criadores.html">Sobre</a></nav>
+              <nav class="rodape-links" aria-label="Links do rodapé"><a href="${prefixo}index.html">Início</a><a href="${prefixo}pages/Cursos.html">Aprender</a><a href="${prefixo}pages/jogar.html">Jogar</a><a href="${prefixo}pages/calculadora.html">Ferramentas</a><a href="${prefixo}pages/criadores.html">Sobre</a></nav>
               <div class="rodape-aviso"><span>CONTEÚDO EDUCACIONAL</span><p>Informação para planejamento — não é recomendação ou promessa de retorno.</p></div>
             </div>
             <div class="rodape-aprender-base"><span>© 2026 GSA · Grana Sem Aperto</span><button type="button" id="abrir-termos">Termos de responsabilidade</button></div>
@@ -1243,12 +1263,202 @@ function renderizarGrafico(labels, investido, total) {
 /* =========================================
    5. IA E TAXAS EM TEMPO REAL
    ========================================= */
-function toggleAIChat() {
+function toggleAIChat(forcarAberto) {
     const chat = document.getElementById('chat-box-ia');
-    if (chat) chat.classList.toggle('chat-escondido');
+    if (!chat) return;
+
+    const abrir = typeof forcarAberto === 'boolean' ? forcarAberto : chat.classList.contains('chat-escondido');
+    chat.classList.toggle('chat-escondido', !abrir);
+    document.body.classList.toggle('chat-ia-aberto', abrir);
+    document.getElementById('btn-ia-toggle')?.setAttribute('aria-expanded', String(abrir));
+
+    if (!abrir) return;
+
+    const mensagens = document.getElementById('chat-messages');
+    if (mensagens) mensagens.scrollTop = mensagens.scrollHeight;
+
+    // No celular, focar abriria o teclado por cima da conversa.
+    if (window.matchMedia('(pointer: fine)').matches) {
+        document.getElementById('user-query')?.focus();
+    }
 }
 
 let iaEnviandoMensagem = false;
+let historicoChatIA = [];
+
+const CHAT_GSA_PAGINAS = {
+    inicio: {
+        boasVindas: 'Oi! Sou o GSA Assistente. Posso te ajudar a organizar a grana, montar sua reserva ou dar os primeiros passos nos investimentos.',
+        placeholder: 'Pergunte sobre Selic, reserva, FIIs...',
+        sugestoes: ['Como começar a investir com pouco?', 'O que é reserva de emergência?', 'Como organizar meu salário?']
+    },
+    calculadora: {
+        boasVindas: 'Quer ajuda para entender alguma taxa ou simulação? Me pergunte sobre juros, prazos e aportes.',
+        placeholder: 'Pergunte sobre investimentos...',
+        sugestoes: ['O que são juros compostos?', 'Quanto rende guardar R$ 100 por mês?', 'Selic, CDI e poupança: qual a diferença?']
+    },
+    cursos: {
+        boasVindas: 'Quer ajuda para entender algum módulo? Pergunte sobre qualquer tema das trilhas.',
+        placeholder: 'Pergunte sobre o conteúdo...',
+        sugestoes: ['Por onde começar a investir?', 'Como evitar o rotativo do cartão?', 'O que são FIIs?']
+    },
+    jogo: {
+        boasVindas: 'Travou em alguma pergunta do Desafio? Me pergunte e eu explico o conceito.',
+        placeholder: 'Pergunte sobre a lição...',
+        sugestoes: ['Como funciona o XP do Desafio?', 'O que é reserva de emergência?', 'O que são juros compostos?']
+    },
+    criadores: {
+        boasVindas: 'Olá! Quer conhecer melhor o projeto GSA e o time por trás dele?',
+        placeholder: 'Faça sua pergunta...',
+        sugestoes: ['Quem criou o GSA?', 'Qual é a missão do GSA?', 'Como a IA GSA pode me ajudar?']
+    }
+};
+
+const ICONES_CHAT_GSA = {
+    robo: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 8V4H8"/><rect width="16" height="12" x="4" y="8" rx="2"/><path d="M2 14h2"/><path d="M20 14h2"/><path d="M15 13v2"/><path d="M9 13v2"/></svg>',
+    reiniciar: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 12a9 9 0 1 0 9-9 9.75 9.75 0 0 0-6.74 2.74L3 8"/><path d="M3 3v5h5"/></svg>',
+    fechar: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 6 6 18"/><path d="m6 6 12 12"/></svg>',
+    enviar: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3.714 3.048a.498.498 0 0 0-.683.627l2.843 7.627a2 2 0 0 1 0 1.396l-2.842 7.627a.498.498 0 0 0 .682.627l18-8.5a.5.5 0 0 0 0-.904z"/><path d="M6 12h16"/></svg>',
+    alerta: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m21.73 18-8-14a2 2 0 0 0-3.48 0l-8 14A2 2 0 0 0 4 21h16a2 2 0 0 0 1.73-3"/><path d="M12 9v4"/><path d="M12 17h.01"/></svg>',
+    copiar: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="14" height="14" x="8" y="8" rx="2"/><path d="M4 16c-1.1 0-2-.9-2-2V4c0-1.1.9-2 2-2h10c1.1 0 2 .9 2 2"/></svg>',
+    copiado: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>'
+};
+
+// Mesma regra de api/chat.mjs (identificarPagina).
+function identificarPaginaChat() {
+    const caminho = window.location.pathname.toLowerCase();
+    if (caminho.includes('calculadora')) return 'calculadora';
+    if (caminho.includes('cursos')) return 'cursos';
+    if (caminho.includes('criadores')) return 'criadores';
+    if (caminho.includes('jogar')) return 'jogo';
+    return 'inicio';
+}
+
+function renderizarBoasVindasChat() {
+    const container = document.getElementById('chat-messages');
+    const sugestoes = document.getElementById('chat-sugestoes');
+    if (!container || !sugestoes) return;
+
+    const pagina = CHAT_GSA_PAGINAS[identificarPaginaChat()];
+
+    const boasVindas = document.createElement('div');
+    boasVindas.className = 'msg-ia';
+    boasVindas.textContent = pagina.boasVindas;
+    container.replaceChildren(boasVindas);
+
+    sugestoes.replaceChildren(...pagina.sugestoes.map((texto) => {
+        const botao = document.createElement('button');
+        botao.type = 'button';
+        botao.className = 'chat-sugestao';
+        botao.textContent = texto;
+        botao.addEventListener('click', () => perguntarSugestaoIA(texto));
+        return botao;
+    }));
+    sugestoes.hidden = false;
+}
+
+// O widget é igual em todas as páginas; o HTML de cada página só tem o #ai-chat-wrapper vazio.
+function montarChatGSA() {
+    const wrapper = document.getElementById('ai-chat-wrapper');
+    if (!wrapper || wrapper.dataset.montado === 'true') return;
+
+    const pagina = CHAT_GSA_PAGINAS[identificarPaginaChat()];
+    wrapper.dataset.montado = 'true';
+    wrapper.innerHTML = `
+        <button id="btn-ia-toggle" type="button" onclick="toggleAIChat()" aria-controls="chat-box-ia" aria-expanded="false">
+            <span class="btn-ia-icone" aria-hidden="true">${ICONES_CHAT_GSA.robo}</span>
+            <span class="btn-ia-texto">GSA Assistente</span>
+        </button>
+        <section id="chat-box-ia" class="chat-escondido" role="dialog" aria-labelledby="chat-titulo-ia">
+            <header class="chat-header">
+                <div class="chat-identidade">
+                    <span class="chat-avatar" aria-hidden="true">${ICONES_CHAT_GSA.robo}</span>
+                    <div class="chat-identidade-texto">
+                        <strong id="chat-titulo-ia">GSA Assistente</strong>
+                        <span class="chat-status">Educação financeira com IA</span>
+                    </div>
+                </div>
+                <div class="chat-header-acoes">
+                    <button type="button" class="chat-header-botao" onclick="novaConversaIA()" aria-label="Começar nova conversa" title="Nova conversa">${ICONES_CHAT_GSA.reiniciar}</button>
+                    <button type="button" class="chat-header-botao" onclick="toggleAIChat(false)" aria-label="Fechar assistente" title="Fechar">${ICONES_CHAT_GSA.fechar}</button>
+                </div>
+            </header>
+            <div id="chat-messages" role="log" aria-live="polite"></div>
+            <div id="chat-sugestoes" class="chat-sugestoes" aria-label="Sugestões de perguntas"></div>
+            <div class="chat-rodape">
+                <div class="chat-input">
+                    <input type="text" id="user-query" maxlength="600" autocomplete="off" enterkeyhint="send" aria-label="Escreva sua pergunta" placeholder="${pagina.placeholder}" />
+                    <button type="button" id="btn-enviar-ia" onclick="perguntarIA()" aria-label="Enviar pergunta" title="Enviar">${ICONES_CHAT_GSA.enviar}</button>
+                </div>
+                <p class="chat-aviso">Conteúdo educativo, não é recomendação de investimento. Nunca compartilhe CPF, senhas ou dados bancários.</p>
+            </div>
+        </section>
+    `;
+
+    document.getElementById('chat-messages').addEventListener('click', copiarRespostaIA);
+    renderizarBoasVindasChat();
+}
+
+async function copiarRespostaIA(evento) {
+    const botao = evento.target.closest('[data-copiar-resposta]');
+    const card = botao?.closest('.ia-resposta-card');
+    if (!card) return;
+
+    const textoDe = (seletor) => card.querySelector(seletor)?.innerText.trim() || '';
+    const pontos = [...card.querySelectorAll('.ia-resposta-lista li')].map((item) => `• ${item.innerText.trim()}`);
+    const alerta = textoDe('.ia-resposta-alerta p');
+
+    const texto = [
+        textoDe('.ia-resposta-titulo'),
+        textoDe('.ia-resposta-resumo'),
+        textoDe('.ia-resposta-explicacao'),
+        pontos.length ? `Pontos-chave:\n${pontos.join('\n')}` : '',
+        alerta ? `Atenção: ${alerta}` : '',
+        '— GSA Assistente (conteúdo educativo)'
+    ].filter(Boolean).join('\n\n');
+
+    let copiou = true;
+    try {
+        await navigator.clipboard.writeText(texto);
+    } catch {
+        copiou = false;
+    }
+
+    botao.classList.toggle('copiado', copiou);
+    botao.innerHTML = copiou
+        ? `${ICONES_CHAT_GSA.copiado}<span>Copiado</span>`
+        : `${ICONES_CHAT_GSA.copiar}<span>Não foi possível copiar</span>`;
+
+    clearTimeout(botao.timerRestaurar);
+    botao.timerRestaurar = setTimeout(() => {
+        botao.classList.remove('copiado');
+        botao.innerHTML = `${ICONES_CHAT_GSA.copiar}<span>Copiar</span>`;
+    }, 1800);
+}
+
+function perguntarSugestaoIA(texto) {
+    const input = document.getElementById('user-query');
+    if (!input || iaEnviandoMensagem) return;
+
+    input.value = texto;
+    perguntarIA();
+}
+
+function novaConversaIA() {
+    if (iaEnviandoMensagem) return;
+
+    historicoChatIA = [];
+    renderizarBoasVindasChat();
+    document.getElementById('user-query')?.focus();
+}
+
+document.addEventListener('keydown', (evento) => {
+    const chat = document.getElementById('chat-box-ia');
+    if (evento.key !== 'Escape' || !chat || chat.classList.contains('chat-escondido')) return;
+
+    toggleAIChat(false);
+    document.getElementById('btn-ia-toggle')?.focus();
+});
 
 function obterRespostaRapidaEducacaoFinanceira(perguntaUsuario) {
     const normalizar = (texto) => corrigirTextoCorrompido(String(texto || ''))
@@ -1319,6 +1529,17 @@ function obterRespostaRapidaEducacaoFinanceira(perguntaUsuario) {
             }
         },
         {
+            // Antes de "Dívidas", que também casa com "juros".
+            termos: ['juros compostos', 'juros sobre juros', 'rende', 'rendimento', 'simulacao', 'simular', 'calculadora'],
+            resposta: {
+                titulo: 'Juros compostos',
+                resumo: 'São juros sobre juros: o que você ganha em um mês também passa a render nos meses seguintes.',
+                explicacao: 'Exemplo: guardando R$ 100 por mês a 1% ao mês, em 5 anos você aporta R$ 6.000 e chega perto de R$ 8.170. Quanto mais tempo e constância, maior o efeito.',
+                pontos_chave: ['Tempo pesa muito: comece cedo, mesmo com pouco.', 'Aportes constantes fazem diferença.', 'Teste cenários na Calculadora de Juros do GSA.'],
+                alerta: 'Simulações são estimativas: taxas mudam e pode haver imposto.'
+            }
+        },
+        {
             termos: ['divida', 'dividas', 'juros', 'nome sujo', 'emprestimo'],
             resposta: {
                 titulo: 'Dívidas',
@@ -1336,6 +1557,27 @@ function obterRespostaRapidaEducacaoFinanceira(perguntaUsuario) {
                 explicacao: 'Investir sem organização pode virar ansiedade. Primeiro saiba quanto entra, quanto sai e quanto você consegue guardar com constância.',
                 pontos_chave: ['Quite ou controle dívidas caras.', 'Monte reserva de emergência.', 'Estude produtos simples antes de avançar.'],
                 alerta: 'Promessa de lucro rápido costuma ser sinal de risco alto.'
+            }
+        },
+        {
+            // Regras iguais às de assets/js/jogo.js e supabase/schema.sql.
+            termos: ['xp', 'desafio', 'ranking', 'sequencia', 'vidas', 'jogo', 'jogar'],
+            resposta: {
+                titulo: 'Como funciona o Desafio GSA',
+                resumo: 'Cada lição tem 5 perguntas e 3 vidas: acerto de primeira vale 10 XP e lição sem erros ganha 10 XP de bônus.',
+                explicacao: 'Cada lição rende XP uma vez por dia; repetir no mesmo dia é treino. Jogar em dias seguidos aumenta sua sequência, e a meta diária é 30 XP. Entrando na conta, você aparece no ranking só com o apelido.',
+                pontos_chave: ['Errou? A pergunta volta no fim da lição.', 'Conclua uma lição para liberar a próxima.', 'Sem conta, o progresso fica salvo no aparelho.'],
+                alerta: 'O ranking é para aprender brincando: o conteúdo é educativo, não recomendação de investimento.'
+            }
+        },
+        {
+            termos: ['gsa', 'criou', 'criadores', 'equipe', 'quem fez', 'missao', 'projeto'],
+            resposta: {
+                titulo: 'Sobre o GSA',
+                resumo: 'O GSA é uma plataforma gratuita de educação financeira feita por jovens, para jovens.',
+                explicacao: 'O projeto começou como trabalho em grupo no Senac e reúne calculadora de juros, trilhas de cursos com quiz e esta IA para tirar dúvidas. A missão é transformar conhecimento financeiro em ação prática. Na página Criadores você conhece o time.',
+                pontos_chave: ['Calculadora de juros com taxas do Banco Central.', 'Trilhas: Organizar → Proteger → Crescer.', 'IA para dúvidas rápidas sobre dinheiro.'],
+                alerta: 'O conteúdo é educativo e não substitui orientação profissional.'
             }
         }
     ];
@@ -1372,6 +1614,7 @@ function inicializarEnvioChatComEnter() {
     });
 }
 
+montarChatGSA();
 inicializarEnvioChatComEnter();
 
 async function perguntarIA() {
@@ -1518,7 +1761,8 @@ async function perguntarIA() {
         const textoLimpo = limparTextoPlano(texto);
         if (!textoLimpo) return '';
 
-        const sentencas = textoLimpo.match(/[^.!?]+[.!?]?/g) || [textoLimpo];
+        // Só conta como fim de frase o ponto seguido de espaço, para não cortar "R$ 1.000" em "R$ 1.".
+        const sentencas = textoLimpo.match(/.+?[.!?](?=\s|$)|.+$/g) || [textoLimpo];
         const primeiraSentenca = sentencas[0]?.trim() || textoLimpo;
 
         if (primeiraSentenca.length <= limite) {
@@ -1710,6 +1954,12 @@ async function perguntarIA() {
             160
         );
 
+        // Valores em reais e porcentagens ganham destaque e não quebram de linha ("R$" longe do número).
+        const formatarComValores = (texto) => formatarTexto(texto).replace(
+            /R\$\s?\d+(?:[.,]\d+)*|\d+(?:[.,]\d+)?\s?%/g,
+            (valorEncontrado) => `<strong class="ia-numero">${valorEncontrado.replace(/\s/g, '&nbsp;')}</strong>`
+        );
+
         const blocos = [];
 
         if (titulo) {
@@ -1717,11 +1967,11 @@ async function perguntarIA() {
         }
 
         if (resumo) {
-            blocos.push(`<p class="ia-resposta-resumo">${formatarTexto(resumo)}</p>`);
+            blocos.push(`<p class="ia-resposta-resumo">${formatarComValores(resumo)}</p>`);
         }
 
         if (explicacao) {
-            blocos.push(`<p class="ia-resposta-explicacao">${formatarTexto(explicacao)}</p>`);
+            blocos.push(`<p class="ia-resposta-explicacao">${formatarComValores(explicacao)}</p>`);
         }
 
         if (pontosChave.length) {
@@ -1729,7 +1979,7 @@ async function perguntarIA() {
                 <div class="ia-resposta-secao">
                     <div class="ia-resposta-secao-titulo">Pontos-chave</div>
                     <ul class="ia-resposta-lista">
-                        ${pontosChave.map((item) => `<li>${formatarTexto(item)}</li>`).join('')}
+                        ${pontosChave.map((item) => `<li>${formatarComValores(item)}</li>`).join('')}
                     </ul>
                 </div>
             `);
@@ -1738,11 +1988,17 @@ async function perguntarIA() {
         if (alerta) {
             blocos.push(`
                 <div class="ia-resposta-alerta">
-                    <span class="ia-resposta-alerta-icon">&#9888;&#65039;</span>
-                    <p>${formatarTexto(alerta)}</p>
+                    <span class="ia-resposta-alerta-icon" aria-hidden="true">${ICONES_CHAT_GSA.alerta}</span>
+                    <p>${formatarComValores(alerta)}</p>
                 </div>
             `);
         }
+
+        blocos.push(`
+            <div class="ia-resposta-acoes">
+                <button type="button" class="ia-resposta-copiar" data-copiar-resposta>${ICONES_CHAT_GSA.copiar}<span>Copiar</span></button>
+            </div>
+        `);
 
         return `<div class="ia-resposta-card ia-resposta-card-gsa">${blocos.join('')}</div>`;
     };
@@ -2039,7 +2295,8 @@ async function perguntarIA() {
         for (const item of nosTexto) {
             for (let indice = 0; indice < item.texto.length; indice += tamanhoBloco) {
                 item.node.textContent += item.texto.slice(indice, indice + tamanhoBloco);
-                container.scrollTop = container.scrollHeight;
+                // Acompanha a digitação, mas para quando o começo da resposta chega ao topo.
+                container.scrollTop = Math.min(container.scrollHeight, elemento.offsetTop - 12);
                 await esperar(pausa);
             }
         }
@@ -2049,75 +2306,59 @@ async function perguntarIA() {
 
     adicionarMensagem('msg-user', 'Você', query);
     input.value = "";
+    const sugestoes = document.getElementById('chat-sugestoes');
+    if (sugestoes) sugestoes.hidden = true;
     const mensagemPensando = adicionarMensagemPensando();
-    const respostaLocal = obterRespostaRapidaEducacaoFinanceira(query);
+    const registrarNoHistorico = (resposta) => {
+        const textoResposta = [resposta.titulo, resposta.resumo, resposta.explicacao]
+            .filter(Boolean)
+            .join(' — ');
 
-    await esperar(450);
-    await animarMensagemExistente(mensagemPensando, 'GSA', renderizarRespostaChatGSA(respostaLocal), { html: true, esconderRemetente: true });
-    return;
+        historicoChatIA.push(
+            { role: 'user', content: query },
+            { role: 'assistant', content: textoResposta }
+        );
+        historicoChatIA = historicoChatIA.slice(-LIMITE_HISTORICO_CHAT_IA);
+    };
 
-    const mensagemErroConexaoIa = 'Erro ao conectar com a IA.';
+    let respostaIA = null;
 
     try {
-        const response = await fetch(N8N_CHAT_WEBHOOK_URL, {
+        const response = await fetch(IA_CHAT_ENDPOINT, {
             method: "POST",
             headers: {
                 "Content-Type": "application/json"
             },
-            body: JSON.stringify({ message: query })
+            body: JSON.stringify({
+                message: query,
+                historico: historicoChatIA,
+                pagina: window.location.pathname
+            })
         });
 
         const data = await response.json().catch(() => ({}));
 
-        if (!response.ok) {
-            const mensagemErro = data?.mensagem || data?.error || data?.message || data?.hint || "Erro ao responder.";
-            await esperar(500);
-            await animarMensagemExistente(mensagemPensando, 'GSA', formatarMensagemIA(mensagemErro), { html: true });
+        // 400 = pergunta inválida (vazia ou longa demais): mostra o motivo em vez de responder outra coisa.
+        if (response.status === 400 && data?.error) {
+            await esperar(300);
+            await animarMensagemExistente(mensagemPensando, 'GSA', data.error);
             return;
         }
 
-        const payloadResposta = extrairPayloadRespostaIA(data);
-
-        const temPayloadEstruturado = payloadResposta &&
-            typeof payloadResposta === 'object' &&
-            !Array.isArray(payloadResposta) &&
-            Object.keys(payloadResposta).length > 0;
-
-        if (
-            !temPayloadEstruturado &&
-            (
-                typeof payloadResposta === 'undefined' ||
-                payloadResposta === null ||
-                payloadResposta === '' ||
-                (typeof payloadResposta === 'object' && !Array.isArray(payloadResposta) && Object.keys(payloadResposta).length === 0)
-            )
-        ) {
-            await esperar(500);
-            await animarMensagemExistente(mensagemPensando, 'GSA', 'A IA respondeu em um formato diferente do esperado.');
-            return;
+        const payloadResposta = response.ok ? extrairPayloadRespostaIA(data) : null;
+        if (temRespostaPadraoGSA(payloadResposta)) {
+            respostaIA = payloadResposta;
         }
-
-        const respostaFormatada = temPayloadEstruturado
-            ? (
-                temRespostaPadraoGSA(payloadResposta)
-                    ? renderizarRespostaChatGSA(payloadResposta)
-                    : formatarMensagemIA(payloadResposta)
-            )
-            : formatarMensagemIA(payloadResposta);
-
-        if (!respostaFormatada) {
-            await esperar(500);
-            await animarMensagemExistente(mensagemPensando, 'GSA', 'A IA respondeu em um formato diferente do esperado.');
-            return;
-        }
-
-        await esperar(650);
-        await animarMensagemExistente(mensagemPensando, 'GSA', respostaFormatada, { html: true, esconderRemetente: true });
     } catch (error) {
         console.error(error);
-        await esperar(500);
-        return await animarMensagemExistente(mensagemPensando, 'GSA', mensagemErroConexaoIa);
     }
+
+    // Sem IA disponível (sem chave, limite da OpenAI, offline ou rodando sem a Vercel): usa a base local.
+    const resposta = respostaIA || obterRespostaRapidaEducacaoFinanceira(query);
+
+    registrarNoHistorico(resposta);
+    await esperar(respostaIA ? 200 : 450);
+    await animarMensagemExistente(mensagemPensando, 'GSA', renderizarRespostaChatGSA(resposta), { html: true, esconderRemetente: true });
 }
 
 
@@ -2273,6 +2514,64 @@ function slide(direcao) {
    ========================================= */
 let currentZoom = Number(localStorage.getItem('gsaZoom')) || 100;
 
+const ZOOM_MINIMO = 85;
+const ZOOM_MAXIMO = 125;
+
+const ICONES_ACESSIBILIDADE = {
+    acessibilidade: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="16" cy="4" r="1"/><path d="m18 19 1-7-6 1"/><path d="m5 8 3-3 5.5 3-2.36 3.5"/><path d="M4.24 14.5a5 5 0 0 0 6.88 6"/><path d="M13.76 17.5a5 5 0 0 0-6.88-6"/></svg>',
+    diminuir: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3.5 13h6"/><path d="m2 16 4.5-9 4.5 9"/><path d="M18 7v9"/><path d="m14 12 4 4 4-4"/></svg>',
+    aumentar: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3.5 13h6"/><path d="m2 16 4.5-9 4.5 9"/><path d="M18 16V7"/><path d="m14 11 4-4 4 4"/></svg>',
+    tamanho: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="4 7 4 4 20 4 20 7"/><line x1="9" x2="15" y1="20" y2="20"/><line x1="12" x2="12" y1="4" y2="20"/></svg>',
+    contraste: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M12 18a6 6 0 0 0 0-12v12z"/></svg>',
+    libras: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 11V6a2 2 0 0 0-2-2a2 2 0 0 0-2 2"/><path d="M14 10V4a2 2 0 0 0-2-2a2 2 0 0 0-2 2v2"/><path d="M10 10.5V6a2 2 0 0 0-2-2a2 2 0 0 0-2 2v8"/><path d="M18 8a2 2 0 1 1 4 0v6a8 8 0 0 1-8 8h-2c-2.8 0-4.5-.86-5.99-2.34l-3.6-3.6a2 2 0 0 1 2.83-2.82L7 15"/></svg>',
+    seta: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m9 18 6-6-6-6"/></svg>',
+    restaurar: ICONES_CHAT_GSA.reiniciar,
+    fechar: ICONES_CHAT_GSA.fechar
+};
+
+// O painel é igual em todas as páginas; o HTML de cada página só tem o #acess-wrapper vazio.
+function montarPainelAcessibilidade() {
+    const wrapper = document.getElementById('acess-wrapper');
+    if (!wrapper || wrapper.dataset.montado === 'true') return;
+
+    wrapper.dataset.montado = 'true';
+    wrapper.innerHTML = `
+        <button id="btn-acess-toggle" type="button" aria-label="Abrir opções de acessibilidade" aria-controls="acess-panel" aria-expanded="false" title="Acessibilidade">${ICONES_ACESSIBILIDADE.acessibilidade}</button>
+        <div id="acess-panel" role="dialog" aria-labelledby="acess-titulo" hidden>
+            <div class="acess-cabecalho">
+                <span class="acess-icone" aria-hidden="true">${ICONES_ACESSIBILIDADE.acessibilidade}</span>
+                <div class="acess-cabecalho-texto">
+                    <h3 id="acess-titulo">Acessibilidade</h3>
+                    <span>Ajuste o site do seu jeito</span>
+                </div>
+                <button type="button" class="acess-fechar" onclick="toggleAcessPanel(false)" aria-label="Fechar opções de acessibilidade" title="Fechar">${ICONES_ACESSIBILIDADE.fechar}</button>
+            </div>
+            <div class="acess-controles">
+                <div class="acess-opcao">
+                    <span class="acess-item-icone" aria-hidden="true">${ICONES_ACESSIBILIDADE.tamanho}</span>
+                    <span class="acess-item-texto">Tamanho</span>
+                    <div class="acess-zoom" role="group" aria-label="Tamanho da visualização">
+                        <button type="button" id="btn-zoom-menos" class="acess-zoom-botao" onclick="mudarFonte(-1)" aria-label="Diminuir visualização" title="Diminuir">${ICONES_ACESSIBILIDADE.diminuir}</button>
+                        <span id="acess-zoom-valor" class="acess-zoom-valor">${currentZoom}%</span>
+                        <button type="button" id="btn-zoom-mais" class="acess-zoom-botao" onclick="mudarFonte(1)" aria-label="Aumentar visualização" title="Aumentar">${ICONES_ACESSIBILIDADE.aumentar}</button>
+                    </div>
+                </div>
+                <button type="button" onclick="toggleContraste()" class="btn-acess-item" id="btn-contraste" aria-pressed="false">
+                    <span class="acess-item-icone" aria-hidden="true">${ICONES_ACESSIBILIDADE.contraste}</span>
+                    <span class="acess-item-texto">Alto contraste</span>
+                    <span class="acess-chave" aria-hidden="true"></span>
+                </button>
+            </div>
+            <div class="acess-rodape">
+                <button type="button" onclick="resetarAcessibilidade()" class="btn-acess-reset">${ICONES_ACESSIBILIDADE.restaurar}<span>Restaurar padrão</span></button>
+                <p id="acess-status" class="acess-status" aria-live="polite">Visualização em ${currentZoom}%</p>
+            </div>
+        </div>
+    `;
+}
+
+montarPainelAcessibilidade();
+
 function atualizarStatusAcessibilidade(mensagem) {
     const status = document.getElementById('acess-status');
     if (status) status.textContent = mensagem;
@@ -2282,6 +2581,14 @@ function aplicarZoom() {
     document.documentElement.style.zoom = currentZoom / 100;
     localStorage.setItem('gsaZoom', String(currentZoom));
     atualizarStatusAcessibilidade(`Visualização em ${currentZoom}%`);
+
+    const valor = document.getElementById('acess-zoom-valor');
+    if (valor) valor.textContent = `${currentZoom}%`;
+
+    const botaoMenos = document.getElementById('btn-zoom-menos');
+    const botaoMais = document.getElementById('btn-zoom-mais');
+    if (botaoMenos) botaoMenos.disabled = currentZoom <= ZOOM_MINIMO;
+    if (botaoMais) botaoMais.disabled = currentZoom >= ZOOM_MAXIMO;
 }
 
 function toggleAcessPanel(forcarAberto) {
@@ -2298,12 +2605,14 @@ function toggleAcessPanel(forcarAberto) {
     );
 
     if (deveAbrir) {
-        panel.querySelector('button')?.focus();
+        // Os dois painéis abrem no canto de baixo e se sobrepõem no celular.
+        toggleAIChat(false);
+        panel.querySelector('.acess-controles button:not(:disabled)')?.focus();
     }
 }
 
 function mudarFonte(delta) {
-    currentZoom = Math.min(125, Math.max(85, currentZoom + delta * 10));
+    currentZoom = Math.min(ZOOM_MAXIMO, Math.max(ZOOM_MINIMO, currentZoom + delta * 10));
     aplicarZoom();
 }
 
@@ -2454,7 +2763,11 @@ function integrarVLibrasAcessibilidade() {
     botao.type = 'button';
     botao.id = 'btn-vlibras-integrado';
     botao.className = 'btn-acess-item';
-    botao.innerHTML = '<span aria-hidden="true">☝</span> Libras (VLibras)';
+    botao.innerHTML = `
+        <span class="acess-item-icone" aria-hidden="true">${ICONES_ACESSIBILIDADE.libras}</span>
+        <span class="acess-item-texto">Libras (VLibras)</span>
+        <span class="acess-item-seta" aria-hidden="true">${ICONES_ACESSIBILIDADE.seta}</span>
+    `;
     botao.addEventListener('click', () => {
         const acessoVLibras = document.querySelector('[vw-access-button]');
         if (acessoVLibras) {

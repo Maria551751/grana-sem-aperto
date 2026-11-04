@@ -1,0 +1,69 @@
+<!doctype html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Desafio GSA | Grana Sem Aperto</title>
+  <meta name="description" content="Aprenda educação financeira jogando: lições de 2 minutos, XP, sequência de dias e ranking do GSA." />
+  <link rel="icon" type="image/png" href="../assets/img/favicon.png" />
+  <link rel="stylesheet" href="../assets/css/global.css?v=20261104-1" />
+  <link rel="stylesheet" href="../assets/css/mobile.css?v=20261104-1" />
+  <link rel="stylesheet" href="../assets/css/jogo.css?v=20261104-1" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet" />
+</head>
+<body class="pagina-jogo">
+  <header class="cabecalho">
+    <a href="../index.html" class="logo"><img src="../assets/img/logo sem fundo GSA 3.0.png" alt="Logo Grana Sem Aperto" class="logo-mark" /><span class="logo-text">Grana Sem Aperto</span></a>
+    <nav class="menu-desktop" aria-label="Navegação principal"><a href="../index.html">Início</a><a href="../pages/Cursos.html">Aprender</a><a href="../pages/jogar.html" class="ativo" aria-current="page">Jogar</a><a href="../pages/calculadora.html">Ferramentas</a><a href="../pages/criadores.html">Sobre</a><button class="menu-mobile-btn" aria-label="Abrir menu">☰</button></nav>
+  </header>
+  <aside class="sidebar" id="sidebar"><div class="sidebar-header"><span class="logo">GSA</span><button class="fechar-sidebar" id="btnFechar" aria-label="Fechar menu">×</button></div><nav class="sidebar-links"><a href="../index.html">Início</a><a href="../pages/Cursos.html">Aprender</a><a href="../pages/jogar.html" aria-current="page">Jogar</a><a href="../pages/calculadora.html">Ferramentas</a><a href="../pages/criadores.html">Sobre</a></nav></aside><div class="overlay" id="overlay"></div>
+
+  <main class="jogo">
+    <section class="jogo-topo">
+      <div class="jogo-titulo">
+        <span class="jogo-etiqueta">DESAFIO GSA</span>
+        <h1>Aprenda jogando.<br /><span>Suba no ranking.</span></h1>
+        <p>Lições de 2 minutos sobre dinheiro. Ganhe XP, mantenha a sequência de dias e dispute com a galera.</p>
+      </div>
+      <div class="jogo-conta" id="jogo-conta"></div>
+    </section>
+
+    <section class="jogo-status" id="jogo-status" aria-label="Seu progresso"></section>
+
+    <div class="jogo-layout">
+      <div class="jogo-trilha" id="jogo-trilha" aria-label="Trilha de lições"></div>
+      <aside class="jogo-lateral">
+        <section class="jogo-ranking" id="jogo-ranking" aria-label="Ranking"></section>
+        <section class="jogo-app">
+          <span class="jogo-etiqueta">EM BREVE</span>
+          <h2>App GSA no celular</h2>
+          <p>O Desafio GSA vai virar app para Android e iPhone, com lembrete da sequência e lições offline.</p>
+          <div class="app-lojas" aria-label="Lojas em breve">
+            <span class="app-loja"><span aria-hidden="true">🤖</span> Android <em>em breve</em></span>
+            <span class="app-loja"><span aria-hidden="true">📱</span> iPhone <em>em breve</em></span>
+          </div>
+        </section>
+      </aside>
+    </div>
+  </main>
+
+  <div class="licao-tela" id="licao-tela" role="dialog" aria-modal="true" aria-labelledby="licao-enunciado" hidden></div>
+
+  <div class="conta-modal" id="conta-modal" hidden>
+    <section class="conta-caixa" id="conta-modal-caixa" role="dialog" aria-modal="true" aria-labelledby="conta-titulo"></section>
+  </div>
+
+  <!-- GSA Assistente: montado por montarChatGSA() em assets/js/global.js -->
+  <div id="ai-chat-wrapper"></div>
+  <!-- Acessibilidade: montado por montarPainelAcessibilidade() em assets/js/global.js -->
+  <div id="acess-wrapper"></div>
+  <div vw class="enabled"><div vw-access-button class="active"></div><div vw-plugin-wrapper><div class="vw-plugin-top-wrapper"></div></div></div>
+  <script src="https://vlibras.gov.br/app/vlibras-plugin.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.118.0/dist/umd/supabase.min.js"></script>
+  <script src="../assets/js/supabase-config.js?v=20261104-1"></script>
+  <script src="../assets/js/conta-gsa.js?v=20261104-1"></script>
+  <script src="../assets/js/jogo-licoes.js?v=20261104-1"></script>
+  <script src="../assets/js/global.js?v=20261104-1"></script>
+  <script src="../assets/js/jogo.js?v=20261104-1"></script>
+</body>
+</html>

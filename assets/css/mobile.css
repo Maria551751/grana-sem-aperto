@@ -190,16 +190,16 @@
     }
 
     #btn-ia-toggle {
-        padding: 12px 16px;
+        padding: 6px 16px 6px 6px;
         font-size: 13px;
         gap: 8px;
     }
 
     #chat-box-ia {
-        right: 0;
-        bottom: 72px;
-        width: min(92vw, 360px);
-        height: min(70vh, 460px);
+        right: 12px;
+        bottom: 76px;
+        width: min(400px, calc(100vw - 24px));
+        height: min(600px, calc(100dvh - 100px));
     }
 
     #acess-wrapper {
@@ -208,7 +208,7 @@
     }
 
     #acess-panel {
-        width: min(78vw, 250px) !important;
+        width: min(320px, calc(100vw - 24px)) !important;
     }
 
     .container-criadores {
@@ -281,7 +281,7 @@
     }
 
     .chat-header,
-    .chat-input,
+    .chat-sugestoes,
     #chat-messages {
         padding-left: 12px;
         padding-right: 12px;
@@ -297,17 +297,31 @@
         padding-right: 10px;
     }
 
+    /* Só o ícone: o texto some, mas o botão continua com 44px de área de toque. */
     #btn-ia-toggle {
-        padding: 11px 14px;
+        padding: 6px;
     }
 
-    #btn-ia-toggle span {
+    /* Mesmo tamanho do botão do chat, no canto oposto. */
+    #btn-acess-toggle {
+        width: 44px;
+        height: 44px;
+    }
+
+    #acess-panel {
+        bottom: 56px;
+    }
+
+    .btn-ia-texto {
         display: none;
     }
 
+    /* No celular o chat vira uma folha quase em tela cheia, acima do botão. */
     #chat-box-ia {
-        width: calc(100vw - 24px);
-        height: min(68vh, 430px);
+        top: 12px;
+        left: 12px;
+        width: auto;
+        height: auto;
     }
 
     #acess-panel {

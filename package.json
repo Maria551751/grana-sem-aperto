@@ -1,0 +1,8 @@
+{
+  "name": "grana-sem-aperto",
+  "private": true,
+  "description": "Site do GSA (Grana Sem Aperto). As dependências são só da função api/chat.mjs na Vercel.",
+  "dependencies": {
+    "@anthropic-ai/sdk": "^1.4.0"
+  }
+}
