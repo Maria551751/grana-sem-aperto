@@ -6,8 +6,8 @@
   <meta name="description" content="Conheça as pessoas que criaram o Grana Sem Aperto, uma plataforma de educação financeira feita por jovens para jovens." />
   <title>Sobre o GSA | Grana Sem Aperto</title>
   <link rel="icon" type="image/png" href="../assets/img/favicon.png" />
-  <link rel="stylesheet" href="../assets/css/global.css?v=20260820-12" />
-  <link rel="stylesheet" href="../assets/css/mobile.css" />
+  <link rel="stylesheet" href="../assets/css/global.css?v=20261104-1" />
+  <link rel="stylesheet" href="../assets/css/mobile.css?v=20261104-1" />
   <link rel="stylesheet" href="../assets/css/criadores.css?v=20260819-5" />
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet" />
 </head>
@@ -15,11 +15,11 @@
   <header class="cabecalho">
     <a href="../index.html" class="logo"><img src="../assets/img/logo sem fundo GSA 3.0.png" alt="Logo Grana Sem Aperto" class="logo-mark" /><span class="logo-text">Grana Sem Aperto</span></a>
     <nav class="menu-desktop" aria-label="Navegação principal">
-      <a href="../index.html">Início</a><a href="../pages/Cursos.html">Aprender</a><a href="../pages/calculadora.html">Ferramentas</a><a href="../pages/criadores.html" class="ativo" aria-current="page">Sobre</a><button class="menu-mobile-btn" aria-label="Abrir menu" title="Abrir menu">☰</button>
+      <a href="../index.html">Início</a><a href="../pages/Cursos.html">Aprender</a><a href="../pages/jogar.html">Jogar</a><a href="../pages/calculadora.html">Ferramentas</a><a href="../pages/criadores.html" class="ativo" aria-current="page">Sobre</a><button class="menu-mobile-btn" aria-label="Abrir menu" title="Abrir menu">☰</button>
     </nav>
   </header>
 
-  <aside class="sidebar" id="sidebar"><div class="sidebar-header"><span class="logo">GSA</span><button class="fechar-sidebar" id="btnFechar" aria-label="Fechar menu">×</button></div><nav class="sidebar-links"><a href="../index.html">Início</a><a href="../pages/Cursos.html">Aprender</a><a href="../pages/calculadora.html">Ferramentas</a><a href="../pages/criadores.html" aria-current="page">Sobre</a></nav></aside>
+  <aside class="sidebar" id="sidebar"><div class="sidebar-header"><span class="logo">GSA</span><button class="fechar-sidebar" id="btnFechar" aria-label="Fechar menu">×</button></div><nav class="sidebar-links"><a href="../index.html">Início</a><a href="../pages/Cursos.html">Aprender</a><a href="../pages/jogar.html">Jogar</a><a href="../pages/calculadora.html">Ferramentas</a><a href="../pages/criadores.html" aria-current="page">Sobre</a></nav></aside>
   <div class="overlay" id="overlay"></div>
 
   <main>
@@ -54,7 +54,7 @@
         </article>
         <article class="membro-card revelar delay-1">
           <div class="membro-foto"><img src="../assets/img/Arthur.jpeg" alt="Arthur da Silva Araujo" /><span>02</span></div>
-          <div class="membro-conteudo"><span class="membro-area">ENGENHARIA DA COMPUTAÇÃO</span><h3>Arthur da Silva<br />Araujo</h3><p>Estudante e Jovem Aprendiz do IBOL.</p><nav class="membro-redes" aria-label="Redes sociais de Arthur"><a href="https://www.linkedin.com/in/arthur-araujo-30bab3298/" target="_blank" rel="noopener noreferrer">LinkedIn ↗</a><a href="https://www.instagram.com/artplw/" target="_blank" rel="noopener noreferrer">Instagram ↗</a></nav></div>
+          <div class="membro-conteudo"><span class="membro-area">ENGENHARIA DA COMPUTAÇÃO</span><h3>Arthur da Silva<br />Araujo</h3><p>CEO da AIR, empresa de tecnologia que cria sites e sistemas.</p><nav class="membro-redes" aria-label="Redes sociais de Arthur"><a href="https://www.linkedin.com/in/arthur-araujo-30bab3298/" target="_blank" rel="noopener noreferrer">LinkedIn ↗</a><a href="https://www.instagram.com/artplw/" target="_blank" rel="noopener noreferrer">Instagram ↗</a></nav></div>
         </article>
         <article class="membro-card revelar">
           <div class="membro-foto"><img src="../assets/img/Gabriel (2).png" alt="Gabriel Marques Bessa" /><span>03</span></div>
@@ -82,10 +82,12 @@
     </section>
   </main>
 
-  <div id="ai-chat-wrapper"><button id="btn-ia-toggle" onclick="toggleAIChat()"><span>🤖 GSA Assistente</span></button><div id="chat-box-ia" class="chat-escondido"><div class="chat-header"><strong>IA GSA</strong><button onclick="toggleAIChat()" aria-label="Fechar assistente">×</button></div><div id="chat-messages"><div class="msg-ia">Olá! Quer conhecer melhor o projeto GSA?</div></div><div class="chat-input"><input type="text" id="user-query" placeholder="Faça sua pergunta..." /><button onclick="perguntarIA()" id="btn-enviar-ia" title="Enviar mensagem">➤</button></div></div></div>
-  <div id="acess-wrapper"><button id="btn-acess-toggle" type="button" aria-label="Abrir opções de acessibilidade" aria-controls="acess-panel" aria-expanded="false" title="Acessibilidade">♿</button><div id="acess-panel" role="dialog" aria-label="Opções de acessibilidade" hidden><div class="acess-cabecalho"><span class="acess-icone" aria-hidden="true">♿</span><div><span>Preferências</span><h3>Acessibilidade</h3></div></div><div class="acess-controles"><button type="button" onclick="mudarFonte(1)" class="btn-acess-item"><span aria-hidden="true">A+</span> Aumentar visualização</button><button type="button" onclick="mudarFonte(-1)" class="btn-acess-item"><span aria-hidden="true">A−</span> Diminuir visualização</button><button type="button" onclick="toggleContraste()" class="btn-acess-item" id="btn-contraste"><span aria-hidden="true">◐</span> Alto contraste</button><button type="button" onclick="resetarAcessibilidade()" class="btn-acess-item btn-acess-reset"><span aria-hidden="true">↺</span> Restaurar padrão</button></div><p id="acess-status" class="acess-status" aria-live="polite">Visualização em 100%</p></div></div>
+  <!-- GSA Assistente: montado por montarChatGSA() em assets/js/global.js -->
+  <div id="ai-chat-wrapper"></div>
+  <!-- Acessibilidade: montado por montarPainelAcessibilidade() em assets/js/global.js -->
+  <div id="acess-wrapper"></div>
   <div vw class="enabled"><div vw-access-button class="active"></div><div vw-plugin-wrapper><div class="vw-plugin-top-wrapper"></div></div></div>
   <script src="https://vlibras.gov.br/app/vlibras-plugin.js"></script>
-  <script src="../assets/js/global.js?v=20260819-6"></script>
+  <script src="../assets/js/global.js?v=20261104-1"></script>
 </body>
 </html>

@@ -1,0 +1,259 @@
+{
+  "name": "GSA IA — Responder o chat do site (Claude Haiku)",
+  "nodes": [
+    {
+      "id": "d3ad26e7-1825-46bc-85b0-1f7d25fa712e",
+      "name": "Receber Pergunta do Site",
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 2.1,
+      "position": [
+        0,
+        192
+      ],
+      "parameters": {
+        "httpMethod": "POST",
+        "path": "gsa-chat",
+        "authentication": "none",
+        "responseMode": "responseNode",
+        "options": {}
+      },
+      "webhookId": "165bd5aa-371b-43c2-af8b-832e733a99ec",
+      "notes": "Antes de publicar: Authentication = Header Auth, com uma credencial NOVA do GSA (Name X-GSA-Token). Não use a credencial de outro projeto."
+    },
+    {
+      "id": "2782746a-12c5-42fc-984c-b7fdcb0768e2",
+      "name": "Preparar Pedido ao Claude",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        224,
+        192
+      ],
+      "parameters": {
+        "mode": "runOnceForEachItem",
+        "language": "javaScript",
+        "jsCode": "const MODELO = 'claude-haiku-5-5';\nconst LIMITE_PERGUNTA = 1000;\nconst LIMITE_HISTORICO = 6;\n\nconst PROMPT_PADRAO = [\n  'Você é a GSA IA, assistente do projeto GSA - Grana Sem Aperto, um site de educação financeira para jovens.',\n  'Responda sempre em português do Brasil, de forma educativa, clara, acolhedora e simples. Explique finanças para iniciantes.',\n  'Nunca prometa ganhos. Nunca aja como consultora financeira profissional. Quando o assunto for investimento, ações, mercado atual ou notícias, deixe claro no alerta que a resposta é educativa e não é recomendação financeira.',\n  'Se a pergunta depender de dados do momento, diga com honestidade que você explica de forma geral, sem pesquisa em tempo real.',\n  'Você responde temas de educação financeira, consumo consciente, orçamento, dívidas, crédito, investimentos para iniciantes, riscos, planejamento, bancos, impostos básicos, seguros, organização financeira e dúvidas sobre o próprio site GSA.',\n  'Se a pergunta fugir disso, explique com gentileza que a GSA IA é focada em educação financeira e sugira um tema parecido que você pode explicar.',\n  'Formato da resposta: titulo curto; resumo em uma frase; explicacao clara e didática em até 4 frases; exatamente 3 pontos_chave curtos; alerta curto ou vazio. Não use markdown e não gere exercícios.'\n].join('\\n');\n\nconst SCHEMA_CHAT = {\n  type: 'object',\n  properties: {\n    titulo: { type: 'string' },\n    resumo: { type: 'string' },\n    explicacao: { type: 'string' },\n    pontos_chave: { type: 'array', items: { type: 'string' } },\n    alerta: { type: 'string' }\n  },\n  required: ['titulo', 'resumo', 'explicacao', 'pontos_chave', 'alerta'],\n  additionalProperties: false\n};\n\nconst SCHEMA_QUIZ = {\n  type: 'object',\n  properties: {\n    titulo: { type: 'string' },\n    descricao: { type: 'string' },\n    perguntas: {\n      type: 'array',\n      items: {\n        type: 'object',\n        properties: {\n          pergunta: { type: 'string' },\n          opcoes: { type: 'array', items: { type: 'string' } },\n          correta: { type: 'integer' },\n          explicacao: { type: 'string' }\n        },\n        required: ['pergunta', 'opcoes', 'correta', 'explicacao'],\n        additionalProperties: false\n      }\n    }\n  },\n  required: ['titulo', 'descricao', 'perguntas'],\n  additionalProperties: false\n};\n\nconst texto = (valor) => (typeof valor === 'string' ? valor.trim() : '');\nconst corpo = $json.body ?? $json;\nconst modo = texto(corpo.mode ?? corpo.modo).toLowerCase() === 'quiz' ? 'quiz' : 'chat';\n\nif (modo === 'quiz') {\n  const modulo = texto(corpo.module ?? corpo.modulo ?? corpo.topic);\n  if (!modulo) {\n    return { json: { valido: false, modo, erro: 'O campo \"module\" é obrigatório para gerar quiz.' } };\n  }\n  const curso = texto(corpo.course ?? corpo.curso) || 'Cursos GSA';\n  const contextoModulo = texto(corpo.module_context ?? corpo.contexto_modulo ?? corpo.contexto) || 'Use o nome do módulo como base principal.';\n  const pedida = Number(corpo.count ?? corpo.quantidade ?? 8);\n  const quantidade = Number.isFinite(pedida) ? Math.max(8, Math.min(10, Math.round(pedida))) : 8;\n  const evitar = Array.isArray(corpo.avoid_questions)\n    ? corpo.avoid_questions.map((item) => texto(String(item))).filter(Boolean).slice(-30)\n    : [];\n\n  const instrucoes = [\n    'Módulo: ' + modulo,\n    'Curso: ' + curso,\n    'Contexto do módulo: ' + contextoModulo,\n    'Quantidade de perguntas: ' + quantidade,\n    'Perguntas para não repetir: ' + (evitar.length ? evitar.join(' | ') : 'nenhuma ainda'),\n    '',\n    'Regras:',\n    '- Gere exatamente ' + quantidade + ' perguntas sobre o módulo.',\n    '- Cada pergunta tem exatamente 4 opções, e correta é o índice da certa, de 0 a 3.',\n    '- Misture nível fácil e intermediário, sempre em linguagem simples.',\n    '- Não repita perguntas da lista acima nem faça perguntas muito parecidas entre si.',\n    '- A explicacao de cada pergunta tem uma frase curta.'\n  ].join('\\n');\n\n  return {\n    json: {\n      valido: true,\n      modo,\n      quantidade,\n      modulo,\n      pedido: {\n        model: MODELO,\n        max_tokens: 8000,\n        system: 'Você é a GSA IA do projeto Grana Sem Aperto. Crie quizzes curtos, didáticos e em português do Brasil para jovens que estão aprendendo educação financeira.',\n        messages: [{ role: 'user', content: instrucoes }],\n        output_config: { effort: 'low', format: { type: 'json_schema', schema: SCHEMA_QUIZ } }\n      }\n    }\n  };\n}\n\nconst pergunta = texto(corpo.message ?? corpo.mensagem ?? corpo.pergunta).slice(0, LIMITE_PERGUNTA);\nif (!pergunta) {\n  return { json: { valido: false, modo, erro: 'O campo \"mensagem\" é obrigatório.' } };\n}\n\nconst historico = [];\nconst historicoBruto = Array.isArray(corpo.historico) ? corpo.historico.slice(-LIMITE_HISTORICO) : [];\nfor (const item of historicoBruto) {\n  if (!item || (item.role !== 'user' && item.role !== 'assistant')) continue;\n  const conteudo = texto(item.content).slice(0, 2000);\n  if (!conteudo) continue;\n  const anterior = historico[historico.length - 1];\n  if (anterior && anterior.role === item.role) {\n    anterior.content += '\\n' + conteudo;\n  } else {\n    historico.push({ role: item.role, content: conteudo });\n  }\n}\nwhile (historico.length && historico[0].role !== 'user') historico.shift();\nwhile (historico.length && historico[historico.length - 1].role !== 'assistant') historico.pop();\n\nconst promptDoSite = texto(corpo.prompt_sistema).slice(0, 30000);\nconst contexto = [texto(corpo.contexto_pagina), texto(corpo.taxas)].filter(Boolean).join('\\n');\nconst sistema = promptDoSite || (contexto ? PROMPT_PADRAO + '\\n\\nContexto do site:\\n' + contexto : PROMPT_PADRAO);\n\nreturn {\n  json: {\n    valido: true,\n    modo,\n    pedido: {\n      model: MODELO,\n      max_tokens: 4096,\n      system: sistema,\n      messages: [...historico, { role: 'user', content: pergunta }],\n      output_config: { effort: 'low', format: { type: 'json_schema', schema: SCHEMA_CHAT } }\n    }\n  }\n};"
+      }
+    },
+    {
+      "id": "cf777d2c-b755-4c69-81d2-2d089836cd2c",
+      "name": "Pergunta Válida?",
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.3,
+      "position": [
+        448,
+        192
+      ],
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 2
+          },
+          "conditions": [
+            {
+              "leftValue": "={{ $json.valido }}",
+              "rightValue": "",
+              "operator": {
+                "type": "boolean",
+                "operation": "true",
+                "singleValue": true
+              }
+            }
+          ],
+          "combinator": "and"
+        }
+      }
+    },
+    {
+      "id": "d3cb305a-c193-4410-b324-cb48428063e5",
+      "name": "Perguntar ao Claude Haiku",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.5,
+      "position": [
+        672,
+        96
+      ],
+      "parameters": {
+        "method": "POST",
+        "url": "https://api.anthropic.com/v1/messages",
+        "authentication": "predefinedCredentialType",
+        "nodeCredentialType": "anthropicApi",
+        "sendHeaders": true,
+        "specifyHeaders": "keypair",
+        "headerParameters": {
+          "parameters": [
+            {
+              "name": "anthropic-version",
+              "value": "2026-10-21"
+            }
+          ]
+        },
+        "sendBody": true,
+        "contentType": "json",
+        "specifyBody": "json",
+        "jsonBody": "={{ JSON.stringify($json.pedido) }}",
+        "options": {
+          "timeout": "={{ $json.modo === \"quiz\" ? 30000 : 10000 }}"
+        }
+      },
+      "onError": "continueErrorOutput"
+    },
+    {
+      "id": "a4bea8f5-d57b-46b5-9230-d0acad124129",
+      "name": "Montar Resposta do GSA",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        896,
+        0
+      ],
+      "parameters": {
+        "mode": "runOnceForEachItem",
+        "language": "javaScript",
+        "jsCode": "const FONTE = 'Claude Haiku 5.5';\nconst pedido = $('Preparar Pedido ao Claude').item.json;\nconst resposta = $json;\nconst limpar = (valor) => (typeof valor === 'string' ? valor.replace(/\\s+/g, ' ').trim() : '');\n\nif (resposta.stop_reason === 'refusal') {\n  if (pedido.modo === 'quiz') return { json: { usar_ia: true } };\n  return {\n    json: {\n      titulo: 'Vamos falar de finanças?',\n      resumo: 'Essa pergunta foge do que a GSA IA pode responder.',\n      explicacao: 'Eu explico orçamento, dívidas, cartão de crédito, reserva de emergência e investimentos para iniciantes. Faça uma pergunta sobre um desses temas.',\n      pontos_chave: [],\n      exercicios: [],\n      alerta: '',\n      fonte_pesquisa: FONTE\n    }\n  };\n}\n\nconst textoResposta = (Array.isArray(resposta.content) ? resposta.content : [])\n  .filter((bloco) => bloco && bloco.type === 'text')\n  .map((bloco) => bloco.text)\n  .join('');\n\nlet dado = null;\nif (resposta.stop_reason !== 'max_tokens') {\n  try {\n    dado = JSON.parse(textoResposta);\n  } catch (erro) {\n    dado = null;\n  }\n}\nif (!dado || typeof dado !== 'object' || Array.isArray(dado)) {\n  return { json: { usar_ia: true } };\n}\n\nif (pedido.modo === 'quiz') {\n  const perguntas = (Array.isArray(dado.perguntas) ? dado.perguntas : [])\n    .map((item) => {\n      const opcoes = (Array.isArray(item.opcoes) ? item.opcoes : []).map(limpar).filter(Boolean).slice(0, 4);\n      const correta = Number.isInteger(item.correta) && item.correta >= 0 && item.correta <= 3 ? item.correta : 0;\n      return { pergunta: limpar(item.pergunta), opcoes, correta, explicacao: limpar(item.explicacao) };\n    })\n    .filter((item) => item.pergunta && item.opcoes.length === 4)\n    .slice(0, pedido.quantidade || 8);\n  return {\n    json: {\n      modo: 'quiz',\n      titulo: limpar(dado.titulo) || 'Quiz: ' + pedido.modulo,\n      descricao: limpar(dado.descricao) || 'Perguntas novas para praticar ' + pedido.modulo + '.',\n      perguntas,\n      fonte_pesquisa: FONTE\n    }\n  };\n}\n\nconst card = {\n  titulo: limpar(dado.titulo),\n  resumo: limpar(dado.resumo),\n  explicacao: limpar(dado.explicacao),\n  pontos_chave: (Array.isArray(dado.pontos_chave) ? dado.pontos_chave : []).map(limpar).filter(Boolean).slice(0, 3),\n  exercicios: [],\n  alerta: limpar(dado.alerta),\n  fonte_pesquisa: FONTE\n};\nif (!card.resumo && !card.explicacao) {\n  return { json: { usar_ia: true } };\n}\nreturn { json: card };"
+      }
+    },
+    {
+      "id": "fd1e30c5-0bac-478e-a103-09f81453ebf8",
+      "name": "Responder ao Site",
+      "type": "n8n-nodes-base.respondToWebhook",
+      "typeVersion": 1.5,
+      "position": [
+        1120,
+        0
+      ],
+      "parameters": {
+        "respondWith": "firstIncomingItem",
+        "options": {}
+      }
+    },
+    {
+      "id": "7f8e116d-e415-4cee-bf15-c89eed8802db",
+      "name": "Recusar Pedido Inválido",
+      "type": "n8n-nodes-base.respondToWebhook",
+      "typeVersion": 1.5,
+      "position": [
+        672,
+        288
+      ],
+      "parameters": {
+        "respondWith": "json",
+        "responseBody": "={{ JSON.stringify({ erro: $json.erro }) }}",
+        "options": {
+          "responseCode": 400
+        }
+      }
+    },
+    {
+      "id": "2a94f72e-7078-4f29-873a-1a8fc31626bc",
+      "name": "Avisar Falha do Claude",
+      "type": "n8n-nodes-base.respondToWebhook",
+      "typeVersion": 1.5,
+      "position": [
+        896,
+        192
+      ],
+      "parameters": {
+        "respondWith": "json",
+        "responseBody": "{ \"erro\": \"O Claude Haiku não respondeu.\", \"usar_ia\": true }",
+        "options": {
+          "responseCode": 502
+        }
+      }
+    },
+    {
+      "id": "4e3db6f7-1277-4926-b502-72d9fd984f1e",
+      "name": "Como instalar",
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        496,
+        288
+      ],
+      "parameters": {
+        "color": 4,
+        "width": 520,
+        "height": 420,
+        "content": "## GSA IA com Claude Haiku 5.5\n\nAntes de publicar:\n1. Crie a credencial **Anthropic** (sua chave da API) e escolha no nó \"Perguntar ao Claude Haiku\".\n2. No nó \"Receber Pergunta do Site\", mude Authentication para **Header Auth** e crie uma credencial **nova** do GSA: Name `X-GSA-Token`, Value um segredo longo.\n3. Na Vercel: `N8N_WEBHOOK_URL` = URL de produção deste webhook (termina em /webhook/gsa-chat) e `N8N_WEBHOOK_TOKEN` = o mesmo segredo.\n\nO jeito de responder vem do `prompt_sistema` que o site manda (api/chat.mjs). Sem ele, vale o prompt padrão do nó \"Preparar Pedido ao Claude\".\n\nSe o Claude falhar, o site recebe `usar_ia: true` e responde sozinho."
+      }
+    }
+  ],
+  "connections": {
+    "Receber Pergunta do Site": {
+      "main": [
+        [
+          {
+            "node": "Preparar Pedido ao Claude",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Preparar Pedido ao Claude": {
+      "main": [
+        [
+          {
+            "node": "Pergunta Válida?",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Pergunta Válida?": {
+      "main": [
+        [
+          {
+            "node": "Perguntar ao Claude Haiku",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Recusar Pedido Inválido",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Perguntar ao Claude Haiku": {
+      "main": [
+        [
+          {
+            "node": "Montar Resposta do GSA",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Avisar Falha do Claude",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Montar Resposta do GSA": {
+      "main": [
+        [
+          {
+            "node": "Responder ao Site",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "pinData": {}
+}

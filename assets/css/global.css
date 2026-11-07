@@ -1783,104 +1783,353 @@ body.vlibras-posicionado [vw-access-button] { position:fixed !important; right:a
 
 
 
-/* --- CHATBOT IA --- */
+/* --- GSA ASSISTENTE (CHAT DE IA) --- */
+/* Markup montado por montarChatGSA() em assets/js/global.js. */
 #ai-chat-wrapper {
     position: fixed;
-    bottom: 20px;
-    right: 20px;
+    right: 24px;
+    bottom: 24px;
     z-index: 5000;
 }
 
 #btn-ia-toggle {
-    background: var(--verde-gsa);
-    color: white;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 8px 20px 8px 8px;
     border: none;
-    padding: 15px 25px;
-    border-radius: 50px;
-    font-weight: bold;
+    border-radius: 999px;
+    background: var(--verde-gsa);
+    color: #04140d;
+    font-family: 'Inter', sans-serif;
+    font-size: 14px;
+    font-weight: 700;
     cursor: pointer;
-    box-shadow: 0 10px 25px rgba(16, 185, 129, 0.4);
-    transition: 0.3s;
+    box-shadow: 0 8px 20px rgba(16, 185, 129, 0.3);
+    transition: transform 0.25s ease, box-shadow 0.25s ease, background 0.25s ease;
+}
+
+.btn-ia-icone {
+    display: grid;
+    place-items: center;
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    background: rgba(4, 20, 13, 0.14);
+}
+
+.btn-ia-icone svg {
+    width: 18px;
+    height: 18px;
+}
+
+#btn-ia-toggle:hover {
+    background: #34d399;
+    transform: translateY(-2px);
+    box-shadow: 0 12px 25px rgba(16, 185, 129, 0.45);
+}
+
+#btn-ia-toggle[aria-expanded="true"] {
+    box-shadow: 0 0 0 3px rgba(16, 185, 129, 0.25);
+}
+
+#btn-ia-toggle:focus-visible,
+.chat-header-botao:focus-visible,
+.chat-sugestao:focus-visible,
+#btn-enviar-ia:focus-visible {
+    outline: 2px solid #6ee7b7;
+    outline-offset: 2px;
 }
 
 #chat-box-ia {
-    position: absolute;
-    bottom: 70px;
-    right: 0;
-    width: 320px;
-    height: 450px;
-    background: #19191d;
-    border: 1px solid #27272a;
-    border-radius: 20px;
+    position: fixed;
+    right: 24px;
+    bottom: 92px;
+    width: 380px;
+    height: min(600px, calc(100vh - 124px));
+    height: min(600px, calc(100dvh - 124px));
     display: flex;
     flex-direction: column;
+    /* clip (e não só hidden): a grade e o brilho decorativos passam da borda, e com hidden
+       o navegador ainda rola a caixa ao focar um botão, cortando o cabeçalho. */
     overflow: hidden;
-    box-shadow: 0 20px 40px rgba(14, 124, 51, 0.6);
-}
-
-/* --- CONTAINER PRINCIPAL DO CHAT --- */
-#chat-box-ia {
-    position: absolute;
-    bottom: 70px;
-    right: 0;
-    width: 320px;
-    height: 450px;
-    background: #18181b;
-    border: 1px solid #27272a;
+    overflow: clip;
+    isolation: isolate;
+    border: 1px solid rgba(110, 231, 183, 0.2);
     border-radius: 20px;
-    display: flex;
-    flex-direction: column;
-    overflow: hidden;
-    box-shadow: 0 20px 40px rgba(0,0,0,0.6);
+    background: #050a08;
+    box-shadow: 0 24px 65px rgba(0, 0, 0, 0.58), 0 0 45px rgba(16, 185, 129, 0.12), inset 0 1px 0 rgba(255, 255, 255, 0.04);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    transform-origin: bottom right;
+    animation: chatAbrirGSA 0.22s ease-out;
     z-index: 9999;
 }
 
+/* Identidade animada: grade e brilho verdes atrás do conteúdo */
+#chat-box-ia::before { content: ""; position: absolute; inset: -55px; z-index: -2; pointer-events: none; opacity: .48; background-image: linear-gradient(rgba(52,211,153,.09) 1px, transparent 1px), linear-gradient(90deg, rgba(52,211,153,.09) 1px, transparent 1px); background-size: 34px 34px; animation: chatGradeGSA 10s linear infinite; }
+#chat-box-ia::after { content: ""; position: absolute; z-index: -1; width: 270px; height: 270px; left: -80px; top: -70px; border-radius: 50%; pointer-events: none; background: radial-gradient(circle, rgba(16,185,129,.3), rgba(16,185,129,.09) 42%, transparent 70%); filter: blur(13px); animation: chatLuzGSA 8s ease-in-out infinite alternate; }
+#chat-box-ia > * { position: relative; z-index: 1; }
+@keyframes chatGradeGSA { from { transform: translate3d(0,0,0) } to { transform: translate3d(34px,34px,0) } }
+@keyframes chatLuzGSA { 0% { transform: translate3d(0,0,0) scale(.9) } 55% { transform: translate3d(190px,210px,0) scale(1.08) } 100% { transform: translate3d(85px,410px,0) scale(.82) } }
+@keyframes chatAbrirGSA { from { opacity: 0; transform: translateY(12px) scale(.98) } to { opacity: 1; transform: none } }
+@media (prefers-reduced-motion: reduce) { #chat-box-ia, #chat-box-ia::before, #chat-box-ia::after { animation: none } }
+
 .chat-escondido { display: none !important; }
 
-/* --- CABEÇALHO (Onde mudamos para fundo escuro e título verde) --- */
-.chat-header { 
-    background: #18181b; 
-    padding: 15px; 
-    display: flex; 
-    justify-content: space-between; 
-    align-items: center; 
-    border-bottom: 1px solid #27272a;
+/* O botão do VLibras fica por cima do chat; some só enquanto o chat está aberto. */
+body.chat-ia-aberto #vlibras-access-wrapper { display: none !important; }
+
+.chat-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+    padding: 14px 12px 14px 16px;
+    background: rgba(8, 14, 11, 0.72);
+    border-bottom: 1px solid rgba(110, 231, 183, 0.12);
 }
 
-.chat-header strong { 
-    color: #10b981 !important; /* VERDE GSA OFICIAL */
+.chat-identidade {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    min-width: 0;
+}
+
+.chat-avatar {
+    display: grid;
+    place-items: center;
+    flex-shrink: 0;
+    width: 38px;
+    height: 38px;
+    border-radius: 12px;
+    background: linear-gradient(135deg, #10b981, #047857);
+    color: #ecfdf5;
+    box-shadow: 0 6px 16px rgba(16, 185, 129, 0.3);
+}
+
+.chat-avatar svg {
+    width: 20px;
+    height: 20px;
+}
+
+.chat-identidade-texto {
+    display: grid;
+    gap: 2px;
+    min-width: 0;
+}
+
+.chat-identidade-texto strong {
+    color: #f8fafc;
     font-size: 15px;
-    letter-spacing: 1px;
-    text-transform: uppercase;
+    font-weight: 800;
+    letter-spacing: -0.01em;
 }
 
-.chat-header button {
-    background: transparent;
+.chat-status {
+    color: #a1a1aa;
+    font-size: 12px;
+}
+
+.chat-header-acoes {
+    display: flex;
+    gap: 2px;
+}
+
+.chat-header-botao {
+    display: grid;
+    place-items: center;
+    width: 36px;
+    height: 36px;
+    padding: 0;
     border: none;
-    color: #057534;
-    font-size: 20px;
+    border-radius: 10px;
+    background: transparent;
+    color: #a1a1aa;
     cursor: pointer;
+    transition: background 0.2s ease, color 0.2s ease;
 }
 
-/* --- ÁREA DE MENSAGENS --- */
-#chat-messages { 
-    flex: 1; 
-    padding: 15px; 
-    overflow-y: auto; 
-    display: flex; 
-    flex-direction: column; 
-    gap: 12px; 
-    background: #09090b; /* Fundo levemente mais escuro que o card */
+.chat-header-botao svg {
+    width: 18px;
+    height: 18px;
 }
 
-.msg-ia { 
-    background: #27272a; 
-    padding: 12px; 
-    border-radius: 15px 15px 15px 0; 
-    font-size: 14px; 
-    color: #fff; 
-    max-width: 85%; 
+.chat-header-botao:hover {
+    background: rgba(255, 255, 255, 0.06);
+    color: #6ee7b7;
+}
+
+#chat-messages {
+    position: relative;
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    padding: 16px;
+    overflow-y: auto;
+    overscroll-behavior: contain;
+    background: linear-gradient(180deg, rgba(5, 10, 8, 0.42), rgba(5, 8, 7, 0.72));
+    scrollbar-width: thin;
+    scrollbar-color: rgba(110, 231, 183, 0.25) transparent;
+}
+
+.msg-ia {
+    max-width: 92%;
+    padding: 12px 14px;
+    border: 1px solid rgba(255, 255, 255, 0.065);
+    border-radius: 16px 16px 16px 4px;
+    background: rgba(28, 37, 32, 0.82);
+    box-shadow: 0 9px 24px rgba(0, 0, 0, 0.16);
+    color: #f4f4f5;
+    font-size: 14px;
+    line-height: 1.5;
+}
+
+.msg-user {
+    align-self: flex-end;
+    max-width: 85%;
+    padding: 10px 14px;
+    border-radius: 16px 16px 4px 16px;
+    background: var(--verde-gsa);
+    color: #04140d;
+    font-size: 14px;
+    font-weight: 500;
+    line-height: 1.45;
+    word-break: break-word;
+}
+
+/* "Você:" e "GSA:" continuam para leitores de tela, mas os balões já mostram quem fala. */
+.msg-user > strong,
+.msg-ia-pensando > strong {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    overflow: hidden;
+    clip: rect(0 0 0 0);
+    white-space: nowrap;
+}
+
+.msg-ia-pensando .chat-pensando {
+    margin-top: 0;
+}
+
+.chat-sugestoes {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    padding: 4px 16px 14px;
+    background: rgba(5, 8, 7, 0.72);
+}
+
+.chat-sugestoes[hidden] {
+    display: none;
+}
+
+.chat-sugestao {
+    padding: 8px 12px;
+    border: 1px solid rgba(110, 231, 183, 0.25);
+    border-radius: 999px;
+    background: rgba(16, 185, 129, 0.08);
+    color: #d1fae5;
+    font-family: inherit;
+    font-size: 13px;
+    font-weight: 500;
+    line-height: 1.3;
+    text-align: left;
+    cursor: pointer;
+    transition: background 0.2s ease, border-color 0.2s ease, transform 0.2s ease;
+}
+
+.chat-sugestao:hover {
+    background: rgba(16, 185, 129, 0.16);
+    border-color: rgba(110, 231, 183, 0.5);
+}
+
+.chat-sugestao:active {
+    transform: scale(0.97);
+}
+
+.chat-rodape {
+    padding: 12px 12px 10px;
+    background: rgba(8, 14, 11, 0.74);
+    border-top: 1px solid rgba(110, 231, 183, 0.11);
+}
+
+.chat-input {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 5px 5px 5px 16px;
+    border: 1px solid rgba(255, 255, 255, 0.09);
+    border-radius: 999px;
+    background: rgba(255, 255, 255, 0.04);
+    transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+.chat-input:focus-within {
+    border-color: rgba(110, 231, 183, 0.55);
+    box-shadow: 0 0 0 3px rgba(16, 185, 129, 0.15);
+}
+
+.chat-input input {
+    flex: 1;
+    min-width: 0;
+    padding: 8px 0;
+    border: none;
+    outline: none;
+    background: transparent;
+    color: #f4f4f5;
+    font-family: inherit;
+    font-size: 14px;
+    appearance: none;
+}
+
+.chat-input input::placeholder {
+    color: #71717a;
+}
+
+#btn-enviar-ia {
+    display: grid;
+    place-items: center;
+    flex-shrink: 0;
+    width: 38px;
+    height: 38px;
+    padding: 0;
+    border: none;
+    border-radius: 50%;
+    background: var(--verde-gsa);
+    color: #04140d;
+    cursor: pointer;
+    transition: background 0.2s ease, transform 0.2s ease, opacity 0.2s ease;
+}
+
+#btn-enviar-ia svg {
+    width: 18px;
+    height: 18px;
+}
+
+#btn-enviar-ia:hover:not(:disabled) {
+    background: #34d399;
+    transform: scale(1.06);
+}
+
+#btn-enviar-ia:active:not(:disabled) {
+    transform: scale(0.94);
+}
+
+#btn-enviar-ia:disabled {
+    opacity: 0.45;
+    cursor: not-allowed;
+}
+
+.chat-aviso {
+    margin: 8px 6px 0;
+    color: #a1a1aa;
+    font-size: 11px;
     line-height: 1.4;
+    text-align: center;
 }
 
 .msg-ia-pensando {
@@ -2200,173 +2449,149 @@ body.vlibras-posicionado [vw-access-button] { position:fixed !important; right:a
     word-break: break-word;
 }
 
-.msg-user { 
-    background: #10b981; 
-    padding: 12px; 
-    border-radius: 15px 15px 0 15px; 
-    font-size: 14px; 
-    align-self: flex-end; 
-    color: #141111; 
-    max-width: 85%; 
-    line-height: 1.4;
+/* --- CARD DE RESPOSTA DO GSA ASSISTENTE --- */
+/* Formato titulo/resumo/explicacao/pontos_chave/alerta, montado por renderizarRespostaChatGSA(). */
+.msg-ia:has(.ia-resposta-card-gsa) {
+    max-width: 100%;
+    padding: 16px;
 }
 
-/* --- ÁREA DE INPUT E BOTÃO ENVIAR --- */
-.chat-input { 
-    padding: 15px; 
-    display: flex; 
-    gap: 10px; 
-    align-items: center;
-
-    /* REMOVENDO A LINHA BRANCA */
-    border: none;
-    border-top: 1px solid rgba(255, 255, 255, 0.05); /* Uma linha de luz quase invisível */
-
-    /* CONFIGURAÇÃO DO VIDRO */
-    background: rgba(24, 24, 27, 0.6); /* Fundo escuro semi-transparente */
-    backdrop-filter: blur(12px);      /* O desfoque do vidro */
-    -webkit-backdrop-filter: blur(12px); /* Suporte para Safari */
-    
-    /* Arredondamento acompanhando o chat-box */
-    border-radius: 0 0 20px 20px; 
+.ia-resposta-card-gsa {
+    gap: 12px;
 }
 
-/* --- O CAMPO DE TEXTO DENTRO DO VIDRO --- */
-.chat-input input { 
-    flex: 1; 
-    background: transparent; /* Transparente para mostrar o efeito de vidro */
-    border: none;            /* Remove qualquer borda */
-    outline: none;           /* Remove a linha de clique azul/branca */
-    
-    color: #252222; 
-    padding: 10px; 
+/* A resposta direta ganha destaque; a explicação fica como apoio. */
+.ia-resposta-card-gsa .ia-resposta-resumo {
+    padding: 10px 12px;
+    border: 1px solid rgba(110, 231, 183, 0.18);
+    border-radius: 12px;
+    background: rgba(16, 185, 129, 0.08);
+    color: #ecfdf5;
+    font-size: 14.5px;
+    font-weight: 600;
+    line-height: 1.5;
+}
+
+.ia-resposta-card-gsa .ia-resposta-explicacao {
+    color: rgba(244, 244, 245, 0.8);
     font-size: 14px;
-    font-family: inherit;
-    appearance: none; /* Remove estilos padrão de sistemas mobile/iOS */
+    line-height: 1.65;
 }
 
-.chat-input input:focus {
-    /* Impede que o fundo fique branco ao clicar */
-    background: transparent !important; 
-    
-    /* Remove a borda azul ou branca que o Chrome coloca */
-    outline: none !important;
-    box-shadow: none !important;
-    
-    /* Garante que o texto continue branco */
-    color: #ffffff !important;
-}
-
-/* Ajustando a cor do texto de sugestão */
-.chat-input input::placeholder {
-    color: rgba(161, 161, 170, 0.5); 
-}
-
-
-#btn-enviar-ia {
-    background: #10b981; /* Verde GSA */
-    color: white;
-    border: none;
-    width: 40px;
-    height: 40px;
-    min-width: 40px; /* Impede que ele esmague */
-    border-radius: 50%; /* Deixa ele circular */
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    cursor: pointer;
-    transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-    box-shadow: 0 4px 12px rgba(16, 185, 129, 0.3);
-    padding: 0;
-    margin-left: 5px;
-}
-
-#btn-enviar-ia svg {
-    margin-left: 3px; /* Pequeno ajuste para centralizar visualmente o ícone de envio */
-    transition: transform 0.3s ease;
-}
-
-/* EFEITOS DE HOVER E CLICK */
-#btn-enviar-ia:hover {
-    background: #059669;
-    transform: scale(1.1);
-    box-shadow: 0 6px 15px rgba(16, 185, 129, 0.5);
-}
-
-#btn-enviar-ia:hover svg {
-    transform: translateX(2px) translateY(-1px); /* O ícone parece que vai decolar */
-}
-
-#btn-enviar-ia:active {
-    transform: scale(0.9);
-}
-
-#btn-ia-toggle {
-    position: fixed;
-    bottom: 25px;
-    right: 25px;
-    background: #10b981; /* Verde GSA */
-    color: white;
-    border: none;
-    padding: 12px 20px; /* Dá o formato de pílula */
-    border-radius: 50px; /* Bordas bem arredondadas */
+.ia-numero {
+    color: #6ee7b7;
     font-weight: 700;
+    white-space: nowrap;
+}
+
+.ia-resposta-card-gsa .ia-resposta-resumo .ia-numero {
+    color: #a7f3d0;
+}
+
+.ia-resposta-card-gsa .ia-resposta-secao {
+    gap: 10px;
+    padding-top: 12px;
+    border-top: 1px solid rgba(255, 255, 255, 0.06);
+}
+
+.ia-resposta-card-gsa .ia-resposta-secao-titulo {
+    color: #34d399;
+    letter-spacing: 0.1em;
+}
+
+.ia-resposta-card-gsa .ia-resposta-lista li {
+    padding: 0 0 0 28px;
+    border: none;
+    background: none;
+    color: rgba(244, 244, 245, 0.9);
     font-size: 14px;
-    cursor: pointer;
+    line-height: 1.5;
+}
+
+.ia-resposta-card-gsa .ia-resposta-lista li::before {
+    left: 0;
+    top: 1px;
+    width: 19px;
+    height: 19px;
+    background: rgba(16, 185, 129, 0.16) url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%2334d399' stroke-width='3' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M20 6 9 17l-5-5'/%3E%3C/svg%3E") center / 11px no-repeat;
+    box-shadow: none;
+}
+
+.ia-resposta-card-gsa .ia-resposta-alerta {
+    gap: 10px;
+    padding: 10px 12px;
+    border: 1px solid rgba(250, 204, 21, 0.2);
+    border-radius: 12px;
+    background: rgba(250, 204, 21, 0.06);
+}
+
+.ia-resposta-card-gsa .ia-resposta-alerta-icon {
+    display: grid;
+    color: #facc15;
+}
+
+.ia-resposta-card-gsa .ia-resposta-alerta-icon::before {
+    content: none;
+}
+
+.ia-resposta-card-gsa .ia-resposta-alerta-icon svg {
+    width: 16px;
+    height: 16px;
+    margin-top: 1px;
+}
+
+.ia-resposta-card-gsa .ia-resposta-alerta p {
+    color: #fde68a;
+    font-size: 13px;
+    line-height: 1.5;
+}
+
+.ia-resposta-acoes {
     display: flex;
+    justify-content: flex-end;
+    transition: opacity 0.25s ease;
+}
+
+/* O botão de copiar só aparece quando a digitação termina. */
+.chat-digitando:not(.chat-digitando-finalizado) .ia-resposta-acoes {
+    opacity: 0;
+    pointer-events: none;
+}
+
+.ia-resposta-copiar {
+    display: inline-flex;
     align-items: center;
-    gap: 10px; /* Espaço entre o robô e o texto */
-    box-shadow: 0 8px 20px rgba(16, 185, 129, 0.3);
-    z-index: 10001;
-    transition: all 0.3s ease;
-    font-family: 'Inter', sans-serif;
+    gap: 6px;
+    padding: 6px 10px;
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    border-radius: 999px;
+    background: transparent;
+    color: #a1a1aa;
+    font-family: inherit;
+    font-size: 12px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: color 0.2s ease, border-color 0.2s ease, background 0.2s ease;
 }
 
-/* VISUAL DA CALCULADORA (Botão Circular) */
-/* Aqui usamos uma classe extra só para a calculadora no HTML da calculadora */
-.btn-circular {
-    width: 60px !important;
-    height: 60px !important;
-    padding: 0 !important;
-    border-radius: 50% !important;
-    font-size: 28px !important;
+.ia-resposta-copiar svg {
+    width: 14px;
+    height: 14px;
 }
 
-#btn-ia-toggle:hover {
-    background: #059669;
-    transform: translateY(-3px); /* Leve subida ao passar o mouse */
-    box-shadow: 0 12px 25px rgba(16, 185, 129, 0.5);
+.ia-resposta-copiar:hover,
+.ia-resposta-copiar.copiado {
+    color: #6ee7b7;
+    border-color: rgba(110, 231, 183, 0.35);
+    background: rgba(16, 185, 129, 0.08);
 }
 
-/* Ajuste para o chat abrir acima do botão */
-#chat-box-ia {
-    position: fixed; /* Mude para fixed para não sumir no scroll */
-    bottom: 85px; /* Sobe um pouco para ficar em cima do botão */
-    right: 25px;
-    width: 320px;
-    height: 450px;
-    /* ... o resto do seu CSS de vidro que já fizemos ... */
+.ia-resposta-copiar:focus-visible {
+    outline: 2px solid #6ee7b7;
+    outline-offset: 2px;
 }
 
-/* --- IDENTIDADE ANIMADA DO GSA ASSISTENTE --- */
-#chat-box-ia {
-    isolation: isolate;
-    border-color: rgba(110,231,183,.2);
-    background: rgba(5,10,8,.92);
-    box-shadow: 0 24px 65px rgba(0,0,0,.58),0 0 45px rgba(16,185,129,.12),inset 0 1px 0 rgba(255,255,255,.04);
-    backdrop-filter: blur(20px);
-    -webkit-backdrop-filter: blur(20px);
-}
-#chat-box-ia::before { content:""; position:absolute; inset:-55px; z-index:-2; pointer-events:none; opacity:.48; background-image:linear-gradient(rgba(52,211,153,.09) 1px,transparent 1px),linear-gradient(90deg,rgba(52,211,153,.09) 1px,transparent 1px); background-size:34px 34px; animation:chatGradeGSA 10s linear infinite; }
-#chat-box-ia::after { content:""; position:absolute; z-index:-1; width:270px; height:270px; left:-80px; top:-70px; border-radius:50%; pointer-events:none; background:radial-gradient(circle,rgba(16,185,129,.3),rgba(16,185,129,.09) 42%,transparent 70%); filter:blur(13px); animation:chatLuzGSA 8s ease-in-out infinite alternate; }
-#chat-box-ia > * { position:relative; z-index:1; }
-#chat-box-ia .chat-header { background:rgba(8,14,11,.72); border-bottom-color:rgba(110,231,183,.12); backdrop-filter:blur(14px); }
-#chat-box-ia #chat-messages { background:linear-gradient(180deg,rgba(5,10,8,.42),rgba(5,8,7,.72)); }
-#chat-box-ia .chat-input { background:rgba(8,14,11,.74); border-top-color:rgba(110,231,183,.11); }
-#chat-box-ia .msg-ia { border:1px solid rgba(255,255,255,.065); background:rgba(28,37,32,.82); box-shadow:0 9px 24px rgba(0,0,0,.16); backdrop-filter:blur(8px); }
-@keyframes chatGradeGSA { from{transform:translate3d(0,0,0)} to{transform:translate3d(34px,34px,0)} }
-@keyframes chatLuzGSA { 0%{transform:translate3d(0,0,0) scale(.9)} 55%{transform:translate3d(190px,210px,0) scale(1.08)} 100%{transform:translate3d(85px,410px,0) scale(.82)} }
-@media(prefers-reduced-motion:reduce){#chat-box-ia::before,#chat-box-ia::after{animation:none}}
+
 
 /* =========================================
    9. CRIADORES
@@ -2685,57 +2910,68 @@ body.vlibras-posicionado [vw-access-button] { position:fixed !important; right:a
    10. acessibilidade
    ========================================= */
 
+/* Markup montado por montarPainelAcessibilidade() em assets/js/global.js.
+   Os itens do painel são presos ao #acess-panel porque .btn-acess-item também é usado nos botões das aulas. */
 #acess-wrapper {
     position: fixed;
-    bottom: 20px;
-    left: 20px;
+    bottom: 24px;
+    left: 24px;
     z-index: 10000;
 }
 
 #btn-acess-toggle {
     display: grid;
     place-items: center;
-    width: 54px;
-    height: 54px;
-    border: 1px solid rgba(255, 255, 255, 0.16);
-    border-radius: 17px;
-    background: rgba(19, 24, 22, 0.92);
-    box-shadow: 0 12px 30px rgba(0, 0, 0, 0.34);
-    color: #ffffff;
-    font-size: 21px;
+    width: 48px;
+    height: 48px;
+    padding: 0;
+    border: 1px solid rgba(110, 231, 183, 0.28);
+    border-radius: 50%;
+    background: rgba(8, 14, 11, 0.92);
+    box-shadow: 0 10px 26px rgba(0, 0, 0, 0.4);
+    color: #6ee7b7;
     cursor: pointer;
     backdrop-filter: blur(14px);
     -webkit-backdrop-filter: blur(14px);
-    transition: border-color 0.3s ease, background 0.3s ease, transform 0.3s ease, box-shadow 0.3s ease;
+    transition: border-color 0.25s ease, background 0.25s ease, color 0.25s ease, transform 0.25s ease, box-shadow 0.25s ease;
 }
 
-#btn-acess-toggle:hover,
+#btn-acess-toggle svg {
+    width: 22px;
+    height: 22px;
+}
+
+#btn-acess-toggle:hover {
+    border-color: rgba(110, 231, 183, 0.6);
+    background: rgba(16, 185, 129, 0.16);
+    transform: translateY(-2px);
+}
+
 #btn-acess-toggle[aria-expanded="true"] {
-    border-color: rgba(16, 185, 129, 0.7);
-    background: #10b981;
-    color: #04110c;
-    box-shadow: 0 14px 34px rgba(16, 185, 129, 0.25);
-    transform: translateY(-3px);
+    border-color: transparent;
+    background: var(--verde-gsa);
+    color: #04140d;
+    box-shadow: 0 0 0 3px rgba(16, 185, 129, 0.25), 0 10px 26px rgba(16, 185, 129, 0.25);
 }
 
 #btn-acess-toggle:focus-visible,
-.btn-acess-item:focus-visible {
-    outline: 3px solid rgba(110, 231, 183, 0.78);
-    outline-offset: 4px;
+#acess-panel button:focus-visible {
+    outline: 2px solid #6ee7b7;
+    outline-offset: 2px;
 }
 
 #acess-panel {
     position: absolute;
-    bottom: 68px;
+    bottom: 60px;
     left: 0;
-    width: min(310px, calc(100vw - 40px));
-    padding: 20px;
-    border: 1px solid rgba(16, 185, 129, 0.2);
-    border-radius: 22px;
-    background: rgba(8, 12, 10, 0.96);
-    box-shadow: 0 24px 60px rgba(0, 0, 0, 0.48);
-    backdrop-filter: blur(20px);
-    -webkit-backdrop-filter: blur(20px);
+    width: min(320px, calc(100vw - 48px));
+    overflow: hidden;
+    border: 1px solid rgba(110, 231, 183, 0.2);
+    border-radius: 20px;
+    background: #050a08;
+    box-shadow: 0 24px 65px rgba(0, 0, 0, 0.58), 0 0 45px rgba(16, 185, 129, 0.1), inset 0 1px 0 rgba(255, 255, 255, 0.04);
+    transform-origin: bottom left;
+    animation: chatAbrirGSA 0.22s ease-out;
 }
 
 #acess-panel[hidden] {
@@ -2745,85 +2981,271 @@ body.vlibras-posicionado [vw-access-button] { position:fixed !important; right:a
 .acess-cabecalho {
     display: flex;
     align-items: center;
-    gap: 12px;
-    margin-bottom: 18px;
-    padding-bottom: 16px;
-    border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+    gap: 10px;
+    padding: 14px 10px 14px 16px;
+    background: rgba(8, 14, 11, 0.72);
+    border-bottom: 1px solid rgba(110, 231, 183, 0.12);
 }
 
 .acess-icone {
     display: grid;
     place-items: center;
+    flex-shrink: 0;
     width: 38px;
     height: 38px;
     border-radius: 12px;
-    background: rgba(16, 185, 129, 0.12);
+    background: linear-gradient(135deg, #10b981, #047857);
+    color: #ecfdf5;
+    box-shadow: 0 6px 16px rgba(16, 185, 129, 0.3);
 }
 
-.acess-cabecalho span:not(.acess-icone) {
-    color: #7f8b85;
-    font-size: 10px;
-    font-weight: 800;
-    letter-spacing: 0.12em;
-    text-transform: uppercase;
+.acess-icone svg {
+    width: 20px;
+    height: 20px;
+}
+
+.acess-cabecalho-texto {
+    flex: 1;
+    display: grid;
+    gap: 2px;
+    min-width: 0;
 }
 
 .acess-cabecalho h3 {
-    margin-top: 2px;
-    color: #ffffff;
-    font-size: 17px;
+    margin: 0;
+    color: #f8fafc;
+    font-size: 15px;
+    font-weight: 800;
+    letter-spacing: -0.01em;
+}
+
+.acess-cabecalho-texto span {
+    color: #a1a1aa;
+    font-size: 12px;
+}
+
+.acess-fechar {
+    display: grid;
+    place-items: center;
+    width: 36px;
+    height: 36px;
+    padding: 0;
+    border: none;
+    border-radius: 10px;
+    background: transparent;
+    color: #a1a1aa;
+    cursor: pointer;
+    transition: background 0.2s ease, color 0.2s ease;
+}
+
+.acess-fechar svg {
+    width: 18px;
+    height: 18px;
+}
+
+.acess-fechar:hover {
+    background: rgba(255, 255, 255, 0.06);
+    color: #6ee7b7;
 }
 
 .acess-controles {
     display: grid;
-    gap: 9px;
+    gap: 8px;
+    padding: 14px;
 }
 
-.btn-acess-item {
+/* Linha de opção: ícone + texto + controle à direita */
+.acess-opcao,
+#acess-panel .btn-acess-item {
     display: flex;
     align-items: center;
-    gap: 11px;
+    gap: 12px;
     width: 100%;
+    min-height: 56px;
     margin: 0;
-    padding: 12px;
-    border: 1px solid rgba(255, 255, 255, 0.09);
-    border-radius: 11px;
-    background: rgba(255, 255, 255, 0.045);
-    color: #e8eeeb;
-    font-size: 13px;
+    padding: 10px 12px;
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    border-radius: 14px;
+    background: rgba(255, 255, 255, 0.03);
+    color: #e4e4e7;
+    font-family: inherit;
+    font-size: 14px;
+    font-weight: 600;
     text-align: left;
-    cursor: pointer;
-    transition: 0.3s;
+    box-shadow: none;
+    transform: none;
 }
 
-.btn-acess-item > span {
+#acess-panel .btn-acess-item {
+    justify-content: flex-start;
+    cursor: pointer;
+    transition: border-color 0.2s ease, background 0.2s ease;
+}
+
+#acess-panel .btn-acess-item:hover {
+    border-color: rgba(110, 231, 183, 0.4);
+    background: rgba(16, 185, 129, 0.08);
+    color: #ffffff;
+    box-shadow: none;
+    transform: none;
+}
+
+.acess-item-icone {
     display: grid;
     place-items: center;
-    min-width: 30px;
-    height: 28px;
-    border-radius: 8px;
-    background: rgba(16, 185, 129, 0.1);
-    color: #6ee7b7;
-    font-size: 12px;
-    font-weight: 900;
-}
-
-.btn-acess-item:hover,
-.btn-acess-item.ativo {
-    border-color: rgba(16, 185, 129, 0.45);
+    flex-shrink: 0;
+    width: 34px;
+    height: 34px;
+    border-radius: 10px;
     background: rgba(16, 185, 129, 0.12);
-    color: #ffffff;
+    color: #6ee7b7;
 }
 
-.btn-acess-reset {
-    color: #a8b0ac;
+.acess-item-icone svg {
+    width: 18px;
+    height: 18px;
+}
+
+.acess-item-texto {
+    flex: 1;
+    min-width: 0;
+}
+
+.acess-item-seta {
+    display: grid;
+    color: #71717a;
+}
+
+.acess-item-seta svg {
+    width: 16px;
+    height: 16px;
+}
+
+/* Tamanho: [A−] 100% [A+] */
+.acess-zoom {
+    display: inline-flex;
+    align-items: center;
+    gap: 2px;
+    padding: 3px;
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    border-radius: 999px;
+    background: rgba(0, 0, 0, 0.3);
+}
+
+.acess-zoom-botao {
+    display: grid;
+    place-items: center;
+    width: 32px;
+    height: 32px;
+    padding: 0;
+    border: none;
+    border-radius: 50%;
+    background: transparent;
+    color: #d1fae5;
+    cursor: pointer;
+    transition: background 0.2s ease, opacity 0.2s ease;
+}
+
+.acess-zoom-botao svg {
+    width: 17px;
+    height: 17px;
+}
+
+.acess-zoom-botao:hover:not(:disabled) {
+    background: rgba(16, 185, 129, 0.18);
+}
+
+.acess-zoom-botao:disabled {
+    opacity: 0.35;
+    cursor: not-allowed;
+}
+
+.acess-zoom-valor {
+    min-width: 44px;
+    color: #6ee7b7;
+    font-size: 13px;
+    font-weight: 700;
+    font-variant-numeric: tabular-nums;
+    text-align: center;
+}
+
+/* Alto contraste: chave liga/desliga que segue o aria-pressed do botão */
+.acess-chave {
+    position: relative;
+    flex-shrink: 0;
+    width: 38px;
+    height: 22px;
+    border-radius: 999px;
+    background: rgba(255, 255, 255, 0.16);
+    transition: background 0.2s ease;
+}
+
+.acess-chave::after {
+    content: "";
+    position: absolute;
+    top: 3px;
+    left: 3px;
+    width: 16px;
+    height: 16px;
+    border-radius: 50%;
+    background: #f4f4f5;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.4);
+    transition: transform 0.2s ease;
+}
+
+#btn-contraste[aria-pressed="true"] {
+    border-color: rgba(110, 231, 183, 0.4);
+    background: rgba(16, 185, 129, 0.08);
+}
+
+#btn-contraste[aria-pressed="true"] .acess-chave {
+    background: var(--verde-gsa);
+}
+
+#btn-contraste[aria-pressed="true"] .acess-chave::after {
+    transform: translateX(16px);
+}
+
+.acess-rodape {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+    padding: 10px 14px 12px;
+    border-top: 1px solid rgba(255, 255, 255, 0.06);
+}
+
+#acess-panel .btn-acess-reset {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 6px 8px;
+    border: none;
+    border-radius: 8px;
+    background: transparent;
+    color: #a1a1aa;
+    font-family: inherit;
+    font-size: 12px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background 0.2s ease, color 0.2s ease;
+}
+
+#acess-panel .btn-acess-reset svg {
+    width: 14px;
+    height: 14px;
+}
+
+#acess-panel .btn-acess-reset:hover {
+    background: rgba(255, 255, 255, 0.05);
+    color: #6ee7b7;
 }
 
 .acess-status {
-    margin-top: 14px;
-    color: #7f8b85;
+    margin: 0;
+    color: #a1a1aa;
     font-size: 11px;
-    text-align: center;
+    text-align: right;
 }
 
 /* Regras de Alto Contraste (Essencial manter) */
@@ -2838,8 +3260,8 @@ body.alto-contraste > :not(#acess-wrapper):not(#ai-chat-wrapper):not([vw]):not(.
 
 body.alto-contraste #acess-wrapper {
     position: fixed !important;
-    bottom: 20px !important;
-    left: 20px !important;
+    bottom: 24px !important;
+    left: 24px !important;
     filter: none !important;
     transform: none;
 }
@@ -2891,6 +3313,30 @@ body.alto-contraste strong {
     margin-bottom: 30px;
     text-transform: uppercase;
     letter-spacing: 1px;
+}
+
+/* Base que os botões das aulas herdavam do antigo painel de acessibilidade (mesma classe).
+   Os spans do painel novo têm classe própria, por isso o :not([class]). */
+.btn-acess-item {
+    margin: 0;
+    text-align: left;
+}
+
+.btn-acess-item > span:not([class]) {
+    display: grid;
+    place-items: center;
+    min-width: 30px;
+    height: 28px;
+    border-radius: 8px;
+    background: rgba(16, 185, 129, 0.1);
+    color: #6ee7b7;
+    font-size: 12px;
+    font-weight: 900;
+}
+
+.btn-acess-item:focus-visible {
+    outline: 3px solid rgba(110, 231, 183, 0.78);
+    outline-offset: 4px;
 }
 
 /* BOTÕES DA AULA (ESTILO PREMIUM) */

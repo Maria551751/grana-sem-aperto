@@ -14,9 +14,9 @@
     />
     <link rel="icon" type="image/png" href="assets/img/favicon.png" />
     <link rel="shortcut icon" href="assets/img/favicon.png" />
-    <link rel="stylesheet" href="assets/css/global.css?v=20260820-12" />
-    <link rel="stylesheet" href="assets/css/mobile.css" />
-    <link rel="stylesheet" href="assets/css/home.css" />
+    <link rel="stylesheet" href="assets/css/global.css?v=20261104-1" />
+    <link rel="stylesheet" href="assets/css/mobile.css?v=20261104-1" />
+    <link rel="stylesheet" href="assets/css/home.css?v=20261104-1" />
     <link
       href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700;800;900&display=swap"
       rel="stylesheet"
@@ -50,6 +50,7 @@
         <nav class="menu-desktop">
           <a href="index.html" class="ativo" aria-current="page">Início</a>
           <a href="pages/Cursos.html">Aprender</a>
+          <a href="pages/jogar.html">Jogar</a>
           <a href="pages/calculadora.html">Ferramentas</a>
           <a href="#sobre-gsa">Sobre</a>
           <button class="menu-mobile-btn" aria-label="Abrir menu" title="Abrir menu">☰</button>
@@ -66,6 +67,7 @@
       <nav class="sidebar-links">
         <a href="index.html" aria-current="page">Início</a>
         <a href="pages/Cursos.html">Aprender</a>
+        <a href="pages/jogar.html">Jogar</a>
         <a href="pages/calculadora.html">Ferramentas</a>
         <a href="#sobre-gsa">Sobre</a>
       </nav>
@@ -284,6 +286,31 @@
       </div>
     </section>
 
+    <section class="app-em-breve" aria-labelledby="app-em-breve-titulo">
+      <div class="app-em-breve-texto revelar">
+        <span class="app-em-breve-etiqueta">EM BREVE · ANDROID E IPHONE</span>
+        <h2 id="app-em-breve-titulo">O GSA vai caber <span>no seu bolso.</span></h2>
+        <p>Lições de 2 minutos, sequência de dias, ranking com a galera e lembretes para não perder o ritmo. O app está a caminho, e o jogo já dá para jogar no navegador.</p>
+        <div class="app-em-breve-lojas" aria-label="Lojas em breve">
+          <span class="app-em-breve-loja"><span aria-hidden="true">🤖</span><span><small>Em breve no</small>Android</span></span>
+          <span class="app-em-breve-loja"><span aria-hidden="true">📱</span><span><small>Em breve no</small>iPhone</span></span>
+        </div>
+        <a href="pages/jogar.html" class="btn-primario">Jogar agora no navegador</a>
+      </div>
+      <div class="app-em-breve-celular revelar delay-1" aria-hidden="true">
+        <div class="celular-tela">
+          <div class="celular-status"><span>🔥 3</span><span>⚡ 120 XP</span></div>
+          <div class="celular-unidade"><small>UNIDADE 1</small><strong>O Despertar Financeiro</strong></div>
+          <div class="celular-trilha">
+            <span class="celular-no celular-no-feito">🧠</span>
+            <span class="celular-no celular-no-feito">💸</span>
+            <span class="celular-no celular-no-atual">🛟</span>
+            <span class="celular-no celular-no-bloqueado">🔒</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
     <hr class="divisor-led" />
 
     <section class="faq-secao">
@@ -342,80 +369,11 @@
         </div>
       </div>
     </section>
-    <div id="ai-chat-wrapper">
-      <button id="btn-ia-toggle" onclick="toggleAIChat()">
-        <span>🤖 GSA Assistente</span>
-      </button>
+    <!-- GSA Assistente: montado por montarChatGSA() em assets/js/global.js -->
+    <div id="ai-chat-wrapper"></div>
 
-      <div id="chat-box-ia" class="chat-escondido">
-        <div class="chat-header">
-          <strong>IA GSA</strong>
-          <button onclick="toggleAIChat()">×</button>
-        </div>
-        <div id="chat-messages">
-          <div class="msg-ia">
-            Olá Investidor(a)! Sou sua IA de economia. Qual sua dúvida sobre a
-            estratégia GSA hoje?
-          </div>
-        </div>
-        <div class="chat-input">
-          <input
-            type="text"
-            id="user-query"
-            placeholder="Pergunte sobre Selic, FIIs..."
-          />
-          <button
-            onclick="perguntarIA()"
-            id="btn-enviar-ia"
-            title="Enviar Mensagem"
-          >
-            <svg viewBox="0 0 24 24" width="20" height="20" fill="currentColor">
-              <path d="M2.01 21L23 12 2.01 3 2 10l15 2-15 2z"></path>
-            </svg>
-          </button>
-        </div>
-      </div>
-    </div>
-
-    <div id="acess-wrapper">
-      <button
-        id="btn-acess-toggle"
-        type="button"
-        aria-label="Abrir opções de acessibilidade"
-        aria-controls="acess-panel"
-        aria-expanded="false"
-        title="Acessibilidade"
-      >
-        ♿
-      </button>
-
-      <div id="acess-panel" role="dialog" aria-label="Opções de acessibilidade" hidden>
-        <div class="acess-cabecalho">
-          <span class="acess-icone" aria-hidden="true">♿</span>
-          <div>
-            <span>Preferências</span>
-            <h3>Acessibilidade</h3>
-          </div>
-        </div>
-
-        <div class="acess-controles">
-          <button type="button" onclick="mudarFonte(1)" class="btn-acess-item">
-            <span aria-hidden="true">A+</span> Aumentar visualização
-          </button>
-          <button type="button" onclick="mudarFonte(-1)" class="btn-acess-item">
-            <span aria-hidden="true">A−</span> Diminuir visualização
-          </button>
-          <button type="button" onclick="toggleContraste()" class="btn-acess-item" id="btn-contraste">
-            <span aria-hidden="true">◐</span> Alto contraste
-          </button>
-          <button type="button" onclick="resetarAcessibilidade()" class="btn-acess-item btn-acess-reset">
-            <span aria-hidden="true">↺</span> Restaurar padrão
-          </button>
-        </div>
-
-        <p id="acess-status" class="acess-status" aria-live="polite">Visualização em 100%</p>
-      </div>
-    </div>
+    <!-- Acessibilidade: montado por montarPainelAcessibilidade() em assets/js/global.js -->
+    <div id="acess-wrapper"></div>
 
     <div vw class="enabled">
       <div vw-access-button class="active"></div>
@@ -438,7 +396,7 @@
         };
       }
     </script>
-    <script src="assets/js/global.js?v=20260820-11"></script>
+    <script src="assets/js/global.js?v=20261104-1"></script>
     <script src="assets/js/home.js?v=20260818-2"></script>
     <script type="module" src="assets/js/hero-3d.js?v=20260820-2"></script>
   </body>

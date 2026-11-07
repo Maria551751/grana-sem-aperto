@@ -6,8 +6,8 @@
   <meta name="description" content="Simule investimentos e desenvolva o hábito de planejar com a Calculadora GSA." />
   <title>Ferramentas GSA | Grana Sem Aperto</title>
   <link rel="icon" type="image/png" href="../assets/img/favicon.png" />
-  <link rel="stylesheet" href="../assets/css/global.css?v=20260820-12" />
-  <link rel="stylesheet" href="../assets/css/mobile.css" />
+  <link rel="stylesheet" href="../assets/css/global.css?v=20261104-1" />
+  <link rel="stylesheet" href="../assets/css/mobile.css?v=20261104-1" />
   <link rel="stylesheet" href="../assets/css/calculadora.css?v=20260818-4" />
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet" />
   <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>
@@ -22,6 +22,7 @@
     <nav class="menu-desktop" aria-label="Navegação principal">
       <a href="../index.html">Início</a>
       <a href="../pages/Cursos.html">Aprender</a>
+      <a href="../pages/jogar.html">Jogar</a>
       <a href="../pages/calculadora.html" class="ativo" aria-current="page">Ferramentas</a>
       <a href="../pages/criadores.html">Sobre</a>
       <button class="menu-mobile-btn" aria-label="Abrir menu" title="Abrir menu">☰</button>
@@ -31,7 +32,7 @@
   <aside class="sidebar" id="sidebar">
     <div class="sidebar-header"><span class="logo">GSA</span><button class="fechar-sidebar" id="btnFechar" aria-label="Fechar menu">×</button></div>
     <nav class="sidebar-links">
-      <a href="../index.html">Início</a><a href="../pages/Cursos.html">Aprender</a><a href="../pages/calculadora.html" aria-current="page">Ferramentas</a><a href="../pages/criadores.html">Sobre</a>
+      <a href="../index.html">Início</a><a href="../pages/Cursos.html">Aprender</a><a href="../pages/jogar.html">Jogar</a><a href="../pages/calculadora.html" aria-current="page">Ferramentas</a><a href="../pages/criadores.html">Sobre</a>
     </nav>
   </aside>
   <div class="overlay" id="overlay"></div>
@@ -126,13 +127,15 @@
     </section>
   </main>
 
-  <div id="ai-chat-wrapper"><button id="btn-ia-toggle" onclick="toggleAIChat()"><span>🤖 GSA Assistente</span></button><div id="chat-box-ia" class="chat-escondido"><div class="chat-header"><strong>IA GSA</strong><button onclick="toggleAIChat()" aria-label="Fechar assistente">×</button></div><div id="chat-messages"><div class="msg-ia">Quer ajuda para entender alguma taxa ou simulação?</div></div><div class="chat-input"><input type="text" id="user-query" placeholder="Pergunte sobre investimentos..." /><button onclick="perguntarIA()" id="btn-enviar-ia" title="Enviar mensagem">➤</button></div></div></div>
+  <!-- GSA Assistente: montado por montarChatGSA() em assets/js/global.js -->
+  <div id="ai-chat-wrapper"></div>
 
-  <div id="acess-wrapper"><button id="btn-acess-toggle" type="button" aria-label="Abrir opções de acessibilidade" aria-controls="acess-panel" aria-expanded="false" title="Acessibilidade">♿</button><div id="acess-panel" role="dialog" aria-label="Opções de acessibilidade" hidden><div class="acess-cabecalho"><span class="acess-icone" aria-hidden="true">♿</span><div><span>Preferências</span><h3>Acessibilidade</h3></div></div><div class="acess-controles"><button type="button" onclick="mudarFonte(1)" class="btn-acess-item"><span aria-hidden="true">A+</span> Aumentar visualização</button><button type="button" onclick="mudarFonte(-1)" class="btn-acess-item"><span aria-hidden="true">A−</span> Diminuir visualização</button><button type="button" onclick="toggleContraste()" class="btn-acess-item" id="btn-contraste"><span aria-hidden="true">◐</span> Alto contraste</button><button type="button" onclick="resetarAcessibilidade()" class="btn-acess-item btn-acess-reset"><span aria-hidden="true">↺</span> Restaurar padrão</button></div><p id="acess-status" class="acess-status" aria-live="polite">Visualização em 100%</p></div></div>
+  <!-- Acessibilidade: montado por montarPainelAcessibilidade() em assets/js/global.js -->
+  <div id="acess-wrapper"></div>
 
   <div vw class="enabled"><div vw-access-button class="active"></div><div vw-plugin-wrapper><div class="vw-plugin-top-wrapper"></div></div></div>
   <script src="https://vlibras.gov.br/app/vlibras-plugin.js"></script>
-  <script src="../assets/js/global.js?v=20260820-11"></script>
+  <script src="../assets/js/global.js?v=20261104-1"></script>
   <script src="../assets/js/calculadora.js?v=20260818-4"></script>
   <script type="module" src="../assets/js/calculadora-3d.js?v=20260820-1"></script>
 </body>

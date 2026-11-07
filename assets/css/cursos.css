@@ -48,3 +48,26 @@
 .trilhas-cabecalho{display:grid;grid-template-columns:minmax(0,1.8fr) minmax(330px,.7fr);align-items:end}.trilhas-bussola{position:relative;margin-bottom:9px;padding:22px 24px;border-left:1px solid rgba(52,211,153,.24);background:linear-gradient(90deg,rgba(16,185,129,.055),transparent 80%)}.trilhas-bussola>span{color:#5ee5b5;font-size:8px;font-weight:900;letter-spacing:.18em}.bussola-rota{display:flex;align-items:center;gap:10px;margin:14px 0 10px}.bussola-rota strong{color:#dce6e0;font-size:13px}.bussola-rota i{color:#10b981;font-size:12px;font-style:normal}.trilhas-bussola p{max-width:320px;color:#748179;font-size:10px;line-height:1.55}
 @media(max-width:1000px){.trilhas-cabecalho{grid-template-columns:1fr}.trilhas-bussola{width:min(100%,520px);margin-top:25px}}
 @media(max-width:520px){.trilhas-bussola{padding:18px}.bussola-rota{gap:7px}.bussola-rota strong{font-size:11px}}
+
+/* Videoaulas: um card por módulo, "em breve" até o link entrar em videoaulasPorModulo (global.js). */
+.videoaulas-secao{padding:120px 5%;background:linear-gradient(180deg,#070a09,#0a0f0d)}
+.videoaulas-cabecalho{width:min(100%,1280px);margin:0 auto 46px}
+.videoaulas-cabecalho h2{margin:14px 0 14px;font-size:clamp(36px,4.4vw,60px);line-height:1.02;letter-spacing:-.05em}
+.videoaulas-cabecalho h2 span{color:#34d399}
+.videoaulas-cabecalho p{max-width:620px;color:#a1a1aa;font-size:17px;line-height:1.6}
+.videoaulas-grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:18px;width:min(100%,1280px);margin:auto;padding:0;list-style:none}
+.videoaula-card{display:grid;gap:10px}
+.videoaula-card>a{display:grid;gap:10px;color:inherit;text-decoration:none}
+.videoaula-capa{position:relative;display:grid;place-items:center;aspect-ratio:16/9;overflow:hidden;border:1px solid rgba(110,231,183,.14);border-radius:18px;background:radial-gradient(circle at 30% 20%,rgba(16,185,129,.22),transparent 55%),linear-gradient(135deg,#0d1612,#060908)}
+.videoaula-play{display:grid;place-items:center;width:54px;height:54px;padding-left:4px;border-radius:50%;background:rgba(255,255,255,.08);color:rgba(255,255,255,.55);font-size:20px}
+.videoaula-selo{position:absolute;top:12px;left:12px;padding:5px 9px;border:1px solid rgba(110,231,183,.3);border-radius:999px;background:rgba(4,8,6,.75);color:#6ee7b7;font-size:9px;font-weight:900;letter-spacing:.14em}
+.videoaula-numero{color:#71717a;font-size:10px;font-weight:900;letter-spacing:.16em}
+.videoaula-card h3{color:#e4e4e7;font-size:16px;font-weight:800;line-height:1.3}
+.videoaula-disponivel .videoaula-play{background:#10b981;color:#04140d}
+.videoaula-disponivel a:hover .videoaula-capa{border-color:rgba(110,231,183,.45)}
+.videoaula-disponivel a:focus-visible{outline:2px solid #6ee7b7;outline-offset:4px;border-radius:18px}
+.aprender-cta-acoes{display:flex;flex-wrap:wrap;justify-content:center;gap:12px}
+.btn-videoaula-em-breve{opacity:.5;cursor:not-allowed}
+.btn-videoaula-em-breve:hover{transform:none!important;box-shadow:none!important;background:rgba(255,255,255,.05)!important;border-color:rgba(255,255,255,.1)!important;color:#fff!important}
+@media(max-width:1000px){.videoaulas-grid{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media(max-width:520px){.videoaulas-secao{padding:85px 5%}.videoaulas-grid{gap:14px}.videoaula-card h3{font-size:14px}.aprender-cta-acoes a{width:100%;text-align:center}}
