@@ -88,6 +88,17 @@ O GSA resolve isso com:
 
 ---
 
+### 🎬 Videoaulas
+
+* Aulas de cerca de dois minutos para quem está começando do zero, com animação, gráficos e narração
+* Cada aula tem duas versões: horizontal para o computador e vertical para o celular
+* A página `pages/videoaula.html` reconhece o aparelho e toca a versão certa; a pessoa pode trocar
+* Legendas em português, ligadas por um botão
+* Já no ar: Montando a Reserva, Cartão de Crédito sem Armadilha, Pontos e Milhas no Cartão, Saindo das Dívidas e Empréstimo do Jeito Certo
+* Para publicar outra: coloque os arquivos em `assets/video` e cadastre o módulo em `videoaulasPorModulo` (`assets/js/global.js`)
+
+---
+
 ### 📡 Taxas em Tempo Real
 
 Integração com API do Banco Central para obter dados financeiros oficiais:

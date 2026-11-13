@@ -63,7 +63,10 @@
 .videoaula-selo{position:absolute;top:12px;left:12px;padding:5px 9px;border:1px solid rgba(110,231,183,.3);border-radius:999px;background:rgba(4,8,6,.75);color:#6ee7b7;font-size:9px;font-weight:900;letter-spacing:.14em}
 .videoaula-numero{color:#71717a;font-size:10px;font-weight:900;letter-spacing:.16em}
 .videoaula-card h3{color:#e4e4e7;font-size:16px;font-weight:800;line-height:1.3}
-.videoaula-disponivel .videoaula-play{background:#10b981;color:#04140d}
+.videoaula-capa img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:.72;transition:opacity .25s ease,transform .35s ease}
+.videoaula-play,.videoaula-selo{z-index:1}
+.videoaula-disponivel .videoaula-play{background:#10b981;color:#04140d;box-shadow:0 10px 26px rgba(0,0,0,.45)}
+.videoaula-disponivel a:hover .videoaula-capa img{opacity:.9;transform:scale(1.03)}
 .videoaula-disponivel a:hover .videoaula-capa{border-color:rgba(110,231,183,.45)}
 .videoaula-disponivel a:focus-visible{outline:2px solid #6ee7b7;outline-offset:4px;border-radius:18px}
 .aprender-cta-acoes{display:flex;flex-wrap:wrap;justify-content:center;gap:12px}

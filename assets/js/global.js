@@ -104,21 +104,62 @@ const modulosData = {
     ]
 };
 
-// Videoaulas: cole o link do vídeo (YouTube, por exemplo) quando estiver pronto.
-// Vazio = aparece "Em breve" na página Cursos e no módulo.
+// Videoaulas de cada módulo. Três formas de preencher:
+// - vazio: aparece "Em breve" na página Aprender e no módulo;
+// - um link (YouTube, por exemplo): o card abre o link em outra aba;
+// - um objeto: o vídeo fica no próprio site, em assets/video, e toca em videoaula.html.
+//   Cada vídeo do site tem duas versões: <arquivo>-horizontal.mp4 (computador) e
+//   <arquivo>-vertical.mp4 (celular), mais as capas .webp e a legenda <arquivo>.vtt.
 const videoaulasPorModulo = {
     "Mentalidade de Investidor": "",
     "Organizando sua grana": "",
-    "Montando a Reserva": "",
-    "Cartão de Crédito sem Armadilha": "",
+    "Montando a Reserva": {
+        arquivo: "reserva",
+        aula: "reserva",
+        duracao: "2 min",
+        resumo: "Para quem está começando do zero: o que é a reserva de emergência, como começar com pouco, quanto juntar e onde deixar esse dinheiro."
+    },
+    "Cartão de Crédito sem Armadilha": {
+        arquivo: "cartao",
+        aula: "cartao",
+        duracao: "2 min",
+        resumo: "Para quem está começando do zero: como o cartão funciona, por que limite não é salário e como escapar do pagamento mínimo e da parcela pequena."
+    },
     "Tesouro Direto na Prática": "",
     "Dividendos com FIIs": "",
     "Escolhendo Ações": "",
     "Rebalanceamento da Carteira": "",
-    "Pontos e Milhas no Cartão": "",
-    "Saindo das Dívidas": "",
-    "Empréstimo do Jeito Certo": ""
+    "Pontos e Milhas no Cartão": {
+        arquivo: "pontos",
+        aula: "pontos",
+        duracao: "2 min",
+        resumo: "Para quem está começando do zero: como os pontos funcionam, por que comprar mais para pontuar é armadilha e a conta que mostra se o cartão compensa."
+    },
+    "Saindo das Dívidas": {
+        arquivo: "dividas",
+        aula: "dividas",
+        duracao: "2 min",
+        resumo: "Para quem está começando do zero: como colocar as dívidas no papel, qual pagar primeiro e como negociar uma parcela que cabe no mês."
+    },
+    "Empréstimo do Jeito Certo": {
+        arquivo: "emprestimo",
+        aula: "emprestimo",
+        duracao: "2 min",
+        resumo: "Para quem está começando do zero: por que parcela pequena não é empréstimo barato, o que é o CET e como fugir do golpe do depósito adiantado."
+    }
 };
+
+// Endereço da videoaula de um módulo: a página do player ou o link externo. Vazio = ainda não tem.
+function linkVideoaula(modulo) {
+    const video = videoaulasPorModulo[modulo];
+    if (!video) return "";
+    return typeof video === "string" ? video : `../pages/videoaula.html?m=${video.arquivo}`;
+}
+
+// Link externo abre em outra aba; a videoaula do próprio site abre na mesma.
+function atributosLinkVideoaula(modulo) {
+    return typeof videoaulasPorModulo[modulo] === "string" ? ' target="_blank" rel="noopener noreferrer"' : "";
+}
 
 function atualizarBotao() {
     if (!btnAcao) return;
@@ -218,8 +259,8 @@ function abrirJanelaAula() {
             <span>LEITURA ESSENCIAL</span>
             <p>${resumosAula[aulaSelecionada] || "Leia o conteúdo do módulo e conecte o conceito a uma decisão financeira do seu cotidiano."}</p>
         </div>
-        ${videoaulasPorModulo[aulaSelecionada]
-            ? `<a href="${videoaulasPorModulo[aulaSelecionada]}" target="_blank" rel="noopener noreferrer" class="btn-acess-item" style="text-decoration:none;color:inherit;"><span>▶</span> Assistir videoaula</a>`
+        ${linkVideoaula(aulaSelecionada)
+            ? `<a href="${linkVideoaula(aulaSelecionada)}"${atributosLinkVideoaula(aulaSelecionada)} class="btn-acess-item" style="text-decoration:none;color:inherit;"><span>▶</span> Assistir videoaula</a>`
             : `<button type="button" class="btn-acess-item btn-videoaula-em-breve" disabled><span>▶</span> Videoaula em breve</button>`}
         <a id="linkMaterial" href="#" target="_blank" class="btn-acess-item" style="text-decoration:none;color:inherit;">
             <span>📖</span> Abrir aula visual

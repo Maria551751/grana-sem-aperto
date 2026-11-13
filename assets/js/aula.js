@@ -264,6 +264,18 @@
         pdf.setAttribute('download', '');
         acoes.append(jogar, pdf);
 
+        // Módulo com videoaula ganha o botão para assistir.
+        const videoaula = typeof linkVideoaula === 'function' ? linkVideoaula(aula.modulo) : '';
+        if (videoaula) {
+            const assistir = el('a', 'btn-secundario', '▶ Assistir videoaula');
+            assistir.href = videoaula;
+            if (typeof videoaulasPorModulo[aula.modulo] === 'string') {
+                assistir.target = '_blank';
+                assistir.rel = 'noopener noreferrer';
+            }
+            acoes.append(assistir);
+        }
+
         const proxima = AULAS_GSA[indice + 1];
         if (proxima) {
             const seguinte = el('a', 'btn-secundario', `Próxima: ${proxima.titulo} →`);

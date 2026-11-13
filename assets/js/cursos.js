@@ -25,26 +25,34 @@ function iniciarLuzMetodo() {
 
 iniciarLuzMetodo();
 
-// Um card por módulo das trilhas; com link em videoaulasPorModulo o card vira "Assistir".
+// Um card por módulo das trilhas; com vídeo em videoaulasPorModulo o card vira "Assistir".
+// Vídeo do próprio site mostra a capa e a duração no card.
 function montarVideoaulas() {
     const grade = document.getElementById('videoaulas-grid');
     if (!grade) return;
 
     const modulos = Object.values(modulosData).flat();
     grade.innerHTML = modulos.map((modulo, indice) => {
-        const link = videoaulasPorModulo[modulo];
+        const link = linkVideoaula(modulo);
+        const video = videoaulasPorModulo[modulo];
+        const doSite = Boolean(video) && typeof video === 'object';
         const numero = String(indice + 1).padStart(2, '0');
+        const imagem = doSite
+            ? `<img src="../assets/video/${video.arquivo}-horizontal.webp" alt="" loading="lazy" width="1280" height="720">`
+            : '';
+        const selo = !link ? 'EM BREVE' : doSite ? `ASSISTIR · ${video.duracao.toUpperCase()}` : 'ASSISTIR';
         const capa = `
             <div class="videoaula-capa">
+                ${imagem}
                 <span class="videoaula-play" aria-hidden="true">▶</span>
-                <span class="videoaula-selo">${link ? 'ASSISTIR' : 'EM BREVE'}</span>
+                <span class="videoaula-selo">${selo}</span>
             </div>
             <span class="videoaula-numero">MÓDULO ${numero}</span>
             <h3>${modulo}</h3>
         `;
 
         return link
-            ? `<li class="videoaula-card videoaula-disponivel"><a href="${link}" target="_blank" rel="noopener noreferrer">${capa}</a></li>`
+            ? `<li class="videoaula-card videoaula-disponivel"><a href="${link}"${atributosLinkVideoaula(modulo)}>${capa}</a></li>`
             : `<li class="videoaula-card" aria-label="${modulo}: videoaula em breve">${capa}</li>`;
     }).join('');
 }
