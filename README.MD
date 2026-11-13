@@ -72,10 +72,18 @@ O GSA resolve isso com:
 
 ---
 
+### 🎯 Metas de Economia
+
+* Metas com valor, quanto já foi guardado e quanto entra por mês
+* Barra de progresso e previsão de quando a meta é alcançada
+* Fica salvo só no navegador
+
+---
+
 ### 📖 Apostila Visual
 
 * Uma aula visual para cada um dos 11 módulos, com gráficos, comparações e passos
-* "Mito ou verdade" e lista de prática em cada aula
+* Um simulador, um "mito ou verdade" e uma lista de prática em cada aula
 * PDF de cada aula gerado a partir da própria página
 
 ---

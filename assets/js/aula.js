@@ -331,6 +331,7 @@
             artigo.append(secao);
         });
 
+        if (aula.simulador && typeof montarSimuladorGSA === 'function') artigo.append(montarSimuladorGSA(aula.simulador));
         artigo.append(montarDesafio(aula.desafio), montarPratica(aula), montarAcoes(aula, indice), montarFontes(aula));
         return artigo;
     }

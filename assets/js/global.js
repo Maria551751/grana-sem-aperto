@@ -1398,6 +1398,11 @@ const CHAT_GSA_PAGINAS = {
         placeholder: 'Pergunte sobre orçamento...',
         sugestoes: ['Como funciona a regra 50-30-20?', 'O que conta como necessidade?', 'Como guardar dinheiro ganhando pouco?']
     },
+    metas: {
+        boasVindas: 'Quer ajuda para definir uma meta? Me pergunte quanto guardar por mês ou por onde começar.',
+        placeholder: 'Pergunte sobre metas...',
+        sugestoes: ['Como definir uma meta de economia?', 'Reserva ou meta de compra: o que vem primeiro?', 'Como guardar dinheiro ganhando pouco?']
+    },
     cursos: {
         boasVindas: 'Quer ajuda para entender algum módulo? Pergunte sobre qualquer tema das trilhas.',
         placeholder: 'Pergunte sobre o conteúdo...',
@@ -1430,6 +1435,7 @@ function identificarPaginaChat() {
     const caminho = window.location.pathname.toLowerCase();
     if (caminho.includes('calculadora')) return 'calculadora';
     if (caminho.includes('planejador')) return 'planejador';
+    if (caminho.includes('metas')) return 'metas';
     if (caminho.includes('cursos') || caminho.includes('aula')) return 'cursos';
     if (caminho.includes('criadores')) return 'criadores';
     if (caminho.includes('jogar')) return 'jogo';

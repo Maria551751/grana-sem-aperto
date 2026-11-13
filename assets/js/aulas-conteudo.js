@@ -2,6 +2,7 @@
    APOSTILA VISUAL: conteúdo das 11 aulas
    Cada aula tem 3 ideias, e cada ideia leva um visual montado por aula.js.
    Tipos de visual: cartoes, passos, versus, barras, divisao, numeros e conta.
+   O campo "simulador" de cada aula é montado por aula-simuladores.js.
    Os nomes em "modulo" precisam bater com modulosData em global.js.
    Valores marcados como exemplo são ilustrações, não taxas reais.
    ========================================= */
@@ -32,6 +33,15 @@ const AULAS_GSA = [
         chamada: 'Decidir melhor antes de investir mais.',
         resumo: 'Investir não começa na bolsa. Começa quando você conhece seus hábitos, define objetivos e cria um processo que evita decisões por impulso.',
         pdf: 'Mentalidade-Financeira.pdf',
+        simulador: {
+            titulo: 'Quanto a constância junta?',
+            nota: 'Sem contar juros: o hábito vem antes do rendimento.',
+            calculo: 'constancia',
+            controles: [
+                { id: 'mensal', rotulo: 'Guardo por mês', min: 10, max: 500, passo: 10, valor: 50, formato: 'moeda' },
+                { id: 'meses', rotulo: 'Durante', min: 6, max: 60, passo: 6, valor: 12, formato: 'meses' }
+            ]
+        },
         ideias: [
             {
                 titulo: 'Dinheiro também é comportamento',
@@ -82,6 +92,14 @@ const AULAS_GSA = [
         resumo: 'Orçamento não é punição. É um mapa: mostra o que entra, o que sai, as dívidas e o espaço que sobra para os objetivos.',
         pdf: 'ORGANIZANDO-SUA-GRANA.pdf',
         atalho: { texto: 'Abrir o Planejador de Orçamento', href: 'planejador.html' },
+        simulador: {
+            titulo: 'Divida a sua renda',
+            nota: 'A regra 50-30-20 é um ponto de partida. No Planejador você ajusta e compara com os seus gastos.',
+            calculo: 'divisao',
+            controles: [
+                { id: 'renda', rotulo: 'Quanto entra por mês', min: 300, max: 10000, passo: 50, valor: 1500, formato: 'moeda' }
+            ]
+        },
         ideias: [
             {
                 titulo: 'Registre o que realmente acontece',
@@ -132,6 +150,15 @@ const AULAS_GSA = [
         resumo: 'Reserva de emergência é proteção para o inesperado. O tamanho certo depende dos seus gastos essenciais e de quão estável é a sua renda.',
         pdf: 'RESERVA-DE-EMERGENCIA.pdf',
         atalho: { texto: 'Simular na Calculadora do GSA', href: 'calculadora.html#simulador' },
+        simulador: {
+            titulo: 'Qual é o tamanho da sua reserva?',
+            calculo: 'reserva',
+            controles: [
+                { id: 'gastos', rotulo: 'Gastos essenciais por mês', min: 300, max: 6000, passo: 50, valor: 1000, formato: 'moeda' },
+                { id: 'meses', rotulo: 'Meses de proteção', tipo: 'opcoes', valor: 6, opcoes: [{ valor: 3, rotulo: '3 meses' }, { valor: 6, rotulo: '6 meses' }, { valor: 12, rotulo: '12 meses' }] },
+                { id: 'guarda', rotulo: 'Consigo guardar por mês', min: 50, max: 2000, passo: 50, valor: 200, formato: 'moeda' }
+            ]
+        },
         ideias: [
             {
                 titulo: 'Meça em meses de gastos',
@@ -183,6 +210,14 @@ const AULAS_GSA = [
         chamada: 'Crédito é ferramenta, não renda extra.',
         resumo: 'O limite do cartão é um empréstimo disponível, não parte da sua renda. Usar bem é acompanhar compras, vencimento e o custo do crédito.',
         pdf: 'Cartao-de-Credito-sem-Armadilha.pdf',
+        simulador: {
+            titulo: 'E se ficar no rotativo?',
+            nota: 'Pela Lei 14.690/2023, juros e encargos não podem passar do valor original da dívida.',
+            calculo: 'rotativo',
+            controles: [
+                { id: 'divida', rotulo: 'Valor que ficou sem pagar', min: 100, max: 5000, passo: 50, valor: 1000, formato: 'moeda' }
+            ]
+        },
         ideias: [
             {
                 titulo: 'Fatura integral',
@@ -232,6 +267,14 @@ const AULAS_GSA = [
         chamada: 'Prazo e objetivo antes do nome do título.',
         resumo: 'Títulos públicos são renda fixa emitida pelo Tesouro Nacional. O retorno e a oscilação dependem do tipo de título e de quando você resgata.',
         pdf: 'Tesouro-Direto-na-Pratica.pdf',
+        simulador: {
+            titulo: 'O que pesa em cada prazo?',
+            nota: 'É um guia para comparar, não uma recomendação. Leia as regras de cada título antes de investir.',
+            calculo: 'prazo',
+            controles: [
+                { id: 'prazo', rotulo: 'Quando vou usar o dinheiro', tipo: 'opcoes', valor: 'curto', opcoes: [{ valor: 'curto', rotulo: 'Até 2 anos' }, { valor: 'medio', rotulo: '2 a 5 anos' }, { valor: 'longo', rotulo: 'Mais de 5 anos' }] }
+            ]
+        },
         ideias: [
             {
                 titulo: 'Os tipos de título',
@@ -281,6 +324,14 @@ const AULAS_GSA = [
         chamada: 'Rendimento não é sinônimo de garantia.',
         resumo: 'Fundos imobiliários juntam o dinheiro de muitos investidores para aplicar em ativos do mercado imobiliário. As cotas são renda variável.',
         pdf: 'Dividendos-com-FIIs.pdf',
+        simulador: {
+            titulo: 'O rendimento com imóveis vazios',
+            nota: 'Exemplo simplificado: um fundo que paga R$ 1,00 por cota quando está todo alugado.',
+            calculo: 'vacancia',
+            controles: [
+                { id: 'vacancia', rotulo: 'Imóveis vazios (vacância)', min: 0, max: 60, passo: 5, valor: 10, formato: 'percentual' }
+            ]
+        },
         ideias: [
             {
                 titulo: 'De onde vem o resultado',
@@ -341,6 +392,14 @@ const AULAS_GSA = [
         chamada: 'Uma ação é uma parte de uma empresa.',
         resumo: 'Comprar uma ação é se expor ao desempenho e aos riscos de um negócio. Preço baixo, dividendo recente ou fama não bastam para decidir.',
         pdf: 'Escolhendo-Acoes.pdf',
+        simulador: {
+            titulo: 'O peso de uma empresa só',
+            calculo: 'concentracao',
+            controles: [
+                { id: 'parte', rotulo: 'Parte da carteira nessa empresa', min: 10, max: 100, passo: 10, valor: 100, formato: 'percentual' },
+                { id: 'queda', rotulo: 'Se a ação cair', min: 10, max: 90, passo: 10, valor: 50, formato: 'percentual' }
+            ]
+        },
         ideias: [
             {
                 titulo: 'Comece pelo negócio',
@@ -399,6 +458,14 @@ const AULAS_GSA = [
         chamada: 'Voltar ao plano sem tentar prever o mercado.',
         resumo: 'Com as altas e quedas, os percentuais da carteira se afastam do plano. Rebalancear é comparar o que você tem com o que planejou e ajustar.',
         pdf: 'REBALANCEAMENTO-DA-CARTEIRA.pdf',
+        simulador: {
+            titulo: 'Quanto a carteira sai do plano?',
+            nota: 'Ponto de partida: 70% em renda fixa e 30% em ações.',
+            calculo: 'desvio',
+            controles: [
+                { id: 'alta', rotulo: 'As ações subiram', min: 0, max: 100, passo: 5, valor: 50, formato: 'percentual' }
+            ]
+        },
         ideias: [
             {
                 titulo: 'A carteira sai do lugar',
@@ -454,6 +521,16 @@ const AULAS_GSA = [
         chamada: 'Ponto é bônus, não motivo para gastar.',
         resumo: 'Programas de pontos, milhas e cashback devolvem uma pequena parte do que você gasta. Só valem a pena para quem já usa o cartão com controle.',
         pdf: 'Pontos-e-Milhas-no-Cartao.pdf',
+        simulador: {
+            titulo: 'O seu cartão compensa?',
+            nota: 'Use o percentual que o seu programa realmente devolve. Costuma ser uma fração pequena do gasto.',
+            calculo: 'pontos',
+            controles: [
+                { id: 'gasto', rotulo: 'Gasto no cartão por mês', min: 200, max: 5000, passo: 100, valor: 1000, formato: 'moeda' },
+                { id: 'retorno', rotulo: 'Quanto o programa devolve', min: 0.5, max: 3, passo: 0.5, valor: 1, formato: 'percentual' },
+                { id: 'anuidade', rotulo: 'Anuidade por ano', min: 0, max: 1200, passo: 30, valor: 480, formato: 'moeda' }
+            ]
+        },
         ideias: [
             {
                 titulo: 'Como os pontos funcionam',
@@ -504,6 +581,16 @@ const AULAS_GSA = [
         chamada: 'Dívida se resolve com plano, não com pressa.',
         resumo: 'Sair das dívidas começa por enxergar o tamanho do problema. Com a lista completa, dá para decidir o que pagar primeiro e negociar o que cabe no mês.',
         pdf: 'Saindo-das-Dividas.pdf',
+        simulador: {
+            titulo: 'Em quanto tempo eu quito?',
+            nota: 'Use os juros e a parcela da sua dívida. O cálculo considera que você não faz dívida nova.',
+            calculo: 'quitacao',
+            controles: [
+                { id: 'divida', rotulo: 'Valor da dívida', min: 200, max: 20000, passo: 100, valor: 2000, formato: 'moeda' },
+                { id: 'juros', rotulo: 'Juros por mês', min: 1, max: 15, passo: 0.5, valor: 8, formato: 'percentual' },
+                { id: 'parcela', rotulo: 'Pago por mês', min: 50, max: 3000, passo: 50, valor: 250, formato: 'moeda' }
+            ]
+        },
         ideias: [
             {
                 titulo: 'Coloque tudo no papel',
@@ -560,6 +647,16 @@ const AULAS_GSA = [
         chamada: 'Crédito bom é o que cabe no plano.',
         resumo: 'Empréstimo é dinheiro alugado: você devolve o valor e paga juros pelo uso. Ajuda quando resolve uma necessidade real ou reduz um custo maior.',
         pdf: 'Emprestimo-do-Jeito-Certo.pdf',
+        simulador: {
+            titulo: 'Quanto esse empréstimo custa?',
+            nota: 'Use os números da proposta que você recebeu.',
+            calculo: 'custo',
+            controles: [
+                { id: 'valor', rotulo: 'Valor emprestado', min: 500, max: 20000, passo: 100, valor: 2000, formato: 'moeda' },
+                { id: 'parcela', rotulo: 'Valor da parcela', min: 50, max: 3000, passo: 10, valor: 210, formato: 'moeda' },
+                { id: 'parcelas', rotulo: 'Número de parcelas', min: 2, max: 72, passo: 1, valor: 12, formato: 'parcelas' }
+            ]
+        },
         ideias: [
             {
                 titulo: 'Compare pelo total, não pela parcela',

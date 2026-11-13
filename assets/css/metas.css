@@ -1,0 +1,89 @@
+/* =========================================
+   METAS DE ECONOMIA
+   Usa a base de calculadora.css (hero, formulário e painel).
+   Aqui fica só o que é das metas: os ícones, os cartões e o medidor.
+   ========================================= */
+
+.pagina-metas {
+  /* Situação: sempre junto de ícone e texto, nunca só a cor. */
+  --situacao-bom: #0ca30c;
+}
+
+/* ---------- Hero: exemplo no lugar do 3D ---------- */
+.metas-hero { min-height: auto; }
+.metas-hero .ferramentas-hero-conteudo { grid-template-columns: minmax(0, 1fr) minmax(0, 460px); min-height: 500px; }
+.metas-hero-visual { display: grid; gap: 14px; margin: 0; }
+.metas-hero-visual figcaption { color: #7f8a84; font-size: 12px; text-align: center; }
+.pagina-metas .simulador-secao { padding-top: 70px; }
+.campo-ajuda { color: #77827c; font-size: 11px; line-height: 1.5; }
+
+/* ---------- Escolha do ícone ---------- */
+.metas-icones { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 8px; min-width: 0; padding: 0; border: 0; }
+.metas-icones legend { margin-bottom: 8px; padding: 0; color: #d9dfdc; font-size: 12px; font-weight: 700; }
+.metas-icones label { position: relative; display: grid; justify-items: center; gap: 4px; padding: 10px 4px; border: 1px solid rgba(255, 255, 255, .1); border-radius: 12px; background: rgba(255, 255, 255, .045); font-size: 22px; line-height: 1; cursor: pointer; transition: border-color .25s ease, background .25s ease; }
+.metas-icones input { position: absolute; inset: 0; width: 100%; height: 100%; margin: 0; opacity: 0; cursor: pointer; }
+.metas-icone-nome { color: #8b968f; font-size: 10.5px; font-weight: 700; }
+.metas-icones label:hover { border-color: rgba(52, 211, 153, .42); }
+.metas-icones label:has(input:checked) { border-color: rgba(16, 185, 129, .7); background: rgba(16, 185, 129, .1); }
+.metas-icones label:has(input:checked) .metas-icone-nome { color: var(--calc-verde-claro); }
+.metas-icones label:has(input:focus-visible) { outline: 2px solid #6ee7b7; outline-offset: 3px; }
+
+/* O botão de cancelar só aparece durante a edição; sem ele, o de salvar ocupa a linha toda. */
+.pagina-metas .btn-limpar[hidden] { display: none; }
+.pagina-metas .form-acoes:has(#btnCancelarMeta[hidden]) { grid-template-columns: 1fr; }
+
+/* ---------- Painel e cartões ---------- */
+.metas-painel { min-height: 0; scroll-margin-top: 100px; }
+.metas-painel .resultado-vazio { min-height: 380px; }
+.pagina-metas .simulador-form { scroll-margin-top: 100px; }
+.metas-lista { display: grid; gap: 12px; margin: 22px 0 0; padding: 0; list-style: none; }
+.metas-hero-visual .metas-lista { margin: 0; }
+.metas-lista[hidden] { display: none; }
+.meta-card { display: grid; gap: 12px; padding: 18px; border: 1px solid rgba(255, 255, 255, .08); border-radius: 20px; background: linear-gradient(150deg, rgba(255, 255, 255, .06), rgba(255, 255, 255, .015)); box-shadow: inset 0 1px 0 rgba(255, 255, 255, .05); }
+.metas-hero-visual .meta-card { border-color: rgba(110, 231, 183, .2); background: rgba(9, 14, 12, .88); box-shadow: 0 26px 60px rgba(0, 0, 0, .38); }
+.meta-card.completa { border-color: color-mix(in srgb, var(--situacao-bom) 45%, transparent); }
+.meta-topo { display: grid; grid-template-columns: auto minmax(0, 1fr) auto; align-items: center; gap: 13px; }
+.meta-icone { display: grid; place-items: center; width: 46px; height: 46px; border: 1px solid rgba(110, 231, 183, .2); border-radius: 14px; background: rgba(16, 185, 129, .1); font-size: 23px; line-height: 1; }
+.meta-nome { display: grid; gap: 3px; min-width: 0; }
+.meta-nome strong { overflow: hidden; color: #f5f7f6; font-size: 16px; letter-spacing: -.01em; text-overflow: ellipsis; white-space: nowrap; }
+.meta-nome span { color: #98a39d; font-size: 12.5px; font-variant-numeric: tabular-nums; }
+.meta-percentual { color: var(--calc-verde-claro); font-size: 26px; font-variant-numeric: tabular-nums; letter-spacing: -.04em; }
+
+/* Medidor: o trilho é a mesma cor do preenchimento, mais apagada. */
+.meta-medidor { height: 10px; overflow: hidden; border-radius: 999px; background: rgba(16, 185, 129, .16); }
+.meta-medidor span { display: block; height: 100%; border-radius: inherit; background: linear-gradient(90deg, #10b981, #6ee7b7); transition: width .6s cubic-bezier(.2, .7, .2, 1); }
+.completa .meta-medidor { background: color-mix(in srgb, var(--situacao-bom) 22%, transparent); }
+.completa .meta-medidor span { background: var(--situacao-bom); }
+.meta-previsao { display: flex; align-items: flex-start; gap: 8px; color: #c3ccc7; font-size: 13px; line-height: 1.5; }
+.meta-selo { display: grid; flex: none; place-items: center; width: 18px; height: 18px; margin-top: 1px; border-radius: 50%; background: var(--situacao-bom); color: #04110c; font-size: 11px; font-weight: 900; line-height: 1; }
+
+.meta-deposito { display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: 8px; }
+.meta-deposito .campo-prefixo input { width: 100%; min-height: 44px; padding: 0 12px 0 40px; border: 1px solid rgba(255, 255, 255, .1); border-radius: 12px; outline: 0; background: rgba(255, 255, 255, .045); color: #fff; font: inherit; font-size: 14px; color-scheme: dark; }
+.meta-deposito .campo-prefixo input:focus { border-color: rgba(16, 185, 129, .7); box-shadow: 0 0 0 3px rgba(16, 185, 129, .1); }
+.meta-guardar { min-height: 44px; padding: 0 18px; border: 0; border-radius: 12px; background: linear-gradient(135deg, #34d399, #10b981); color: #03110b; font: inherit; font-size: 13.5px; font-weight: 900; cursor: pointer; transition: filter .25s ease, transform .25s ease; }
+.meta-guardar:hover { filter: brightness(1.08); transform: translateY(-2px); }
+.meta-guardar:focus-visible, .meta-acoes button:focus-visible { outline: 2px solid #6ee7b7; outline-offset: 3px; }
+.meta-acoes { display: flex; gap: 8px; }
+.meta-acoes button { padding: 8px 12px; border: 1px solid rgba(255, 255, 255, .1); border-radius: 10px; background: transparent; color: #a5afa9; font: inherit; font-size: 12px; font-weight: 800; cursor: pointer; transition: border-color .25s ease, color .25s ease; }
+.meta-acoes button:hover { border-color: rgba(52, 211, 153, .45); color: #ecfdf5; }
+.meta-acoes .meta-excluir.confirmando { border-color: #d03b3b; color: #fff; background: rgba(208, 59, 59, .18); }
+
+/* Só para leitores de tela: avisa o que mudou sem repetir a lista inteira. */
+.metas-status { position: absolute; width: 1px; height: 1px; margin: -1px; overflow: hidden; clip-path: inset(50%); white-space: nowrap; }
+
+@media (max-width: 1050px) {
+  .metas-hero .ferramentas-hero-conteudo { grid-template-columns: 1fr; min-height: auto; }
+  .metas-hero-visual { width: min(100%, 520px); }
+}
+
+@media (max-width: 680px) {
+  .meta-card { padding: 15px 14px; border-radius: 18px; }
+  .meta-percentual { font-size: 22px; }
+  .metas-painel .resultado-vazio { min-height: 280px; }
+  .metas-icones label { padding: 9px 2px; font-size: 20px; }
+  .metas-icone-nome { font-size: 9.5px; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .meta-medidor span { transition: none; }
+}
