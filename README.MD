@@ -63,6 +63,42 @@ O GSA resolve isso com:
 
 ---
 
+### 🧮 Planejador de Orçamento
+
+* Divide a renda do mês em Necessidades, Desejos e Futuro (regra 50-30-20)
+* Opções 60-30-10 e 70-20-10 para quando as contas pesam mais
+* Compara o plano com o que a pessoa gasta hoje
+* Fica salvo só no navegador e leva o valor do Futuro para a calculadora
+
+---
+
+### 🎯 Metas de Economia
+
+* Metas com valor, quanto já foi guardado e quanto entra por mês
+* Barra de progresso e previsão de quando a meta é alcançada
+* Fica salvo só no navegador
+
+---
+
+### 📖 Apostila Visual
+
+* Uma aula visual para cada um dos 11 módulos, com gráficos, comparações e passos
+* Um simulador, um "mito ou verdade" e uma lista de prática em cada aula
+* PDF de cada aula gerado a partir da própria página
+
+---
+
+### 🎬 Videoaulas
+
+* Aulas de cerca de dois minutos para quem está começando do zero, com animação, gráficos e narração
+* Cada aula tem duas versões: horizontal para o computador e vertical para o celular
+* A página `pages/videoaula.html` reconhece o aparelho e toca a versão certa; a pessoa pode trocar
+* Legendas em português, ligadas por um botão
+* Já no ar: Montando a Reserva, Cartão de Crédito sem Armadilha, Pontos e Milhas no Cartão, Saindo das Dívidas e Empréstimo do Jeito Certo
+* Para publicar outra: coloque os arquivos em `assets/video` e cadastre o módulo em `videoaulasPorModulo` (`assets/js/global.js`)
+
+---
+
 ### 📡 Taxas em Tempo Real
 
 Integração com API do Banco Central para obter dados financeiros oficiais:

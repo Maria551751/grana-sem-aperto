@@ -1,0 +1,142 @@
+/* =========================================
+   PLANEJADOR DE ORÇAMENTO
+   Usa a base de calculadora.css (hero, formulário e painel de resultado).
+   Aqui fica só o que é do planejador: as três partes, a barra e os medidores.
+   ========================================= */
+
+.pagina-planejador {
+  /* Cores das partes: validadas para daltonismo sobre o painel escuro. */
+  --parte-necessidades: #3987e5;
+  --parte-desejos: #d95926;
+  --parte-futuro: #199e70;
+  /* Situação: sempre junto de ícone e texto, nunca só a cor. */
+  --situacao-bom: #0ca30c;
+  --situacao-atencao: #fab219;
+  --situacao-critico: #d03b3b;
+}
+
+[data-parte="necessidades"] { --cor-parte: var(--parte-necessidades); }
+[data-parte="desejos"] { --cor-parte: var(--parte-desejos); }
+[data-parte="futuro"] { --cor-parte: var(--parte-futuro); }
+
+/* ---------- Hero: exemplo no lugar do 3D ---------- */
+.planejador-hero { min-height: auto; }
+.planejador-hero .ferramentas-hero-conteudo { grid-template-columns: minmax(0, 1fr) minmax(0, 460px); min-height: 500px; }
+.planejador-hero-visual { display: grid; gap: 14px; margin: 0; }
+.planejador-hero-visual figcaption { color: #7f8a84; font-size: 12px; text-align: center; }
+.orcamento-exemplo { padding: 28px; border: 1px solid rgba(110, 231, 183, .2); border-radius: 26px; background: rgba(9, 14, 12, .86); box-shadow: 0 30px 75px rgba(0, 0, 0, .38); backdrop-filter: blur(14px); }
+.orcamento-exemplo-topo { display: flex; align-items: baseline; justify-content: space-between; gap: 14px; margin-bottom: 20px; }
+.orcamento-exemplo-topo strong { font-size: 18px; letter-spacing: -.02em; }
+.orcamento-exemplo .orcamento-partes { margin-top: 16px; }
+
+/* O planejador vem logo depois do hero, sem a seção de taxas no meio. */
+.pagina-planejador .simulador-secao { padding-top: 70px; }
+
+/* ---------- Formulário ---------- */
+.campo-ajuda { color: #77827c; font-size: 11px; line-height: 1.5; }
+.orcamento-modelos { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 10px; min-width: 0; padding: 0; border: 0; }
+.orcamento-modelos legend { margin-bottom: 8px; padding: 0; color: #d9dfdc; font-size: 12px; font-weight: 700; }
+.orcamento-modelo { position: relative; cursor: pointer; }
+.orcamento-modelo input { position: absolute; inset: 0; width: 100%; height: 100%; margin: 0; opacity: 0; cursor: pointer; }
+.orcamento-modelo > span { display: grid; gap: 4px; height: 100%; padding: 13px 12px; border: 1px solid rgba(255, 255, 255, .1); border-radius: 12px; background: rgba(255, 255, 255, .045); text-align: center; transition: border-color .25s ease, background .25s ease; }
+.orcamento-modelo strong { color: #f5f7f6; font-size: 14px; font-variant-numeric: tabular-nums; }
+.orcamento-modelo em { color: #8b968f; font-size: 11px; font-style: normal; }
+.orcamento-modelo:hover > span { border-color: rgba(52, 211, 153, .42); }
+.orcamento-modelo input:checked + span { border-color: rgba(16, 185, 129, .7); background: rgba(16, 185, 129, .1); }
+.orcamento-modelo input:checked + span em { color: var(--calc-verde-claro); }
+.orcamento-modelo input:focus-visible + span { outline: 2px solid #6ee7b7; outline-offset: 3px; }
+.orcamento-gastos { margin-top: 30px; padding-top: 26px; border-top: 1px solid rgba(255, 255, 255, .08); }
+.orcamento-gastos h3 { margin-top: 8px; font-size: 21px; letter-spacing: -.03em; }
+.orcamento-gastos .form-ajuda { margin-top: 12px; }
+.orcamento-gastos .form-grid { margin-top: 18px; }
+
+/* ---------- Resultado ---------- */
+.orcamento-resultado { min-height: 0; scroll-margin-top: 100px; }
+.orcamento-resultado .resultado-vazio { min-height: 420px; }
+.orcamento-grafico { position: relative; margin-top: 4px; }
+
+/* Barra fina: a lista logo abaixo traz nomes e valores, então a barra não leva texto. */
+.orcamento-barra { display: flex; gap: 2px; }
+.orcamento-barra span { position: relative; flex: 0 0 0; min-width: 0; height: 24px; transition: flex-grow .45s ease, opacity .2s ease; }
+.orcamento-barra span::before { content: ""; position: absolute; inset: 8px 0; background: var(--cor-parte); }
+.orcamento-barra span:first-child::before { border-radius: 999px 0 0 999px; }
+.orcamento-barra span:last-child::before { border-radius: 0 999px 999px 0; }
+.orcamento-barra.com-destaque span:not(.destaque) { opacity: .4; }
+
+.orcamento-dica { position: absolute; bottom: calc(100% - 2px); z-index: 3; display: grid; gap: 2px; padding: 9px 12px; border: 1px solid rgba(255, 255, 255, .12); border-radius: 10px; background: #18201c; box-shadow: 0 12px 30px rgba(0, 0, 0, .45); white-space: nowrap; pointer-events: none; transform: translateX(-50%); }
+.orcamento-dica[hidden] { display: none; }
+.orcamento-dica strong { color: #f5f7f6; font-size: 14px; }
+.orcamento-dica span { color: #98a39d; font-size: 11px; }
+
+.orcamento-partes { display: grid; gap: 8px; margin: 10px 0 0; padding: 0; list-style: none; }
+.orcamento-parte { padding: 14px 16px; border: 1px solid rgba(255, 255, 255, .07); border-radius: 14px; background: rgba(255, 255, 255, .03); transition: border-color .2s ease, background .2s ease; }
+.orcamento-parte.destaque { border-color: rgba(255, 255, 255, .2); background: rgba(255, 255, 255, .06); }
+.orcamento-parte-topo { display: grid; grid-template-columns: auto minmax(0, 1fr) auto; align-items: center; gap: 12px; }
+.orcamento-cor { width: 10px; height: 10px; border-radius: 3px; background: var(--cor-parte); }
+.orcamento-parte-nome { display: grid; gap: 3px; min-width: 0; }
+.orcamento-parte-nome strong { color: #f5f7f6; font-size: 14px; }
+.orcamento-parte-nome span { color: #838e88; font-size: 11px; line-height: 1.4; }
+.orcamento-parte-valor { display: grid; gap: 3px; justify-items: end; text-align: right; }
+.orcamento-parte-valor strong { color: #f5f7f6; font-size: 16px; font-variant-numeric: tabular-nums; }
+.orcamento-parte-valor span { color: #838e88; font-size: 11px; }
+
+/* Medidor: o preenchimento mostra a situação; o trilho é a mesma cor, mais apagada. */
+.orcamento-medidor { margin-top: 12px; }
+.orcamento-medidor[hidden] { display: none; }
+.orcamento-medidor-trilho { height: 8px; overflow: hidden; border-radius: 999px; background: color-mix(in srgb, var(--cor-situacao) 24%, transparent); }
+.orcamento-medidor-trilho span { display: block; width: 0; height: 100%; border-radius: 999px; background: var(--cor-situacao); transition: width .45s ease; }
+.orcamento-situacao { display: flex; align-items: flex-start; gap: 8px; margin-top: 9px; color: #c3ccc7; font-size: 12px; line-height: 1.45; }
+.orcamento-situacao-icone { display: grid; flex: none; place-items: center; width: 17px; height: 17px; border-radius: 50%; background: var(--cor-situacao); color: #04110c; font-size: 11px; font-weight: 900; line-height: 1; }
+[data-situacao-tipo="bom"] { --cor-situacao: var(--situacao-bom); }
+[data-situacao-tipo="atencao"] { --cor-situacao: var(--situacao-atencao); }
+[data-situacao-tipo="critico"] { --cor-situacao: var(--situacao-critico); }
+[data-situacao-tipo="bom"] .orcamento-situacao-icone::before { content: "✓"; }
+[data-situacao-tipo="atencao"] .orcamento-situacao-icone::before { content: "!"; }
+[data-situacao-tipo="critico"] .orcamento-situacao-icone { color: #fff; }
+[data-situacao-tipo="critico"] .orcamento-situacao-icone::before { content: "×"; }
+
+.orcamento-resumo { display: flex; gap: 12px; margin-top: 14px; padding: 16px; border: 1px solid color-mix(in srgb, var(--cor-situacao) 32%, transparent); border-radius: 15px; background: color-mix(in srgb, var(--cor-situacao) 8%, transparent); }
+.orcamento-resumo[hidden] { display: none; }
+.orcamento-resumo .orcamento-situacao-icone { margin-top: 1px; }
+.orcamento-resumo strong { color: #f5f7f6; font-size: 13px; }
+.orcamento-resumo p { margin-top: 4px; color: #b4beb9; font-size: 12px; line-height: 1.5; }
+
+.orcamento-simular { margin-top: 16px; text-align: center; text-decoration: none; }
+.orcamento-simular:focus-visible { outline: 2px solid #6ee7b7; outline-offset: 3px; }
+
+/* Só para leitores de tela: avisa o resultado sem repetir o painel inteiro. */
+.orcamento-status { position: absolute; width: 1px; height: 1px; margin: -1px; overflow: hidden; clip-path: inset(50%); white-space: nowrap; }
+
+/* ---------- O que entra em cada parte (seção clara) ---------- */
+.pagina-planejador .como-usar-secao {
+  --parte-necessidades: #2a78d6;
+  --parte-desejos: #eb6834;
+  --parte-futuro: #1baf7a;
+}
+.partes-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 18px; width: min(100%, 1120px); margin: 0 auto; }
+.partes-grid article { padding: 26px; border: 1px solid rgba(15, 39, 30, .1); border-radius: 22px; background: rgba(255, 255, 255, .72); box-shadow: 0 18px 45px rgba(15, 39, 30, .07); }
+.partes-grid .orcamento-cor { display: block; width: 34px; height: 8px; margin-bottom: 20px; border-radius: 999px; }
+.partes-grid h3 { margin-bottom: 8px; font-size: 21px; letter-spacing: -.02em; }
+.partes-grid p { color: #647069; font-size: 13px; line-height: 1.6; }
+.partes-grid ul { display: grid; gap: 9px; margin: 18px 0 0; padding: 0; list-style: none; }
+.partes-grid li { position: relative; padding-left: 16px; color: #2c3831; font-size: 13px; line-height: 1.45; }
+.partes-grid li::before { content: ""; position: absolute; left: 0; top: .55em; width: 6px; height: 6px; border-radius: 50%; background: #b9c7c0; }
+
+@media (max-width: 1050px) {
+  .planejador-hero .ferramentas-hero-conteudo { grid-template-columns: 1fr; min-height: auto; }
+  .planejador-hero-visual { width: min(100%, 520px); }
+  .partes-grid { max-width: 760px; grid-template-columns: 1fr; }
+}
+
+@media (max-width: 680px) {
+  .orcamento-exemplo { padding: 20px 16px; border-radius: 20px; }
+  .orcamento-modelo > span { padding: 12px 6px; }
+  .orcamento-modelo strong { font-size: 13px; }
+  .orcamento-modelo em { font-size: 10px; }
+  .orcamento-parte { padding: 13px 12px; }
+  .orcamento-resultado .resultado-vazio { min-height: 300px; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .orcamento-barra span, .orcamento-medidor-trilho span { transition: none; }
+}

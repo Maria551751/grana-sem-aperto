@@ -1,0 +1,35 @@
+<!doctype html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Videoaulas | Grana Sem Aperto</title>
+  <meta name="description" content="Videoaulas do GSA para quem está começando do zero, na versão certa para o celular ou para o computador." />
+  <link rel="icon" type="image/png" href="../assets/img/favicon.png" />
+  <link rel="stylesheet" href="../assets/css/global.css?v=20261113-1" />
+  <link rel="stylesheet" href="../assets/css/mobile.css?v=20261104-1" />
+  <link rel="stylesheet" href="../assets/css/videoaula.css?v=20261113-3" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet" />
+</head>
+<body class="pagina-videoaula">
+  <header class="cabecalho">
+    <a href="../index.html" class="logo"><img src="../assets/img/logo-gsa.webp" alt="Logo Grana Sem Aperto" class="logo-mark" /><span class="logo-text">Grana Sem Aperto</span></a>
+    <nav class="menu-desktop" aria-label="Navegação principal"><a href="../index.html">Início</a><a href="../pages/Cursos.html" class="ativo">Aprender</a><a href="../pages/jogar.html">Jogar</a><a href="../pages/calculadora.html">Ferramentas</a><a href="../pages/criadores.html">Sobre</a><button class="menu-mobile-btn" aria-label="Abrir menu" title="Abrir menu">☰</button></nav>
+  </header>
+  <aside class="sidebar" id="sidebar"><div class="sidebar-header"><span class="logo">GSA</span><button class="fechar-sidebar" id="btnFechar" aria-label="Fechar menu">×</button></div><nav class="sidebar-links"><a href="../index.html">Início</a><a href="../pages/Cursos.html">Aprender</a><a href="../pages/jogar.html">Jogar</a><a href="../pages/calculadora.html">Ferramentas</a><a href="../pages/criadores.html">Sobre</a></nav></aside><div class="overlay" id="overlay"></div>
+
+  <!-- Montado por assets/js/videoaula.js a partir de videoaulasPorModulo (assets/js/global.js) -->
+  <main id="videoaula-raiz"></main>
+
+  <!-- GSA Assistente: montado por montarChatGSA() em assets/js/global.js -->
+  <div id="ai-chat-wrapper"></div>
+  <!-- Acessibilidade: montado por montarPainelAcessibilidade() em assets/js/global.js -->
+  <div id="acess-wrapper"></div>
+
+  <script async src="https://vlibras.gov.br/app/vlibras-plugin.js"></script>
+  <script src="../assets/js/global.js?v=20261113-5"></script>
+  <script src="../assets/js/videoaula.js?v=20261113-3"></script>
+</body>
+</html>

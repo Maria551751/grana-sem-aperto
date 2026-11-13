@@ -96,21 +96,70 @@ const modulosData = {
         "Dividendos com FIIs",
         "Escolhendo Ações",
         "Rebalanceamento da Carteira"
+    ],
+    "Crédito a seu Favor": [
+        "Pontos e Milhas no Cartão",
+        "Saindo das Dívidas",
+        "Empréstimo do Jeito Certo"
     ]
 };
 
-// Videoaulas: cole o link do vídeo (YouTube, por exemplo) quando estiver pronto.
-// Vazio = aparece "Em breve" na página Cursos e no módulo.
+// Videoaulas de cada módulo. Três formas de preencher:
+// - vazio: aparece "Em breve" na página Aprender e no módulo;
+// - um link (YouTube, por exemplo): o card abre o link em outra aba;
+// - um objeto: o vídeo fica no próprio site, em assets/video, e toca em videoaula.html.
+//   Cada vídeo do site tem duas versões: <arquivo>-horizontal.mp4 (computador) e
+//   <arquivo>-vertical.mp4 (celular), mais as capas .webp e a legenda <arquivo>.vtt.
 const videoaulasPorModulo = {
     "Mentalidade de Investidor": "",
     "Organizando sua grana": "",
-    "Montando a Reserva": "",
-    "Cartão de Crédito sem Armadilha": "",
+    "Montando a Reserva": {
+        arquivo: "reserva",
+        aula: "reserva",
+        duracao: "2 min",
+        resumo: "Para quem está começando do zero: o que é a reserva de emergência, como começar com pouco, quanto juntar e onde deixar esse dinheiro."
+    },
+    "Cartão de Crédito sem Armadilha": {
+        arquivo: "cartao",
+        aula: "cartao",
+        duracao: "2 min",
+        resumo: "Para quem está começando do zero: como o cartão funciona, por que limite não é salário e como escapar do pagamento mínimo e da parcela pequena."
+    },
     "Tesouro Direto na Prática": "",
     "Dividendos com FIIs": "",
     "Escolhendo Ações": "",
-    "Rebalanceamento da Carteira": ""
+    "Rebalanceamento da Carteira": "",
+    "Pontos e Milhas no Cartão": {
+        arquivo: "pontos",
+        aula: "pontos",
+        duracao: "2 min",
+        resumo: "Para quem está começando do zero: como os pontos funcionam, por que comprar mais para pontuar é armadilha e a conta que mostra se o cartão compensa."
+    },
+    "Saindo das Dívidas": {
+        arquivo: "dividas",
+        aula: "dividas",
+        duracao: "2 min",
+        resumo: "Para quem está começando do zero: como colocar as dívidas no papel, qual pagar primeiro e como negociar uma parcela que cabe no mês."
+    },
+    "Empréstimo do Jeito Certo": {
+        arquivo: "emprestimo",
+        aula: "emprestimo",
+        duracao: "2 min",
+        resumo: "Para quem está começando do zero: por que parcela pequena não é empréstimo barato, o que é o CET e como fugir do golpe do depósito adiantado."
+    }
 };
+
+// Endereço da videoaula de um módulo: a página do player ou o link externo. Vazio = ainda não tem.
+function linkVideoaula(modulo) {
+    const video = videoaulasPorModulo[modulo];
+    if (!video) return "";
+    return typeof video === "string" ? video : `../pages/videoaula.html?m=${video.arquivo}`;
+}
+
+// Link externo abre em outra aba; a videoaula do próprio site abre na mesma.
+function atributosLinkVideoaula(modulo) {
+    return typeof videoaulasPorModulo[modulo] === "string" ? ' target="_blank" rel="noopener noreferrer"' : "";
+}
 
 function atualizarBotao() {
     if (!btnAcao) return;
@@ -199,7 +248,10 @@ function abrirJanelaAula() {
         "Tesouro Direto na Prática": "Conheça os títulos públicos, seus objetivos e os cuidados necessários para escolher de acordo com prazo e necessidade.",
         "Dividendos com FIIs": "Entenda como funcionam os fundos imobiliários, a distribuição de rendimentos e os riscos que precisam ser avaliados.",
         "Escolhendo Ações": "Aprenda a enxergar uma ação como parte de uma empresa e a analisar o negócio antes de observar apenas o preço.",
-        "Rebalanceamento da Carteira": "Veja como revisar os percentuais da carteira ajuda a manter a estratégia e o nível de risco planejados."
+        "Rebalanceamento da Carteira": "Veja como revisar os percentuais da carteira ajuda a manter a estratégia e o nível de risco planejados.",
+        "Pontos e Milhas no Cartão": "Entenda como pontos, milhas e cashback funcionam e quando o cartão realmente devolve mais do que custa.",
+        "Saindo das Dívidas": "Monte um plano para organizar o que deve, priorizar os juros mais altos e renegociar em condições que cabem no seu mês.",
+        "Empréstimo do Jeito Certo": "Aprenda a comparar ofertas pelo Custo Efetivo Total, reconhecer golpes e decidir quando um empréstimo ajuda ou atrapalha."
     };
 
     containerAcoes.innerHTML = `
@@ -207,11 +259,11 @@ function abrirJanelaAula() {
             <span>LEITURA ESSENCIAL</span>
             <p>${resumosAula[aulaSelecionada] || "Leia o conteúdo do módulo e conecte o conceito a uma decisão financeira do seu cotidiano."}</p>
         </div>
-        ${videoaulasPorModulo[aulaSelecionada]
-            ? `<a href="${videoaulasPorModulo[aulaSelecionada]}" target="_blank" rel="noopener noreferrer" class="btn-acess-item" style="text-decoration:none;color:inherit;"><span>▶</span> Assistir videoaula</a>`
+        ${linkVideoaula(aulaSelecionada)
+            ? `<a href="${linkVideoaula(aulaSelecionada)}"${atributosLinkVideoaula(aulaSelecionada)} class="btn-acess-item" style="text-decoration:none;color:inherit;"><span>▶</span> Assistir videoaula</a>`
             : `<button type="button" class="btn-acess-item btn-videoaula-em-breve" disabled><span>▶</span> Videoaula em breve</button>`}
         <a id="linkMaterial" href="#" target="_blank" class="btn-acess-item" style="text-decoration:none;color:inherit;">
-            <span>📖</span> Abrir leitura completa
+            <span>📖</span> Abrir aula visual
         </a>
         <button class="btn-acess-item" style="border-color:#facc15;color:#facc15;" onclick="abrirQuiz()">
             <span>✍️</span> Praticar com exercícios
@@ -227,12 +279,34 @@ function abrirJanelaAula() {
         "Tesouro Direto na Prática": "../assets/docs/Tesouro-Direto-na-Pratica.pdf",
         "Dividendos com FIIs": "../assets/docs/Dividendos-com-FIIs.pdf",
         "Escolhendo Ações": "../assets/docs/Escolhendo-Acoes.pdf",
-        "Rebalanceamento da Carteira": "../assets/docs/REBALANCEAMENTO-DA-CARTEIRA.pdf"
+        "Rebalanceamento da Carteira": "../assets/docs/REBALANCEAMENTO-DA-CARTEIRA.pdf",
+        "Pontos e Milhas no Cartão": "../assets/docs/Pontos-e-Milhas-no-Cartao.pdf",
+        "Saindo das Dívidas": "../assets/docs/Saindo-das-Dividas.pdf",
+        "Empréstimo do Jeito Certo": "../assets/docs/Emprestimo-do-Jeito-Certo.pdf"
     };
 
+    // Aula visual de cada módulo (pages/aula.html). Os slugs vêm de assets/js/aulas-conteudo.js;
+    // o PDF acima fica como reserva e é baixado de dentro da própria aula.
+    const aulasVisuais = {
+        "Mentalidade de Investidor": "mentalidade",
+        "Organizando sua grana": "organizando",
+        "Montando a Reserva": "reserva",
+        "Cartão de Crédito sem Armadilha": "cartao",
+        "Tesouro Direto na Prática": "tesouro",
+        "Dividendos com FIIs": "fiis",
+        "Escolhendo Ações": "acoes",
+        "Rebalanceamento da Carteira": "rebalanceamento",
+        "Pontos e Milhas no Cartão": "pontos",
+        "Saindo das Dívidas": "dividas",
+        "Empréstimo do Jeito Certo": "emprestimo"
+    };
+    const destinoLeitura = aulasVisuais[aulaSelecionada]
+        ? `../pages/aula.html?m=${aulasVisuais[aulaSelecionada]}`
+        : materiais[aulaSelecionada];
+
     if (btnMaterial) {
-        if (materiais[aulaSelecionada]) {
-            btnMaterial.href = materiais[aulaSelecionada];
+        if (destinoLeitura) {
+            btnMaterial.href = destinoLeitura;
             btnMaterial.style.opacity = '1';
             btnMaterial.style.pointerEvents = 'auto';
         } else {
@@ -464,7 +538,10 @@ const quizContextoPorAula = {
     "Tesouro Direto na Prática": "tesouro direto, tesouro selic, renda fixa, seguranca, liquidez e investimentos para iniciantes",
     "Dividendos com FIIs": "fundos imobiliarios, dividendos, vacancia, gestao, renda passiva e analise basica",
     "Escolhendo Ações": "acoes, empresa, valuation basico, riscos, fundamentos e perfil de investidor",
-    "Rebalanceamento da Carteira": "alocacao de ativos, rebalanceamento, controle de risco, diversificacao e disciplina"
+    "Rebalanceamento da Carteira": "alocacao de ativos, rebalanceamento, controle de risco, diversificacao e disciplina",
+    "Pontos e Milhas no Cartão": "programas de pontos, milhas e cashback do cartao de credito, anuidade, validade dos pontos, pagamento integral da fatura e melhor dia de compra",
+    "Saindo das Dívidas": "organizacao das dividas, prioridade pelos juros mais altos, renegociacao, troca de divida cara por mais barata e direitos do consumidor",
+    "Empréstimo do Jeito Certo": "emprestimo consciente, Custo Efetivo Total (CET), comparacao de ofertas, parcela dentro do orcamento, golpe do deposito antecipado e quitacao antecipada"
 };
 
 Object.assign(bancoDeQuizzes, {
@@ -626,6 +703,66 @@ Object.assign(bancoDeQuizzes, {
             opcoes: ["Quando a carteira se afasta muito dos percentuais definidos.", "Todos os dias, sem exceção.", "Apenas quando todas as ações caem."],
             correta: 0,
             explicacao: "Ele entra em cena quando a distribuição real foge da estratégia planejada."
+        }
+    ],
+    "Pontos e Milhas no Cartão": [
+        {
+            pergunta: "Quando um programa de pontos realmente compensa?",
+            opcoes: ["Quando você gasta mais para pontuar mais.", "Quando você concentra no cartão os gastos que já faria e paga a fatura inteira.", "Quando você paga só o mínimo da fatura."],
+            correta: 1,
+            explicacao: "Pontos são um bônus sobre gastos planejados. Com juros ou compras extras, o custo passa do benefício."
+        },
+        {
+            pergunta: "O que comparar antes de escolher um cartão pelos pontos?",
+            opcoes: ["Só o nome e a cor do cartão.", "A anuidade e as regras do programa contra o valor que você recebe de volta.", "Apenas o limite oferecido."],
+            correta: 1,
+            explicacao: "Se a anuidade custa mais do que os pontos valem, o cartão dá prejuízo."
+        },
+        {
+            pergunta: "Por que acompanhar a validade dos pontos?",
+            opcoes: ["Porque pontos podem expirar e perder todo o valor.", "Porque pontos rendem juros com o tempo.", "Porque pontos antigos valem mais."],
+            correta: 0,
+            explicacao: "Muitos programas têm prazo de validade. Ponto vencido é benefício perdido."
+        }
+    ],
+    "Saindo das Dívidas": [
+        {
+            pergunta: "Por que listar todas as dívidas antes de negociar?",
+            opcoes: ["Para escolher qual esconder.", "Para saber o total, os juros de cada uma e quanto cabe pagar por mês.", "Porque o banco exige a lista."],
+            correta: 1,
+            explicacao: "Com valores, juros e parcelas no papel, dá para montar um plano e negociar com segurança."
+        },
+        {
+            pergunta: "Qual dívida priorizar para pagar menos juros no total?",
+            opcoes: ["A de menor valor.", "A de juros mais altos.", "A mais recente."],
+            correta: 1,
+            explicacao: "Quitar primeiro a mais cara economiza mais. Começar pela menor também funciona para quem precisa de motivação."
+        },
+        {
+            pergunta: "O que caracteriza um bom acordo de renegociação?",
+            opcoes: ["Parcela que cabe no orçamento e condições registradas por escrito.", "A maior parcela possível.", "Um acordo apenas de boca."],
+            correta: 0,
+            explicacao: "Um acordo que não cabe no mês vira dívida de novo. Guarde o documento e os comprovantes."
+        }
+    ],
+    "Empréstimo do Jeito Certo": [
+        {
+            pergunta: "O que o CET (Custo Efetivo Total) mostra?",
+            opcoes: ["Só os juros do empréstimo.", "O custo total: juros, tarifas, seguros e impostos.", "O limite disponível para contratar."],
+            correta: 1,
+            explicacao: "O CET permite comparar propostas diferentes. A instituição deve informar esse valor antes da contratação."
+        },
+        {
+            pergunta: "Qual é um sinal de golpe em uma oferta de empréstimo?",
+            opcoes: ["Informar o CET antes do contrato.", "Pedir depósito ou taxa antes de liberar o dinheiro.", "Pedir documentos de identificação."],
+            correta: 1,
+            explicacao: "Instituição autorizada não cobra valor adiantado para liberar crédito. Confira a autorização no site do Banco Central."
+        },
+        {
+            pergunta: "Antes de contratar, o que precisa caber no orçamento?",
+            opcoes: ["A parcela, mesmo em um mês ruim.", "Só a primeira parcela.", "Nada: o valor aprovado já garante."],
+            correta: 0,
+            explicacao: "O valor aprovado mostra quanto a instituição empresta, não quanto você consegue pagar. Simule o mês com a parcela."
         }
     ]
 });
@@ -1097,7 +1234,7 @@ function iniciarRodapeGlobal() {
         document.body.insertAdjacentHTML('beforeend', `
           <footer class="rodape-aprender">
             <div class="rodape-aprender-conteudo">
-              <div class="rodape-marca"><img src="${prefixo}assets/img/logo sem fundo GSA 3.0.png" alt="" /><div><strong>Grana Sem Aperto</strong><span>Educação financeira para escolhas conscientes.</span></div></div>
+              <div class="rodape-marca"><img src="${prefixo}assets/img/logo-gsa.webp" alt="" /><div><strong>Grana Sem Aperto</strong><span>Educação financeira para escolhas conscientes.</span></div></div>
               <nav class="rodape-links" aria-label="Links do rodapé"><a href="${prefixo}index.html">Início</a><a href="${prefixo}pages/Cursos.html">Aprender</a><a href="${prefixo}pages/jogar.html">Jogar</a><a href="${prefixo}pages/calculadora.html">Ferramentas</a><a href="${prefixo}pages/criadores.html">Sobre</a></nav>
               <div class="rodape-aviso"><span>CONTEÚDO EDUCACIONAL</span><p>Informação para planejamento — não é recomendação ou promessa de retorno.</p></div>
             </div>
@@ -1297,6 +1434,16 @@ const CHAT_GSA_PAGINAS = {
         placeholder: 'Pergunte sobre investimentos...',
         sugestoes: ['O que são juros compostos?', 'Quanto rende guardar R$ 100 por mês?', 'Selic, CDI e poupança: qual a diferença?']
     },
+    planejador: {
+        boasVindas: 'Quer ajuda para montar seu orçamento? Me pergunte como dividir a renda ou onde cortar gastos.',
+        placeholder: 'Pergunte sobre orçamento...',
+        sugestoes: ['Como funciona a regra 50-30-20?', 'O que conta como necessidade?', 'Como guardar dinheiro ganhando pouco?']
+    },
+    metas: {
+        boasVindas: 'Quer ajuda para definir uma meta? Me pergunte quanto guardar por mês ou por onde começar.',
+        placeholder: 'Pergunte sobre metas...',
+        sugestoes: ['Como definir uma meta de economia?', 'Reserva ou meta de compra: o que vem primeiro?', 'Como guardar dinheiro ganhando pouco?']
+    },
     cursos: {
         boasVindas: 'Quer ajuda para entender algum módulo? Pergunte sobre qualquer tema das trilhas.',
         placeholder: 'Pergunte sobre o conteúdo...',
@@ -1328,7 +1475,9 @@ const ICONES_CHAT_GSA = {
 function identificarPaginaChat() {
     const caminho = window.location.pathname.toLowerCase();
     if (caminho.includes('calculadora')) return 'calculadora';
-    if (caminho.includes('cursos')) return 'cursos';
+    if (caminho.includes('planejador')) return 'planejador';
+    if (caminho.includes('metas')) return 'metas';
+    if (caminho.includes('cursos') || caminho.includes('aula')) return 'cursos';
     if (caminho.includes('criadores')) return 'criadores';
     if (caminho.includes('jogar')) return 'jogo';
     return 'inicio';
@@ -2769,9 +2918,10 @@ function integrarVLibrasAcessibilidade() {
         <span class="acess-item-seta" aria-hidden="true">${ICONES_ACESSIBILIDADE.seta}</span>
     `;
     botao.addEventListener('click', () => {
-        const acessoVLibras = document.querySelector('[vw-access-button]');
-        if (acessoVLibras) {
-            acessoVLibras.click();
+        // O plugin atual do VLibras cria o próprio botão e abre por window.VLibrasWidget.open().
+        const abrirVLibras = window.VLibrasWidget?.open;
+        if (typeof abrirVLibras === 'function') {
+            abrirVLibras();
             atualizarStatusAcessibilidade('VLibras aberto');
             toggleAcessPanel(false);
         } else {

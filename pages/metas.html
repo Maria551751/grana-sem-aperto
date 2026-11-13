@@ -1,0 +1,129 @@
+<!doctype html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Metas de Economia | Grana Sem Aperto</title>
+  <meta name="description" content="Crie metas de economia, registre o que já guardou e veja quanto falta e em quanto tempo você chega lá." />
+  <link rel="icon" type="image/png" href="../assets/img/favicon.png" />
+  <link rel="stylesheet" href="../assets/css/global.css?v=20261113-1" />
+  <link rel="stylesheet" href="../assets/css/mobile.css?v=20261104-1" />
+  <link rel="stylesheet" href="../assets/css/calculadora.css?v=20261113-1" />
+  <link rel="stylesheet" href="../assets/css/metas.css?v=20261113-2" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet" />
+</head>
+<body class="pagina-ferramentas pagina-metas">
+  <header class="cabecalho">
+    <a href="../index.html" class="logo">
+      <img src="../assets/img/logo-gsa.webp" alt="Logo Grana Sem Aperto" class="logo-mark" />
+      <span class="logo-text">Grana Sem Aperto</span>
+    </a>
+    <nav class="menu-desktop" aria-label="Navegação principal">
+      <a href="../index.html">Início</a>
+      <a href="../pages/Cursos.html">Aprender</a>
+      <a href="../pages/jogar.html">Jogar</a>
+      <a href="../pages/calculadora.html" class="ativo">Ferramentas</a>
+      <a href="../pages/criadores.html">Sobre</a>
+      <button class="menu-mobile-btn" aria-label="Abrir menu" title="Abrir menu">☰</button>
+    </nav>
+  </header>
+
+  <aside class="sidebar" id="sidebar">
+    <div class="sidebar-header"><span class="logo">GSA</span><button class="fechar-sidebar" id="btnFechar" aria-label="Fechar menu">×</button></div>
+    <nav class="sidebar-links">
+      <a href="../index.html">Início</a><a href="../pages/Cursos.html">Aprender</a><a href="../pages/jogar.html">Jogar</a><a href="../pages/calculadora.html">Ferramentas</a><a href="../pages/criadores.html">Sobre</a>
+    </nav>
+  </aside>
+  <div class="overlay" id="overlay"></div>
+
+  <main>
+    <section class="ferramentas-hero metas-hero">
+      <div class="ferramentas-hero-conteudo">
+        <div class="ferramentas-hero-texto revelar">
+          <nav class="ferramentas-abas" aria-label="Ferramentas do GSA">
+            <a href="calculadora.html">Calculadora</a>
+            <a href="planejador.html">Orçamento</a>
+            <a href="metas.html" class="ativa" aria-current="page">Metas</a>
+          </nav>
+          <span class="ferramentas-etiqueta">METAS DE ECONOMIA</span>
+          <h1>Dê um nome para o seu <span>objetivo.</span></h1>
+          <p>Crie uma meta, diga quanto guarda por mês e acompanhe quanto falta para chegar lá.</p>
+          <div class="ferramentas-hero-acoes"><a href="#metas" class="btn-primario">Criar minha meta</a><a href="planejador.html" class="btn-secundario">Ver quanto cabe no mês</a></div>
+          <div class="ferramentas-selo"><span aria-hidden="true">✓</span><p><strong>Fica só no seu navegador</strong> · Nada é enviado para o GSA.</p></div>
+        </div>
+
+        <figure class="metas-hero-visual revelar delay-1">
+          <ul class="metas-lista">
+            <li class="meta-card">
+              <div class="meta-topo"><span class="meta-icone" aria-hidden="true">📱</span><div class="meta-nome"><strong>Celular novo</strong><span>R$ 600,00 de R$ 2.000,00</span></div><strong class="meta-percentual">30%</strong></div>
+              <div class="meta-medidor" aria-hidden="true"><span style="width: 30%"></span></div>
+              <p class="meta-previsao">Faltam R$ 1.400,00. Guardando R$ 200,00 por mês, você chega lá em 7 meses.</p>
+            </li>
+            <li class="meta-card completa">
+              <div class="meta-topo"><span class="meta-icone" aria-hidden="true">🛟</span><div class="meta-nome"><strong>Reserva inicial</strong><span>R$ 1.000,00 de R$ 1.000,00</span></div><strong class="meta-percentual">100%</strong></div>
+              <div class="meta-medidor" aria-hidden="true"><span style="width: 100%"></span></div>
+              <p class="meta-previsao"><span class="meta-selo" aria-hidden="true">✓</span>Meta alcançada!</p>
+            </li>
+          </ul>
+          <figcaption>Exemplo de duas metas acompanhadas na ferramenta.</figcaption>
+        </figure>
+      </div>
+    </section>
+
+    <section class="simulador-secao" id="metas" aria-labelledby="metas-titulo">
+      <div class="simulador-layout">
+        <form class="simulador-form revelar" id="formMeta" novalidate>
+          <div class="simulador-form-topo"><div><span class="secao-etiqueta">METAS GSA</span><h2 id="metas-titulo">Crie uma meta</h2></div><span class="simulador-passos">ATÉ 12 METAS</span></div>
+          <div class="form-grid">
+            <fieldset class="metas-icones campo-largo">
+              <legend>Ícone</legend>
+              <label><input type="radio" name="iconeMeta" value="🎯" checked /><span aria-hidden="true">🎯</span><span class="metas-icone-nome">Objetivo</span></label>
+              <label><input type="radio" name="iconeMeta" value="📱" /><span aria-hidden="true">📱</span><span class="metas-icone-nome">Celular</span></label>
+              <label><input type="radio" name="iconeMeta" value="✈️" /><span aria-hidden="true">✈️</span><span class="metas-icone-nome">Viagem</span></label>
+              <label><input type="radio" name="iconeMeta" value="🛟" /><span aria-hidden="true">🛟</span><span class="metas-icone-nome">Reserva</span></label>
+              <label><input type="radio" name="iconeMeta" value="🎓" /><span aria-hidden="true">🎓</span><span class="metas-icone-nome">Estudo</span></label>
+              <label><input type="radio" name="iconeMeta" value="🚲" /><span aria-hidden="true">🚲</span><span class="metas-icone-nome">Transporte</span></label>
+              <label><input type="radio" name="iconeMeta" value="🎮" /><span aria-hidden="true">🎮</span><span class="metas-icone-nome">Lazer</span></label>
+              <label><input type="radio" name="iconeMeta" value="🏠" /><span aria-hidden="true">🏠</span><span class="metas-icone-nome">Casa</span></label>
+            </fieldset>
+            <div class="input-group-vertical campo-largo"><label for="nomeMeta">Nome da meta</label><input type="text" id="nomeMeta" name="nomeMeta" maxlength="40" placeholder="Ex.: Celular novo" required /></div>
+            <div class="input-group-vertical"><label for="alvoMeta">Valor da meta</label><div class="campo-prefixo"><span>R$</span><input type="number" id="alvoMeta" name="alvoMeta" min="0.01" step="0.01" inputmode="decimal" placeholder="2.000,00" required /></div></div>
+            <div class="input-group-vertical"><label for="guardadoMeta">Já guardei</label><div class="campo-prefixo"><span>R$</span><input type="number" id="guardadoMeta" name="guardadoMeta" min="0" step="0.01" inputmode="decimal" placeholder="0,00" /></div></div>
+            <div class="input-group-vertical campo-largo"><label for="mensalMeta">Guardo por mês</label><div class="campo-prefixo"><span>R$</span><input type="number" id="mensalMeta" name="mensalMeta" min="0" step="0.01" inputmode="decimal" placeholder="200,00" aria-describedby="mensalAjuda" /></div><small class="campo-ajuda" id="mensalAjuda">Opcional. Com esse valor o site estima quando você chega lá.</small></div>
+          </div>
+          <div class="form-acoes">
+            <button class="btn-calcular" type="submit" id="btnSalvarMeta"><span>Salvar meta</span><span aria-hidden="true">↗</span></button>
+            <button class="btn-limpar" id="btnCancelarMeta" type="button" hidden><span aria-hidden="true">↺</span><span>Cancelar edição</span></button>
+          </div>
+          <p class="form-erro" id="erroMeta" role="alert" hidden></p>
+          <p class="form-ajuda">A previsão não conta juros. Para ver o efeito deles, use a Calculadora.</p>
+        </form>
+
+        <div class="simulador-resultado metas-painel revelar delay-1" id="metasPainel">
+          <div class="resultado-topo"><div><span class="secao-etiqueta">SUAS METAS</span><h3>Acompanhe o progresso</h3></div><span class="resultado-prazo" id="metasResumo">Nenhuma meta ainda</span></div>
+          <div class="resultado-vazio" id="metasVazio"><div class="resultado-vazio-icone" aria-hidden="true">🎯</div><span>Suas metas aparecerão aqui</span><p>Crie a primeira ao lado e registre cada valor que guardar.</p></div>
+          <ul class="metas-lista" id="metasLista" hidden></ul>
+          <p class="metas-status" id="metasStatus" role="status"></p>
+        </div>
+      </div>
+    </section>
+
+    <section class="aviso-educacional" aria-labelledby="aviso-titulo">
+      <div class="aviso-educacional-icone" aria-hidden="true">◇</div>
+      <div class="aviso-educacional-conteudo"><span class="secao-etiqueta">ANTES DE COMEÇAR</span><h2 id="aviso-titulo">Meta boa é a que cabe no mês.</h2><p>O Grana Sem Aperto é uma iniciativa de educação financeira. Defina um valor por mês que não aperte as contas essenciais: uma meta menor, cumprida todo mês, vale mais do que uma grande que você abandona.</p><strong>Tem dívida com juros altos? Quitar a dívida costuma vir antes de qualquer meta de compra.</strong></div>
+    </section>
+  </main>
+
+  <!-- GSA Assistente: montado por montarChatGSA() em assets/js/global.js -->
+  <div id="ai-chat-wrapper"></div>
+
+  <!-- Acessibilidade: montado por montarPainelAcessibilidade() em assets/js/global.js -->
+  <div id="acess-wrapper"></div>
+
+  <script async src="https://vlibras.gov.br/app/vlibras-plugin.js"></script>
+  <script src="../assets/js/global.js?v=20261113-5"></script>
+  <script src="../assets/js/metas.js?v=20261113-2"></script>
+</body>
+</html>

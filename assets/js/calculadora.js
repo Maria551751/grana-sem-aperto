@@ -272,6 +272,15 @@ document.addEventListener('DOMContentLoaded', () => {
   } catch (erro) {
     localStorage.removeItem('gsaAcompanhamento');
   }
+
+  // Quem vem do planejador de orçamento já chega com o valor mensal do Futuro preenchido.
+  try {
+    const aporteSugerido = Number(sessionStorage.getItem('gsaAporteSugerido'));
+    sessionStorage.removeItem('gsaAporteSugerido');
+    if (aporteSugerido > 0) document.getElementById('valorMensal').value = aporteSugerido.toFixed(2);
+  } catch (erro) {
+    // Sem sessionStorage a calculadora abre vazia, como sempre.
+  }
 });
 
 window.calcularGSA = () => calcularSimulacao();

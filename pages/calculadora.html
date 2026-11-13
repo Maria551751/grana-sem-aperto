@@ -6,17 +6,19 @@
   <meta name="description" content="Simule investimentos e desenvolva o hábito de planejar com a Calculadora GSA." />
   <title>Ferramentas GSA | Grana Sem Aperto</title>
   <link rel="icon" type="image/png" href="../assets/img/favicon.png" />
-  <link rel="stylesheet" href="../assets/css/global.css?v=20261104-1" />
+  <link rel="stylesheet" href="../assets/css/global.css?v=20261113-1" />
   <link rel="stylesheet" href="../assets/css/mobile.css?v=20261104-1" />
-  <link rel="stylesheet" href="../assets/css/calculadora.css?v=20260818-4" />
+  <link rel="stylesheet" href="../assets/css/calculadora.css?v=20261113-1" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet" />
-  <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>
+  <script defer src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>
   <script type="importmap">{"imports":{"three":"https://cdn.jsdelivr.net/npm/three@0.185.1/build/three.module.js","three/addons/":"https://cdn.jsdelivr.net/npm/three@0.185.1/examples/jsm/"}}</script>
 </head>
 <body class="pagina-ferramentas">
   <header class="cabecalho">
     <a href="../index.html" class="logo">
-      <img src="../assets/img/logo sem fundo GSA 3.0.png" alt="Logo Grana Sem Aperto" class="logo-mark" />
+      <img src="../assets/img/logo-gsa.webp" alt="Logo Grana Sem Aperto" class="logo-mark" />
       <span class="logo-text">Grana Sem Aperto</span>
     </a>
     <nav class="menu-desktop" aria-label="Navegação principal">
@@ -41,6 +43,11 @@
     <section class="ferramentas-hero">
       <div class="ferramentas-hero-conteudo">
         <div class="ferramentas-hero-texto revelar">
+          <nav class="ferramentas-abas" aria-label="Ferramentas do GSA">
+            <a href="calculadora.html" class="ativa" aria-current="page">Calculadora</a>
+            <a href="planejador.html">Orçamento</a>
+            <a href="metas.html">Metas</a>
+          </nav>
           <span class="ferramentas-etiqueta">PLANEJAMENTO QUE GANHA FORMA</span>
           <h1>Transforme números em <span>decisões.</span></h1>
           <p>Registre um investimento, acompanhe uma estimativa de rendimento e descubra como pequenos aportes podem crescer com o tempo.</p>
@@ -134,9 +141,9 @@
   <div id="acess-wrapper"></div>
 
   <div vw class="enabled"><div vw-access-button class="active"></div><div vw-plugin-wrapper><div class="vw-plugin-top-wrapper"></div></div></div>
-  <script src="https://vlibras.gov.br/app/vlibras-plugin.js"></script>
-  <script src="../assets/js/global.js?v=20261104-1"></script>
-  <script src="../assets/js/calculadora.js?v=20260818-4"></script>
+  <script async src="https://vlibras.gov.br/app/vlibras-plugin.js"></script>
+  <script src="../assets/js/global.js?v=20261113-5"></script>
+  <script src="../assets/js/calculadora.js?v=20261113-1"></script>
   <script type="module" src="../assets/js/calculadora-3d.js?v=20260820-1"></script>
 </body>
 </html>

@@ -23,7 +23,9 @@ const TIME_GSA = [
 
 const CONTEXTO_POR_PAGINA = {
     calculadora: "A pessoa está na Calculadora de Juros Compostos, que simula aportes mensais com tabela mês a mês e gráfico. Dúvidas sobre taxas, prazos e aportes provavelmente se referem a essa simulação.",
-    cursos: "A pessoa está na área de Cursos, com trilhas Organizar → Proteger → Crescer, módulos curtos, quizzes e PDFs. Dúvidas provavelmente se referem ao conteúdo de algum módulo.",
+    planejador: "A pessoa está no Planejador de Orçamento: ela informa quanto entra por mês e o site divide em Necessidades, Desejos e Futuro (regra 50-30-20, com as opções 60-30-10 e 70-20-10 para quando as contas pesam mais). Se ela informar quanto gasta hoje, o site compara com o plano. Dúvidas sobre como dividir a renda, o que entra em cada parte ou onde cortar gastos provavelmente se referem a esse orçamento.",
+    metas: "A pessoa está em Metas de Economia: ela cria metas (celular, viagem, reserva), registra o que já guardou e vê quanto falta e em quantos meses chega lá no ritmo atual, sem contar juros. Dúvidas sobre quanto guardar, qual meta priorizar ou como manter o hábito provavelmente se referem a essas metas.",
+    cursos: "A pessoa está na área de Cursos, com trilhas Organizar → Proteger → Crescer, módulos curtos em aulas visuais, quizzes e PDFs. Dúvidas provavelmente se referem ao conteúdo de algum módulo.",
     criadores: "A pessoa está na página Criadores, que apresenta o time do GSA. Perguntas sobre o projeto ou sobre as pessoas do time são esperadas aqui.",
     jogo: "A pessoa está no Desafio GSA, o jogo de lições curtas: cada lição tem 5 perguntas e 3 vidas; acerto de primeira vale 10 XP, lição sem erros ganha 10 XP de bônus, cada lição rende XP uma vez por dia, a meta diária é 30 XP e jogar em dias seguidos aumenta a sequência. Quem entra na conta (Google ou link no e-mail) aparece no ranking só com o apelido. Ajude a entender o conceito das perguntas, sem entregar respostas prontas.",
     inicio: "A pessoa está na página inicial do GSA."
@@ -64,7 +66,9 @@ function obterClienteAnthropic() {
 function identificarPagina(caminho) {
     const texto = String(caminho || "").toLowerCase();
     if (texto.includes("calculadora")) return "calculadora";
-    if (texto.includes("cursos")) return "cursos";
+    if (texto.includes("planejador")) return "planejador";
+    if (texto.includes("metas")) return "metas";
+    if (texto.includes("cursos") || texto.includes("aula")) return "cursos";
     if (texto.includes("criadores")) return "criadores";
     if (texto.includes("jogar")) return "jogo";
     return "inicio";
@@ -128,7 +132,10 @@ Taxas atuais: ${taxas || "indisponíveis agora. Explique o conceito sem citar va
 
 Recursos do site para indicar quando fizer sentido:
 - Calculadora de Juros Compostos (simula aportes mensais com tabela e gráfico).
-- Cursos: trilhas Organizar → Proteger → Crescer, com quizzes e PDFs sobre organização da grana, reserva de emergência, cartão de crédito, Tesouro Direto, ações, FIIs e dividendos, rebalanceamento de carteira e mentalidade financeira.
+- Planejador de Orçamento (divide a renda do mês em Necessidades, Desejos e Futuro e compara com os gastos de hoje).
+- Metas de Economia (acompanha quanto falta para cada objetivo e em quantos meses a pessoa chega lá).
+- Desafio GSA (jogo com lições de 2 minutos, XP e sequência de dias).
+- Cursos: trilhas Organizar → Proteger → Crescer, com quizzes e PDFs sobre organização da grana, reserva de emergência, cartão de crédito, Tesouro Direto, ações, FIIs e dividendos, rebalanceamento de carteira, mentalidade financeira, pontos e milhas no cartão, como sair das dívidas e empréstimo consciente.
 - Página Criadores, com o time do projeto.
 
 Sobre o projeto: o GSA começou como trabalho em grupo para uma apresentação no Senac. Time:

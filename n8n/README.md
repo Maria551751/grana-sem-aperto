@@ -67,7 +67,7 @@ Depois de salvar, faça um novo deploy.
 }
 ```
 
-- `pagina` é `inicio`, `calculadora`, `cursos`, `criadores` ou `jogo`.
+- `pagina` é `inicio`, `calculadora`, `planejador`, `metas`, `cursos`, `criadores` ou `jogo`.
 - `historico` traz as últimas 6 mensagens, já limpas.
 - `taxas` pode vir `null` se o Banco Central estiver fora do ar.
 - `prompt_sistema` é o mesmo prompt que o Haiku usa (regras de segurança, time, recursos do site). Se você usar um AI Agent no n8n, pode passar esse texto como *system message*.
