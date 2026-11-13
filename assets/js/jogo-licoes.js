@@ -339,5 +339,132 @@ const UNIDADES_JOGO = [
                 ]
             }
         ]
+    },
+    {
+        id: 'credito',
+        titulo: 'Crédito a seu Favor',
+        subtitulo: 'Usar sem cair em armadilha',
+        licoes: [
+            {
+                id: 'pontos-cartao',
+                titulo: 'Pontos e Milhas no Cartão',
+                icone: '✈️',
+                perguntas: [
+                    {
+                        tipo: 'escolha',
+                        enunciado: 'Como se ganham pontos no cartão de crédito?',
+                        opcoes: ['Deixando a fatura atrasar.', 'Comprando no cartão: cada compra soma pontos, milhas ou cashback.', 'Pedindo aumento de limite.'],
+                        correta: 1,
+                        explicacao: 'O programa devolve uma pequena parte do que você gasta. Ele só compensa nas compras que você já faria.'
+                    },
+                    {
+                        tipo: 'vf',
+                        enunciado: 'Vale a pena comprar mais só para juntar pontos.',
+                        correta: 1,
+                        explicacao: 'Os pontos devolvem uma fração pequena do gasto. Comprar sem precisar custa muito mais do que o ponto vale.'
+                    },
+                    {
+                        tipo: 'escolha',
+                        enunciado: 'O cartão cobra R$ 480 de anuidade e seus pontos do ano valem R$ 150. Esse cartão:',
+                        opcoes: ['Compensa, porque dá pontos.', 'Não compensa: você paga mais do que recebe.', 'Compensa se a anuidade for parcelada.'],
+                        correta: 1,
+                        explicacao: 'A conta é benefício menos custo. Vale pedir isenção da anuidade ou trocar por um cartão sem anuidade.'
+                    },
+                    {
+                        tipo: 'escolha',
+                        enunciado: 'Para o cartão trabalhar a seu favor, a regra número 1 é:',
+                        opcoes: ['Pagar a fatura inteira até o vencimento.', 'Pagar só o mínimo e guardar o resto.', 'Usar todo o limite todo mês.'],
+                        correta: 0,
+                        explicacao: 'Os juros do rotativo apagam o ganho de anos de pontos. Sem fatura paga inteira, não existe vantagem.'
+                    },
+                    {
+                        tipo: 'vf',
+                        enunciado: 'Comprar logo depois do fechamento da fatura dá mais dias até o pagamento.',
+                        correta: 0,
+                        explicacao: 'A compra só entra na fatura seguinte. É o chamado melhor dia de compra, e ajuda a organizar o mês sem pagar juros.'
+                    }
+                ]
+            },
+            {
+                id: 'dividas',
+                titulo: 'Saindo das Dívidas',
+                icone: '📉',
+                perguntas: [
+                    {
+                        tipo: 'escolha',
+                        enunciado: 'Qual é o primeiro passo para sair das dívidas?',
+                        opcoes: ['Pegar um empréstimo novo sem olhar a taxa.', 'Listar todas: para quem deve, quanto, os juros e a parcela.', 'Parar de abrir as cobranças.'],
+                        correta: 1,
+                        explicacao: 'Sem a lista completa não dá para montar um plano. Colocar no papel mostra por onde começar.'
+                    },
+                    {
+                        tipo: 'escolha',
+                        enunciado: 'Você tem três dívidas e sobrou um dinheiro. Qual quitar primeiro para pagar menos juros?',
+                        opcoes: ['A de juros mais altos, como o rotativo do cartão.', 'A mais antiga.', 'A do banco mais conhecido.'],
+                        correta: 0,
+                        explicacao: 'Atacar primeiro a dívida mais cara faz o total parar de crescer. Enquanto isso, mantenha as parcelas das outras em dia.'
+                    },
+                    {
+                        tipo: 'vf',
+                        enunciado: 'Trocar uma dívida cara por outra com juros menores pode ser um bom caminho.',
+                        correta: 0,
+                        explicacao: 'Trocar o rotativo por um crédito mais barato reduz os juros. Só funciona se você parar de criar dívida nova.'
+                    },
+                    {
+                        tipo: 'escolha',
+                        enunciado: 'Na hora de renegociar uma dívida, o melhor é:',
+                        opcoes: ['Aceitar a primeira proposta sem ler.', 'Fechar uma parcela que cabe no orçamento e pedir o acordo por escrito.', 'Prometer um valor alto para agradar.'],
+                        correta: 1,
+                        explicacao: 'Acordo que não cabe no bolso vira dívida de novo. Guarde o acordo e os comprovantes.'
+                    },
+                    {
+                        tipo: 'vf',
+                        enunciado: 'Depois que a dívida é paga, o credor tem 5 dias úteis para pedir a retirada do seu nome dos cadastros de inadimplentes.',
+                        correta: 0,
+                        explicacao: 'É um direito do consumidor. Se o nome continuar negativado depois do prazo, reclame com a empresa e no Procon.'
+                    }
+                ]
+            },
+            {
+                id: 'emprestimo',
+                titulo: 'Empréstimo do Jeito Certo',
+                icone: '🤝',
+                perguntas: [
+                    {
+                        tipo: 'escolha',
+                        enunciado: 'Para comparar dois empréstimos, o número que importa é:',
+                        opcoes: ['O valor da parcela.', 'O CET, Custo Efetivo Total.', 'O nome do banco.'],
+                        correta: 1,
+                        explicacao: 'O CET soma juros, tarifas, seguros e impostos. A instituição é obrigada a informar antes de você assinar.'
+                    },
+                    {
+                        tipo: 'vf',
+                        enunciado: 'Uma parcela pequena sempre significa um empréstimo barato.',
+                        correta: 1,
+                        explicacao: 'Parcela baixa com prazo longo pode sair muito mais cara no total. Olhe quanto você paga somando tudo.'
+                    },
+                    {
+                        tipo: 'escolha',
+                        enunciado: 'Pediram um depósito antes de liberar o seu empréstimo. Isso é:',
+                        opcoes: ['Normal: é a taxa de cadastro.', 'Golpe: instituição autorizada não cobra antes de liberar o crédito.', 'Um desconto nos juros.'],
+                        correta: 1,
+                        explicacao: 'Cobrança adiantada é a marca do golpe do falso empréstimo. Confira no site do Banco Central se a instituição é autorizada.'
+                    },
+                    {
+                        tipo: 'escolha',
+                        enunciado: 'Qual destes usos de empréstimo faz mais sentido?',
+                        opcoes: ['Trocar uma dívida cara por uma mais barata.', 'Pagar uma viagem decidida de última hora.', 'Investir para tentar ganhar mais do que os juros.'],
+                        correta: 0,
+                        explicacao: 'Empréstimo ajuda quando reduz um custo ou resolve uma necessidade real. Para consumo por impulso ou para investir, os juros costumam superar o ganho.'
+                    },
+                    {
+                        tipo: 'vf',
+                        enunciado: 'Quem quita um empréstimo antes do prazo tem direito a desconto proporcional nos juros.',
+                        correta: 0,
+                        explicacao: 'Esse direito está no Código de Defesa do Consumidor. Sobrou dinheiro? Antecipar parcelas reduz o custo total.'
+                    }
+                ]
+            }
+        ]
     }
 ];

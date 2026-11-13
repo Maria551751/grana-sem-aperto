@@ -89,7 +89,8 @@ begin
 
     -- Mantenha igual aos ids de assets/js/jogo-licoes.js.
     if p_licao not in ('mentalidade', 'organizando-grana', 'reserva', 'cartao',
-                       'tesouro', 'fiis', 'acoes', 'rebalanceamento') then
+                       'tesouro', 'fiis', 'acoes', 'rebalanceamento',
+                       'pontos-cartao', 'dividas', 'emprestimo') then
         raise exception 'Lição desconhecida: %', p_licao;
     end if;
 

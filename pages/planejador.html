@@ -1,0 +1,178 @@
+<!doctype html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Planejador de Orçamento | Grana Sem Aperto</title>
+  <meta name="description" content="Divida a renda do mês em necessidades, desejos e futuro com a regra 50-30-20 e compare com o que você gasta hoje." />
+  <link rel="icon" type="image/png" href="../assets/img/favicon.png" />
+  <link rel="stylesheet" href="../assets/css/global.css?v=20261113-1" />
+  <link rel="stylesheet" href="../assets/css/mobile.css?v=20261104-1" />
+  <link rel="stylesheet" href="../assets/css/calculadora.css?v=20261113-1" />
+  <link rel="stylesheet" href="../assets/css/planejador.css?v=20261113-1" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet" />
+</head>
+<body class="pagina-ferramentas pagina-planejador">
+  <header class="cabecalho">
+    <a href="../index.html" class="logo">
+      <img src="../assets/img/logo-gsa.webp" alt="Logo Grana Sem Aperto" class="logo-mark" />
+      <span class="logo-text">Grana Sem Aperto</span>
+    </a>
+    <nav class="menu-desktop" aria-label="Navegação principal">
+      <a href="../index.html">Início</a>
+      <a href="../pages/Cursos.html">Aprender</a>
+      <a href="../pages/jogar.html">Jogar</a>
+      <a href="../pages/calculadora.html" class="ativo">Ferramentas</a>
+      <a href="../pages/criadores.html">Sobre</a>
+      <button class="menu-mobile-btn" aria-label="Abrir menu" title="Abrir menu">☰</button>
+    </nav>
+  </header>
+
+  <aside class="sidebar" id="sidebar">
+    <div class="sidebar-header"><span class="logo">GSA</span><button class="fechar-sidebar" id="btnFechar" aria-label="Fechar menu">×</button></div>
+    <nav class="sidebar-links">
+      <a href="../index.html">Início</a><a href="../pages/Cursos.html">Aprender</a><a href="../pages/jogar.html">Jogar</a><a href="../pages/calculadora.html">Ferramentas</a><a href="../pages/criadores.html">Sobre</a>
+    </nav>
+  </aside>
+  <div class="overlay" id="overlay"></div>
+
+  <main>
+    <section class="ferramentas-hero planejador-hero">
+      <div class="ferramentas-hero-conteudo">
+        <div class="ferramentas-hero-texto revelar">
+          <nav class="ferramentas-abas" aria-label="Ferramentas do GSA">
+            <a href="calculadora.html">Calculadora de juros</a>
+            <a href="planejador.html" class="ativa" aria-current="page">Planejador de orçamento</a>
+          </nav>
+          <span class="ferramentas-etiqueta">ORÇAMENTO DO MÊS</span>
+          <h1>Dê um destino para cada <span>real.</span></h1>
+          <p>Informe quanto entra por mês e veja quanto separar para as contas, para curtir e para o seu futuro. Depois, compare com o que você gasta hoje.</p>
+          <div class="ferramentas-hero-acoes"><a href="#planejador" class="btn-primario">Montar meu orçamento</a><a href="#como-dividir" class="btn-secundario">O que entra em cada parte</a></div>
+          <div class="ferramentas-selo"><span aria-hidden="true">✓</span><p><strong>Ferramenta educacional</strong> · Os percentuais são um ponto de partida, não uma regra fixa.</p></div>
+        </div>
+
+        <figure class="planejador-hero-visual revelar delay-1">
+          <div class="orcamento-exemplo">
+            <div class="orcamento-exemplo-topo"><span class="secao-etiqueta">EXEMPLO</span><strong>Renda de R$ 1.500</strong></div>
+            <div class="orcamento-barra" aria-hidden="true">
+              <span data-parte="necessidades" style="flex-grow: 50"></span>
+              <span data-parte="desejos" style="flex-grow: 30"></span>
+              <span data-parte="futuro" style="flex-grow: 20"></span>
+            </div>
+            <ul class="orcamento-partes">
+              <li class="orcamento-parte" data-parte="necessidades"><div class="orcamento-parte-topo"><span class="orcamento-cor" aria-hidden="true"></span><div class="orcamento-parte-nome"><strong>Necessidades</strong><span>Contas, comida e transporte</span></div><div class="orcamento-parte-valor"><strong>R$ 750</strong><span>50%</span></div></div></li>
+              <li class="orcamento-parte" data-parte="desejos"><div class="orcamento-parte-topo"><span class="orcamento-cor" aria-hidden="true"></span><div class="orcamento-parte-nome"><strong>Desejos</strong><span>Lazer, delivery e compras</span></div><div class="orcamento-parte-valor"><strong>R$ 450</strong><span>30%</span></div></div></li>
+              <li class="orcamento-parte" data-parte="futuro"><div class="orcamento-parte-topo"><span class="orcamento-cor" aria-hidden="true"></span><div class="orcamento-parte-nome"><strong>Futuro</strong><span>Reserva e objetivos</span></div><div class="orcamento-parte-valor"><strong>R$ 300</strong><span>20%</span></div></div></li>
+            </ul>
+          </div>
+          <figcaption>Regra 50-30-20 aplicada a uma renda de R$ 1.500 por mês.</figcaption>
+        </figure>
+      </div>
+    </section>
+
+    <section class="simulador-secao" id="planejador" aria-labelledby="planejador-titulo">
+      <div class="simulador-layout">
+        <form class="simulador-form revelar" id="formOrcamento" novalidate>
+          <div class="simulador-form-topo"><div><span class="secao-etiqueta">PLANEJADOR GSA</span><h2 id="planejador-titulo">Monte seu orçamento</h2></div><span class="simulador-passos">01 · RENDA</span></div>
+          <div class="form-grid">
+            <div class="input-group-vertical campo-largo">
+              <label for="rendaMensal">Quanto entra por mês</label>
+              <div class="campo-prefixo"><span>R$</span><input type="number" id="rendaMensal" min="0" step="0.01" inputmode="decimal" placeholder="1.500,00" required aria-describedby="rendaAjuda" /></div>
+              <small class="campo-ajuda" id="rendaAjuda">Some salário, bolsa, mesada e bicos, já com os descontos.</small>
+            </div>
+            <fieldset class="orcamento-modelos campo-largo">
+              <legend>Como dividir</legend>
+              <label class="orcamento-modelo"><input type="radio" name="modeloOrcamento" value="50-30-20" checked /><span><strong>50 · 30 · 20</strong><em>Clássica</em></span></label>
+              <label class="orcamento-modelo"><input type="radio" name="modeloOrcamento" value="60-30-10" /><span><strong>60 · 30 · 10</strong><em>Contas pesadas</em></span></label>
+              <label class="orcamento-modelo"><input type="radio" name="modeloOrcamento" value="70-20-10" /><span><strong>70 · 20 · 10</strong><em>Mês apertado</em></span></label>
+            </fieldset>
+          </div>
+
+          <div class="orcamento-gastos">
+            <div class="simulador-form-topo"><div><span class="secao-etiqueta">OPCIONAL</span><h3>Quanto você gasta hoje</h3></div><span class="simulador-passos">02 · GASTOS</span></div>
+            <p class="form-ajuda">Preencha para comparar o seu mês com o plano. Pode ser um valor aproximado.</p>
+            <div class="form-grid">
+              <div class="input-group-vertical"><label for="gastoNecessidades">Necessidades</label><div class="campo-prefixo"><span>R$</span><input type="number" id="gastoNecessidades" min="0" step="0.01" inputmode="decimal" placeholder="800,00" /></div></div>
+              <div class="input-group-vertical"><label for="gastoDesejos">Desejos</label><div class="campo-prefixo"><span>R$</span><input type="number" id="gastoDesejos" min="0" step="0.01" inputmode="decimal" placeholder="400,00" /></div></div>
+              <div class="input-group-vertical campo-largo"><label for="gastoFuturo">Quanto você guarda por mês</label><div class="campo-prefixo"><span>R$</span><input type="number" id="gastoFuturo" min="0" step="0.01" inputmode="decimal" placeholder="100,00" /></div></div>
+            </div>
+          </div>
+
+          <div class="form-acoes">
+            <button class="btn-calcular" type="submit"><span>Montar meu orçamento</span><span aria-hidden="true">↗</span></button>
+            <button class="btn-limpar" id="btnLimparOrcamento" type="button"><span aria-hidden="true">↺</span><span>Limpar campos</span></button>
+          </div>
+          <p class="form-erro" id="erroOrcamento" role="alert" hidden></p>
+          <p class="form-ajuda">Seu orçamento fica salvo só neste navegador. Nada é enviado para o GSA.</p>
+        </form>
+
+        <div class="simulador-resultado orcamento-resultado revelar delay-1" id="resultadoOrcamento">
+          <div class="resultado-vazio" id="orcamentoVazio"><div class="resultado-vazio-icone" aria-hidden="true">◔</div><span>Seu orçamento aparecerá aqui</span><p>Informe quanto entra por mês para ver a divisão.</p></div>
+
+          <div class="resultado-conteudo" id="orcamentoConteudo" hidden>
+            <div class="resultado-topo"><div><span class="secao-etiqueta">SEU PLANO DO MÊS</span><h3 id="orcamentoTitulo">Regra 50 · 30 · 20</h3></div><span class="resultado-prazo" id="orcamentoRenda">—</span></div>
+
+            <div class="montante-principal"><span>Para guardar todo mês</span><strong id="orcamentoGuardar">R$ 0,00</strong><small id="orcamentoEmUmAno">—</small></div>
+
+            <div class="orcamento-grafico" id="orcamentoGrafico">
+              <div class="orcamento-barra" id="orcamentoBarra" role="img" aria-label="Divisão da renda">
+                <span data-parte="necessidades"></span>
+                <span data-parte="desejos"></span>
+                <span data-parte="futuro"></span>
+              </div>
+              <div class="orcamento-dica" id="orcamentoDica" hidden><strong></strong><span></span></div>
+            </div>
+
+            <ul class="orcamento-partes" id="orcamentoPartes">
+              <li class="orcamento-parte" data-parte="necessidades">
+                <div class="orcamento-parte-topo"><span class="orcamento-cor" aria-hidden="true"></span><div class="orcamento-parte-nome"><strong>Necessidades</strong><span>Moradia, comida, transporte e contas</span></div><div class="orcamento-parte-valor"><strong data-valor>—</strong><span data-percentual>—</span></div></div>
+                <div class="orcamento-medidor" data-medidor hidden><div class="orcamento-medidor-trilho"><span data-nivel></span></div><p class="orcamento-situacao"><span class="orcamento-situacao-icone" aria-hidden="true"></span><span data-situacao></span></p></div>
+              </li>
+              <li class="orcamento-parte" data-parte="desejos">
+                <div class="orcamento-parte-topo"><span class="orcamento-cor" aria-hidden="true"></span><div class="orcamento-parte-nome"><strong>Desejos</strong><span data-semana>Lazer, delivery, roupas e streaming</span></div><div class="orcamento-parte-valor"><strong data-valor>—</strong><span data-percentual>—</span></div></div>
+                <div class="orcamento-medidor" data-medidor hidden><div class="orcamento-medidor-trilho"><span data-nivel></span></div><p class="orcamento-situacao"><span class="orcamento-situacao-icone" aria-hidden="true"></span><span data-situacao></span></p></div>
+              </li>
+              <li class="orcamento-parte" data-parte="futuro">
+                <div class="orcamento-parte-topo"><span class="orcamento-cor" aria-hidden="true"></span><div class="orcamento-parte-nome"><strong>Futuro</strong><span>Reserva de emergência, objetivos e investimentos</span></div><div class="orcamento-parte-valor"><strong data-valor>—</strong><span data-percentual>—</span></div></div>
+                <div class="orcamento-medidor" data-medidor hidden><div class="orcamento-medidor-trilho"><span data-nivel></span></div><p class="orcamento-situacao"><span class="orcamento-situacao-icone" aria-hidden="true"></span><span data-situacao></span></p></div>
+              </li>
+            </ul>
+
+            <div class="orcamento-resumo" id="orcamentoResumo" hidden><span class="orcamento-situacao-icone" aria-hidden="true"></span><div><strong>Seu mês hoje</strong><p id="orcamentoResumoTexto"></p></div></div>
+
+            <a class="btn-salvar orcamento-simular" id="btnSimularFuturo" href="calculadora.html#simulador">Simular esse valor com juros na calculadora</a>
+          </div>
+
+          <p class="orcamento-status" id="orcamentoStatus" role="status"></p>
+        </div>
+      </div>
+    </section>
+
+    <section class="como-usar-secao" id="como-dividir" aria-labelledby="como-dividir-titulo">
+      <div class="secao-cabecalho revelar"><span class="secao-etiqueta">TRÊS DESTINOS</span><h2 id="como-dividir-titulo">O que entra em <span>cada parte</span></h2><p>Na dúvida, pergunte: eu consigo ficar um mês sem isso? Se a resposta for sim, é um desejo.</p></div>
+      <div class="partes-grid revelar delay-1">
+        <article data-parte="necessidades"><span class="orcamento-cor" aria-hidden="true"></span><h3>Necessidades</h3><p>O que você precisa pagar para viver e estudar.</p><ul><li>Moradia ou ajuda em casa</li><li>Alimentação e transporte</li><li>Contas, internet e celular</li><li>Material de estudo</li></ul></article>
+        <article data-parte="desejos"><span class="orcamento-cor" aria-hidden="true"></span><h3>Desejos</h3><p>O que deixa o mês mais leve, mas dá para adiar.</p><ul><li>Lazer e passeios</li><li>Delivery e lanches</li><li>Roupas e compras pessoais</li><li>Streaming e jogos</li></ul></article>
+        <article data-parte="futuro"><span class="orcamento-cor" aria-hidden="true"></span><h3>Futuro</h3><p>O que protege você e faz o dinheiro crescer.</p><ul><li>Reserva de emergência</li><li>Objetivos, como um curso ou uma viagem</li><li>Investimentos</li><li>Quitar dívidas com juros altos</li></ul></article>
+      </div>
+    </section>
+
+    <section class="aviso-educacional" aria-labelledby="aviso-titulo">
+      <div class="aviso-educacional-icone" aria-hidden="true">◇</div>
+      <div class="aviso-educacional-conteudo"><span class="secao-etiqueta">ANTES DE DECIDIR</span><h2 id="aviso-titulo">Um plano é um ponto de partida.</h2><p>O Grana Sem Aperto é uma iniciativa de educação financeira. A regra 50-30-20 é uma referência para organizar o mês, não uma obrigação: cada realidade pede um ajuste. Se as contas essenciais passam da metade da renda, comece pela divisão que cabe hoje e ajuste aos poucos.</p><strong>Tem dívida com juros altos, como cartão de crédito ou cheque especial? Use a parte do Futuro para quitar primeiro.</strong></div>
+    </section>
+  </main>
+
+  <!-- GSA Assistente: montado por montarChatGSA() em assets/js/global.js -->
+  <div id="ai-chat-wrapper"></div>
+
+  <!-- Acessibilidade: montado por montarPainelAcessibilidade() em assets/js/global.js -->
+  <div id="acess-wrapper"></div>
+
+  <script async src="https://vlibras.gov.br/app/vlibras-plugin.js"></script>
+  <script src="../assets/js/global.js?v=20261113-1"></script>
+  <script src="../assets/js/planejador.js?v=20261113-1"></script>
+</body>
+</html>

@@ -60,6 +60,14 @@ html { scroll-behavior: smooth; }
   text-transform: uppercase;
 }
 
+/* Troca entre as ferramentas (calculadora e planejador). */
+.ferramentas-abas { display: inline-grid; grid-auto-flow: column; grid-auto-columns: 1fr; gap: 4px; margin-bottom: 26px; padding: 4px; border: 1px solid rgba(255, 255, 255, .1); border-radius: 14px; background: rgba(255, 255, 255, .04); }
+.ferramentas-abas a { display: grid; place-items: center; padding: 10px 16px; border-radius: 10px; color: #a5afa9; font-size: 12px; font-weight: 800; line-height: 1.25; text-align: center; text-decoration: none; transition: background .25s ease, color .25s ease; }
+.ferramentas-abas a:hover { color: #ecfdf5; }
+.ferramentas-abas a.ativa { background: rgba(16, 185, 129, .16); color: var(--calc-verde-claro); }
+.ferramentas-abas a:focus-visible { outline: 2px solid #6ee7b7; outline-offset: 2px; }
+.ferramentas-abas + .ferramentas-etiqueta { display: block; }
+
 .ferramentas-hero-texto h1 {
   max-width: 690px;
   margin: 18px 0 24px;
@@ -166,7 +174,7 @@ html { scroll-behavior: smooth; }
 }
 
 @media (max-width: 680px) {
-  .ferramentas-hero { padding: 48px 5% 34px; }.ferramentas-hero-conteudo { min-height: auto; gap: 20px; }.ferramentas-hero-texto h1 { margin-block: 15px 19px; font-size: clamp(39px, 12vw, 48px); }.ferramentas-hero-texto > p { font-size: 15px; line-height: 1.65; }.ferramentas-hero-visual { min-height: 310px; transform: none; }.hero-3d-legenda { right: 0; bottom: 3%; padding: 11px 13px; }
+  .ferramentas-hero { padding: 48px 5% 34px; }.ferramentas-abas { display: grid; margin-bottom: 20px; }.ferramentas-abas a { padding: 10px 8px; }.ferramentas-hero-conteudo { min-height: auto; gap: 20px; }.ferramentas-hero-texto h1 { margin-block: 15px 19px; font-size: clamp(39px, 12vw, 48px); }.ferramentas-hero-texto > p { font-size: 15px; line-height: 1.65; }.ferramentas-hero-visual { min-height: 310px; transform: none; }.hero-3d-legenda { right: 0; bottom: 3%; padding: 11px 13px; }
   .taxas-secao, .como-usar-secao, .simulador-secao { padding: 80px 5%; }.simulador-form, .simulador-resultado { padding: 23px 18px; border-radius: 22px; }.form-grid { grid-template-columns: 1fr; }.campo-largo { grid-column: auto; }
   .resultado-metricas { grid-template-columns: 1fr; }.resultado-metricas span { min-height: auto; }.tutorial-grid { grid-template-columns: 1fr; }.tutorial-grid article { min-height: auto; }
   .acompanhamento-card { grid-template-columns: 1fr; }.aviso-educacional { grid-template-columns: 1fr; padding: 75px 5%; }.ferramentas-hero-acoes { flex-direction: column; }.ferramentas-hero-acoes a { width: 100%; text-align: center; }

@@ -63,6 +63,23 @@ O GSA resolve isso com:
 
 ---
 
+### 🧮 Planejador de Orçamento
+
+* Divide a renda do mês em Necessidades, Desejos e Futuro (regra 50-30-20)
+* Opções 60-30-10 e 70-20-10 para quando as contas pesam mais
+* Compara o plano com o que a pessoa gasta hoje
+* Fica salvo só no navegador e leva o valor do Futuro para a calculadora
+
+---
+
+### 📖 Apostila Visual
+
+* Uma aula visual para cada um dos 11 módulos, com gráficos, comparações e passos
+* "Mito ou verdade" e lista de prática em cada aula
+* PDF de cada aula gerado a partir da própria página
+
+---
+
 ### 📡 Taxas em Tempo Real
 
 Integração com API do Banco Central para obter dados financeiros oficiais:
